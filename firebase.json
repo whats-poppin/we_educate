@@ -5,7 +5,7 @@
   },
   "hosting": {
     "public": "build",
-    "site": "weeducate",
+    "site": "we-educate",
     "ignore": [
       "firebase.json",
       "**/.*",
