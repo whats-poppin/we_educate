@@ -3,6 +3,7 @@ dist/
 node_modules/
 build
 .DS_Store
+firebase-debug.log
 *.tgz
 my-app*
 template/src/__tests__/__snapshots__/
