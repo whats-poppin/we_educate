@@ -1,11 +1,10 @@
 import React from "react";
-// @ts-ignore
-// import Navbar from "../Components/Navbar/navbar";
+import {Navbar} from "../components/navbar/navbar";
 
 const Home = () => {
-    return(
+    return (
         <>
-            {/*<Navbar/>*/}
+            <Navbar/>
             <h1 style={{textAlign: "center", fontSize: "2.7rem"}}>WE EDUCATE HOSTED SUCCESSFULLY. DEV WORK STARTED</h1>
         </>
     )

@@ -7,7 +7,7 @@ import {
     Route,
     // Link
 } from "react-router-dom";
-import Home from "./Pages";
+import Home from "./pages";
 //Add Data
 
 // firestore.collection("users").add({
@@ -68,7 +68,7 @@ Ending State, favorite.color and favorite.subject are no longer present:
 
 
 
-function App() {
+const App = () => {
     return (
         <Router>
             <Switch>
@@ -76,6 +76,6 @@ function App() {
             </Switch>
         </Router>
     );
-}
+};
 
 export default App;
