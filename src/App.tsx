@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 // import {firestore} from "./firebase";
 import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
-import Home from "./pages";
+import Home from "./pages/home";
 import {ThemeProvider} from "@material-ui/styles";
 import {theme} from "./utils/theme";
 //Add Data
