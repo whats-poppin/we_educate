@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
 // import {firestore} from "./firebase";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    // Link
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
 import Home from "./pages";
+import {ThemeProvider} from "@material-ui/styles";
+import {theme} from "./utils/theme";
 //Add Data
 
 // firestore.collection("users").add({
@@ -67,14 +64,15 @@ Ending State, favorite.color and favorite.subject are no longer present:
  */
 
 
-
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route path="/" component={Home} exact/>
-            </Switch>
-        </Router>
+        <ThemeProvider theme={theme}>
+            <Router>
+                <Switch>
+                    <Route path="/" component={Home} exact/>
+                </Switch>
+            </Router>
+        </ThemeProvider>
     );
 };
 
