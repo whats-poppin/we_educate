@@ -1,10 +1,23 @@
 #mainNavbar {
     font-size: 1.5rem;
-    font-weight: 100;
+    color: black;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: Montserrat, sans-serif;
 }
 
+#mainNavbar .nav-link{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    /*margin-bottom: 5rem;*/
+}
+
+
 #mainNavbar .nav-link:hover {
-    color: rgb(102,191,191)
+    color: #8C8C8C;
+    border-bottom: #731E1C solid 0.3rem;
+    transition: border-bottom-width 250ms;
 }
 
 #mainNavbar.scroll {
@@ -21,4 +34,13 @@
     width: 6rem;
     margin: 0 1rem 0 0;
 }
+
+.search_button {
+    margin-right: 13px;
+}
+
+.search_button:hover {
+    color: #731E1C;
+}
+
 
