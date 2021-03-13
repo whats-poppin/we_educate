@@ -1,8 +1,8 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+// import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {useLoginSignupStyles} from "../../utils/component-styles/login-signup";
-import { Container } from "@material-ui/core";
+// import { Container } from "@material-ui/core";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -16,14 +16,14 @@ export const LoginSignupForm = () => {
                 <form className={classes.form} noValidate autoComplete="off">
                     <h1 className={classes.h1}>Sign In</h1>
                     <div className={classes.socialContainer}>
-                        <a href="#" className={classes.social}><FaFacebookF/></a>
-                        <a href="#" className={classes.social}><FaGoogle/></a>
-                        <a href="#" className={classes.social}><FaLinkedinIn/></a>
+                        <a href="/" className={classes.social}><FaFacebookF/></a>
+                        <a href="/" className={classes.social}><FaGoogle/></a>
+                        <a href="/" className={classes.social}><FaLinkedinIn/></a>
                     </div>
                     <span style={{paddingTop: 20}}>or use your account</span>
                     <TextField className={classes.input}id="outlined-basic"  margin={"normal"} label="Email" variant="outlined"/>
                     <TextField className={classes.input}id="outlined-basic" margin={"normal"} label="Password" variant="outlined" />
-                    <a href="#" style={{paddingTop: 20,  textDecoration:'none', color:'#333333'}} >Forgot your password?</a>
+                    <a href="/" style={{paddingTop: 20,  textDecoration:'none', color:'#333333'}} >Forgot your password?</a>
 			        <Button variant="contained" color="primary" className={classes.button}>Sign In</Button>
                 </form>
                 <div className={classes.overlayContainer}>
