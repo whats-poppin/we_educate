@@ -56,50 +56,58 @@ const Login = () => {
     </form>
 };
 
-const LoginLayout = (props: { setShowLogin: any; }) => {
+const LoginLayout = (props: { setShowLogin: any; showLogin: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {setShowLogin} = props;
+    const {setShowLogin, showLogin} = props;
     return <Grid container justify="center" className={classes.rootContainer} spacing={0}>
-        <Grid key={0} item>
-            {<Login/>}
-        </Grid>
-        <Grid key={1} item>
-            <div className={classes.overlay}>
-                <h1>{'Hello, Friend!'}</h1>
-                <p>{'Enter your personal details and start journey with us'}</p>
-                <Button variant="contained" color="primary" onClick={() => {
-                    setShowLogin(false);
-                }}
-                        className={classes.button}>{'Sign Up'}</Button>
-            </div>
-        </Grid>
+        <Slide direction='right' in={showLogin}>
+            <Grid key={1} item>
+                <div className={classes.overlay}>
+                    <h1>{'Hello, Friend!'}</h1>
+                    <p>{'Enter your personal details and start journey with us'}</p>
+                    <Button variant="contained" color="primary" onClick={() => {
+                        setShowLogin(false);
+                    }}
+                            className={classes.button}>{'Sign Up'}</Button>
+                </div>
+            </Grid>
+        </Slide>
+        <Slide direction='right' in={showLogin}>
+            <Grid key={0} item>
+                {<Login/>}
+            </Grid>
+        </Slide>
     </Grid>
 };
 
-const SignUpLayout = (props: { setShowLogin: any; }) => {
+const SignUpLayout = (props: { setShowLogin: any; showLogin: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {setShowLogin} = props;
+    const {setShowLogin, showLogin} = props;
     return <Grid container justify="center" className={classes.rootContainer} spacing={0}>
-        <Grid key={0} item>
-            {<SignUp/>}
-        </Grid>
-        <Grid key={1} item>
-            <div className={classes.overlay}>
-                <h1>{'Welcome Back!'}</h1>
-                <p>{'To keep connected with us please login with your personal info'}</p>
-                <Button variant="contained" color="primary" onClick={() => {
-                    setShowLogin(true)
-                }}
-                        className={classes.button}>{'Sign In'}</Button>
-            </div>
-        </Grid>
+        <Slide direction='left' in={!showLogin}>
+            <Grid key={0} item>
+                {<SignUp/>}
+            </Grid>
+        </Slide>
+        <Slide direction='left' in={!showLogin}>
+            <Grid key={1} item>
+                <div className={classes.overlay}>
+                    <h1>{'Welcome Back!'}</h1>
+                    <p>{'To keep connected with us please login with your personal info'}</p>
+                    <Button variant="contained" color="primary" onClick={() => {
+                        setShowLogin(true)
+                    }}
+                            className={classes.button}>{'Sign In'}</Button>
+                </div>
+            </Grid>
+        </Slide>
     </Grid>;
 };
 
 export const AuthPage = () => {
     const [showLogin, setShowLogin] = useState(true);
 
-    return showLogin ? <LoginLayout setShowLogin={setShowLogin}/>
-        : <SignUpLayout setShowLogin={setShowLogin}/>;
+    return showLogin ? <LoginLayout setShowLogin={setShowLogin} showLogin={showLogin}/>
+        : <SignUpLayout setShowLogin={setShowLogin} showLogin={showLogin}/>;
 };
 
