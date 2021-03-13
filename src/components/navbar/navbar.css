@@ -1,0 +1,24 @@
+#mainNavbar {
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+#mainNavbar .nav-link:hover {
+    color: rgb(102,191,191)
+}
+
+#mainNavbar.scroll {
+    background: rgb(0,0,0);
+    transition: background 500ms;
+}
+
+.brand_logo{
+    /*height: '3.6rem',*/
+    /*width: '8rem',*/
+    /*margin: '0 1rem 0 0',*/
+    /*padding: '10px'*/
+    height: 3rem;
+    width: 6rem;
+    margin: 0 1rem 0 0;
+}
+

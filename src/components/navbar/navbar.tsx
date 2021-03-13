@@ -1,22 +1,32 @@
 import React from 'react';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from '@material-ui/core/Toolbar';
-// import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import {useNavbarStyles} from "../../utils/component-styles/navbar";
 import brand_logo from "../../assets/brand_logo.png";
+import Navbar from 'react-bootstrap/Navbar';
+import {Button, Form, FormControl, Nav, } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.css';
+import './navbar.css';
+import {Component} from 'react';
 
-export const Navbar = () => {
-    const {brandLogo} = useNavbarStyles();
+export const NavB = () => {
     return (
-       <>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <img src={brand_logo} alt="We educate" className={brandLogo}/>
-                    <SearchIcon/>
+        <>
+            <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
+                <Navbar.Brand>
+                    <img src={brand_logo} alt="logo" className="brand_logo"/>
+                </Navbar.Brand>
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
 
-                </Toolbar>
-            </AppBar>
-       </>
-    );
-}
+                    </Nav>
+                    <Form inline>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button variant="outline-success">Search</Button>
+                    </Form>
+                </Navbar.Collapse>
+            </Navbar>
+        </>
+    )
+};
+
+// export default NavB;

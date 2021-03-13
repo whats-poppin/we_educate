@@ -5,5 +5,5 @@ export const colors = {
     lightBrown: '#965F5F',
     lightGrey: '#BFBEBD',
     darkGrey: '#8C8C8C',
-    greyWhite: '#eee',
+    greyWhite: '#731E1C',
 };
