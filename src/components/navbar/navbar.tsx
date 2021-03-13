@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
 import {Button, Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
@@ -8,6 +8,8 @@ import {Component} from 'react';
 import { BsSearch } from "react-icons/bs";
 
 export const NavB = () => {
+    const [showSearchBar, setShowSearchBar] = useState(false)
+
     return (
         <>
             <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
@@ -21,7 +23,10 @@ export const NavB = () => {
 
                     </Nav>
                     <Form inline>
-                        <BsSearch className="search_button"/>
+                        <BsSearch className="search_button" onClick={()=>{
+                            setShowSearchBar(!showSearchBar)
+                        }}/>
+                        {showSearchBar ? <input className="fade-in" type="search" placeholder="Press enter to search" />: <div/>}
                     </Form>
                     <Nav.Link href="#home">MY COURSES</Nav.Link>
                     <Nav.Link href="#home">EXPLORE</Nav.Link>
@@ -31,5 +36,3 @@ export const NavB = () => {
         </>
     )
 };
-
-// export default NavB;

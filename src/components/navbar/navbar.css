@@ -15,8 +15,8 @@
 
 
 #mainNavbar .nav-link:hover {
-    color: #8C8C8C;
-    border-bottom: #731E1C solid 0.3rem;
+    color: #731E1C;
+    border-bottom: #8C8C8C solid 0.3rem;
     transition: border-bottom-width 250ms;
 }
 
@@ -41,6 +41,34 @@
 
 .search_button:hover {
     color: #731E1C;
+}
+
+.fade-in {
+    -webkit-animation: fadeIn ease-in-out 500ms;
+}
+@keyframes fadeIn {
+    0% {width:0;}
+    100% {width:308.8px;}
+}
+
+@-moz-keyframes fadeIn {
+    0% {width:0;}
+    100% {width:200px;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {width:0;}
+    100% {width:200px;}
+}
+
+@-o-keyframes fadeIn {
+    0% {width:0;}
+    100% {width:200px;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {width:0;}
+    100% {width:200px;}
 }
 
 
