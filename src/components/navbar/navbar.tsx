@@ -11,11 +11,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import {useStyles} from "../../utils/component-styles/navbar";
+import {useNavbarStyles} from "../../utils/component-styles/navbar";
 import brand_logo from "../../assets/brand_logo.png";
 
 export const Navbar = () => {
-    const classes = useStyles();
+    const classes = useNavbarStyles();
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
