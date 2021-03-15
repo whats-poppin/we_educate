@@ -1,0 +1,28 @@
+.container {
+    font-family: Montserrat, sans-serif;
+    width: 100%;
+    padding-top: 10rem;
+    margin-left: 100px;
+    text-align: center;
+    justify-content: center;
+    display: inline-grid;
+    grid-template-columns: 60% 30%;
+    /*grid-gap: 2rem;*/
+}
+
+#logo {
+    height: 15rem;
+    width: 27rem;
+}
+
+.item {
+    font-size: 1.4rem;
+    display: block;
+    text-align: left;
+    padding: 0;
+    line-height: 2.5;
+}
+
+.item p {
+    margin-left: 10px;
+}
