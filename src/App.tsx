@@ -10,6 +10,7 @@ import {MyCourses} from "./pages/my-courses";
 import {Course} from "./pages/course";
 import {Profile} from "./pages/profile";
 import {Auth} from "./pages/auth";
+import Calendar from "./pages/calendar";
 //Add Data
 
 // firestore.collection("users").add({
@@ -78,6 +79,7 @@ const App = () => {
                     <Route path="/" component={Home} exact/>
                     <Route path="/log-in" component={Auth} exact/>
                     <Route path="/explore" component={Explore} exact/>
+                    <Route path="/calendar" component={Calendar} exact/>
                     <Route path={"/course"} component={Course} exact/>
                     <Route path={"/my-courses"} render={() =>
                         !authenticated ? <Redirect to='/login'/> : <MyCourses/>} exact/>
