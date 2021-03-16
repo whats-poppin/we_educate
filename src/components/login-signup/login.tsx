@@ -6,10 +6,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useTheme} from '@material-ui/core/styles';
 
 
-const SignUp = (props: { setShowLogin: any; notSmall: boolean }) => {
+const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
-    const {notSmall, setShowLogin} = props;
-    return <form className={classes.form} noValidate autoComplete="off" style={notSmall ? {} : {marginTop:'5rem'}}>
+    const {notMedium, setShowLogin} = props;
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Create Account</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
@@ -40,7 +40,7 @@ const SignUp = (props: { setShowLogin: any; notSmall: boolean }) => {
                    variant="outlined"/>
         <Button variant="contained" color="primary" className={classes.button}>Sign Up</Button>
         {
-            notSmall ? ""
+            notMedium ? ""
                 : <div>
                     <span style={{paddingTop: 20}}>or</span>
                     <br/>
@@ -55,11 +55,11 @@ const SignUp = (props: { setShowLogin: any; notSmall: boolean }) => {
     </form>
 };
 
-const Login = (props: { setShowLogin: any; notSmall: boolean }) => {
+const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
-    const {notSmall, setShowLogin} = props;
+    const {notMedium, setShowLogin} = props;
 
-    return <form className={classes.form} noValidate autoComplete="off" style={notSmall ? {} : {marginTop:'5rem'}}>
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Sign In</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
@@ -78,7 +78,7 @@ const Login = (props: { setShowLogin: any; notSmall: boolean }) => {
         </div>
         <Button variant="contained" color="primary" className={classes.button}>Sign In</Button>
         {
-            notSmall ? ""
+            notMedium ? ""
                 : <>
                     <span style={{paddingTop: 20}}>or</span>
                     <br/>
@@ -91,11 +91,11 @@ const Login = (props: { setShowLogin: any; notSmall: boolean }) => {
     </form>
 };
 
-const LoginLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: boolean; }) => {
+const LoginLayout = (props: { setShowLogin: any; notMedium: boolean; showLogin: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin, notSmall} = props;
-    return <Grid container justify="center" className={notSmall ? classes.rootContainer : ""} spacing={0}>
-        {notSmall ? <Slide direction='right' in={showLogin}>
+    const {setShowLogin, showLogin, notMedium} = props;
+    return <Grid container justify="center" className={notMedium ? classes.rootContainer : ""} spacing={0}>
+        {notMedium ? <Slide direction='right' in={showLogin}>
                 <Grid key={1} item>
                     <div className={classes.overlay}>
                         <h1>{'Hello, Friend!'}</h1>
@@ -110,23 +110,23 @@ const LoginLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: b
             : <div/>}
         <Slide direction='right' in={showLogin}>
             <Grid key={0} item>
-                {<Login setShowLogin={setShowLogin} notSmall={notSmall}/>}
+                {<Login setShowLogin={setShowLogin} notMedium={notMedium}/>}
             </Grid>
         </Slide>
     </Grid>
 };
 
-const SignUpLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: boolean; }) => {
+const SignUpLayout = (props: { setShowLogin: any; notMedium: boolean; showLogin: boolean; }) => {
 
     const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin, notSmall} = props;
-    return <Grid container justify="center" className={notSmall ? classes.rootContainer : ""} spacing={0}>
+    const {setShowLogin, showLogin, notMedium} = props;
+    return <Grid container justify="center" className={notMedium ? classes.rootContainer : ""} spacing={0}>
         <Slide direction='left' in={!showLogin}>
             <Grid key={0} item>
-                {<SignUp notSmall={notSmall} setShowLogin={setShowLogin}/>}
+                {<SignUp notMedium={notMedium} setShowLogin={setShowLogin}/>}
             </Grid>
         </Slide>
-        {notSmall ? <Slide direction='left' in={!showLogin}>
+        {notMedium ? <Slide direction='left' in={!showLogin}>
             <Grid key={1} item>
                 <div className={classes.overlay}>
                     <h1>{'Welcome Back!'}</h1>
@@ -144,9 +144,9 @@ const SignUpLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: 
 export const AuthPage = () => {
     const [showLogin, setShowLogin] = useState(true);
     const theme = useTheme();
-    const notSmall = useMediaQuery(theme.breakpoints.up('sm'));
+    const notMedium = useMediaQuery(theme.breakpoints.up('md'));
 
-    return showLogin ? <LoginLayout setShowLogin={setShowLogin} notSmall={notSmall} showLogin={showLogin}/>
-        : <SignUpLayout setShowLogin={setShowLogin} notSmall={notSmall} showLogin={showLogin}/>;
+    return showLogin ? <LoginLayout setShowLogin={setShowLogin} notMedium={notMedium} showLogin={showLogin}/>
+        : <SignUpLayout setShowLogin={setShowLogin} notMedium={notMedium} showLogin={showLogin}/>;
 };
 
