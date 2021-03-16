@@ -1,16 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './App.css';
-// import {firestore} from "./firebase";
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./pages/home";
 import {ThemeProvider} from "@material-ui/styles";
 import {theme} from "./utils/theme";
 import {Explore} from "./pages/explore";
-import {MyCourses} from "./pages/my-courses";
 import {Course} from "./pages/course";
-import {Profile} from "./pages/profile";
 import {Auth} from "./pages/auth";
-import {AuthContext, AuthProvider} from "./contexts/auth";
+import {AuthProvider} from "./contexts/auth";
 import {PrivateRoutes} from "./components/private-routes/private-routes";
 //Add Data
 

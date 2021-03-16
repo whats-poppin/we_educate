@@ -46,7 +46,7 @@ export const NavB = () => {
                         </div> : <div/>}
                     </Form>
                     {tabs.map((tab) =>
-                        <Nav.Link onClick={() => {
+                        <Nav.Link key={tab} onClick={() => {
                             history.push(`/${tab}`);
                         }}>
                             {tab.toUpperCase().replaceAll('-', ' ')}
