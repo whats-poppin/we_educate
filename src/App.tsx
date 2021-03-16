@@ -76,13 +76,13 @@ const App = () => {
             <Router>
                 <Switch>
                     <Route path="/" component={Home} exact/>
-                    <Route path="/login" component={Auth} exact/>
+                    <Route path="/log-in" component={Auth} exact/>
                     <Route path="/explore" component={Explore} exact/>
-                    <Route path={"course"} component={Course} exact/>
-                    <Route path={"/myCourses"} render={() =>
-                        !authenticated ? <Redirect to='/'/> : <MyCourses/>} exact/>
+                    <Route path={"/course"} component={Course} exact/>
+                    <Route path={"/my-courses"} render={() =>
+                        !authenticated ? <Redirect to='/login'/> : <MyCourses/>} exact/>
                     <Route path={"/profile"} render={() =>
-                        !authenticated ? <Redirect to='/'/> : <Profile/>} exact/>
+                        !authenticated ? <Redirect to='/login'/> : <Profile/>} exact/>
                 </Switch>
             </Router>
         </ThemeProvider>

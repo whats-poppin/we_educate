@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
 import {Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
@@ -10,6 +10,15 @@ import {useHistory} from 'react-router-dom';
 export const NavB = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
     const history = useHistory()
+    const [selectedTab, setSelectedTab] = useState('')
+    const tabs = ['explore', 'my-courses', 'log-in'];
+
+    useEffect(() => {
+        setSelectedTab(window.location.pathname.slice(1));
+    }, []);
+
+    console.log(selectedTab);
+
     return (
         <>
             <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
@@ -21,7 +30,6 @@ export const NavB = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-
                     </Nav>
                     <Form inline>
                         <BsSearch className="search_button" onClick={() => {
@@ -37,11 +45,13 @@ export const NavB = () => {
                             </InputGroup>
                         </div> : <div/>}
                     </Form>
-                    <Nav.Link href="#home">MY COURSES</Nav.Link>
-                    <Nav.Link href="#home">EXPLORE</Nav.Link>
-                    <Nav.Link onClick={() => {
-                        history.push('/login');
-                    }}>LOG IN</Nav.Link>
+                    {tabs.map((tab) =>
+                        <Nav.Link onClick={() => {
+                            history.push(`/${tab}`);
+                        }}>
+                            {tab.toUpperCase().replaceAll('-', ' ')}
+                        </Nav.Link>
+                    )}
                 </Navbar.Collapse>
             </Navbar>
         </>
