@@ -31,7 +31,9 @@ const Jumbotron = () => {
                             aria-describedby="basic-addon2"
                         />
                         <InputGroup.Append>
-                            <Button type="submit" variant="outline-secondary"><AiOutlineArrowRight/></Button>
+                            <Button type="submit" onClick={(e) => {
+                                e.preventDefault();
+                            }} variant="outline-secondary"><AiOutlineArrowRight/></Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </form>
