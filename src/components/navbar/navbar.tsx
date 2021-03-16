@@ -9,12 +9,14 @@ import {useHistory} from 'react-router-dom';
 
 export const NavB = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
-    const history = useHistory();
+    const history = useHistory()
     return (
         <>
             <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
-                <Navbar.Brand>
-                    <a href="/"><img src={brand_logo} alt="logo" className="brand_logo"/></a>
+                <Navbar.Brand onClick={() => {
+                    history.push('/')
+                }}>
+                    <img src={brand_logo} alt="logo" className="brand_logo"/>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
