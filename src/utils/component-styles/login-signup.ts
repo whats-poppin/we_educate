@@ -14,10 +14,10 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)',
             width: '768px',
-            maxWidth: '100%',
+            maxWidth: '65%',
             minHeight: '480px',
             margin: 'auto',
-            // alignItems: 'center', 
+            // alignItems: 'center',
             // justifyContent: 'center',
             overflow: 'hidden',
             '& > *': {
