@@ -1,20 +1,25 @@
 import React, {useState} from "react";
 import {useLoginSignupStyles} from "../../utils/component-styles/login-signup";
 import {Button, Grid, Slide, TextField} from "@material-ui/core";
-import {FaFacebookF, FaGoogle, FaLinkedinIn} from "react-icons/all";
+import {FaFacebookF, FaGoogle} from "react-icons/all";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useTheme} from '@material-ui/core/styles';
 
 
-const SignUp = (props: { setShowLogin: any; matches: boolean }) => {
+const SignUp = (props: { setShowLogin: any; notSmall: boolean }) => {
     const classes = useLoginSignupStyles();
-    const {matches, setShowLogin} = props;
+    const {notSmall, setShowLogin} = props;
     return <form className={classes.form} noValidate autoComplete="off">
         <h1 className={classes.h1}>Create Account</h1>
         <div className={classes.socialContainer}>
-            <a href="#" className={classes.social}><FaFacebookF/></a>
-            <a href="#" className={classes.social}><FaGoogle/></a>
+            <div onClick={() => {
+            }} className={classes.social}><FaFacebookF/>
+            </div>
+            <div onClick={() => {
+            }} className={classes.social}><FaGoogle/>
+            </div>
         </div>
+
         <span style={{paddingTop: 20}}>or use your email</span>
         <TextField className={classes.input} id="outlined-basic"
                    margin={"normal"}
@@ -35,7 +40,7 @@ const SignUp = (props: { setShowLogin: any; matches: boolean }) => {
                    variant="outlined"/>
         <Button variant="contained" color="primary" className={classes.button}>Sign Up</Button>
         {
-            matches ? ""
+            notSmall ? ""
                 : <div>
                     <span style={{paddingTop: 20}}>or</span>
                     <br/>
@@ -50,26 +55,30 @@ const SignUp = (props: { setShowLogin: any; matches: boolean }) => {
     </form>
 };
 
-const Login = (props: { setShowLogin: any; matches: boolean }) => {
+const Login = (props: { setShowLogin: any; notSmall: boolean }) => {
     const classes = useLoginSignupStyles();
-    const {matches, setShowLogin} = props;
+    const {notSmall, setShowLogin} = props;
 
     return <form className={classes.form} noValidate autoComplete="off">
         <h1 className={classes.h1}>Sign In</h1>
         <div className={classes.socialContainer}>
-            <a href="#" className={classes.social}><FaFacebookF/></a>
-            <a href="#" className={classes.social}><FaGoogle/></a>
+            <div onClick={() => {
+            }} className={classes.social}><FaFacebookF/></div>
+            <div onClick={() => {
+            }} className={classes.social}><FaGoogle/></div>
         </div>
         <span style={{paddingTop: 20}}>or use your account</span>
         <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Email"
                    variant="outlined"/>
         <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Password"
                    variant="outlined"/>
-        <a href="#" style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}}>Forgot your
-            password?</a>
+        <div style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}} onClick={() => {
+        }}>
+            Forgot your password?
+        </div>
         <Button variant="contained" color="primary" className={classes.button}>Sign In</Button>
         {
-            matches ? ""
+            notSmall ? ""
                 : <>
                     <span style={{paddingTop: 20}}>or</span>
                     <br/>
@@ -82,11 +91,11 @@ const Login = (props: { setShowLogin: any; matches: boolean }) => {
     </form>
 };
 
-const LoginLayout = (props: { setShowLogin: any; matches: boolean; showLogin: boolean; }) => {
+const LoginLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin, matches} = props;
-    return <Grid container justify="center" className={matches ? classes.rootContainer : ""} spacing={0}>
-        {matches ? <Slide direction='right' in={showLogin}>
+    const {setShowLogin, showLogin, notSmall} = props;
+    return <Grid container justify="center" className={notSmall ? classes.rootContainer : ""} spacing={0}>
+        {notSmall ? <Slide direction='right' in={showLogin}>
                 <Grid key={1} item>
                     <div className={classes.overlay}>
                         <h1>{'Hello, Friend!'}</h1>
@@ -101,27 +110,23 @@ const LoginLayout = (props: { setShowLogin: any; matches: boolean; showLogin: bo
             : <div/>}
         <Slide direction='right' in={showLogin}>
             <Grid key={0} item>
-                {<Login setShowLogin={setShowLogin} matches={matches}/>}
+                {<Login setShowLogin={setShowLogin} notSmall={notSmall}/>}
             </Grid>
         </Slide>
     </Grid>
 };
 
-const SignUpLayout = (props: { setShowLogin: any; matches: boolean; showLogin: boolean; }) => {
+const SignUpLayout = (props: { setShowLogin: any; notSmall: boolean; showLogin: boolean; }) => {
 
     const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin, matches} = props;
-    return <Grid container justify="center" className={matches ? classes.rootContainer : ""} spacing={0}>
+    const {setShowLogin, showLogin, notSmall} = props;
+    return <Grid container justify="center" className={notSmall ? classes.rootContainer : ""} spacing={0}>
         <Slide direction='left' in={!showLogin}>
             <Grid key={0} item>
-
-                {<SignUp matches={matches} setShowLogin={setShowLogin}/>}
-
-
+                {<SignUp notSmall={notSmall} setShowLogin={setShowLogin}/>}
             </Grid>
-
         </Slide>
-        {matches ? <Slide direction='left' in={!showLogin}>
+        {notSmall ? <Slide direction='left' in={!showLogin}>
             <Grid key={1} item>
                 <div className={classes.overlay}>
                     <h1>{'Welcome Back!'}</h1>
@@ -139,9 +144,9 @@ const SignUpLayout = (props: { setShowLogin: any; matches: boolean; showLogin: b
 export const AuthPage = () => {
     const [showLogin, setShowLogin] = useState(true);
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    const notSmall = useMediaQuery(theme.breakpoints.up('sm'));
 
-    return showLogin ? <LoginLayout setShowLogin={setShowLogin} matches={matches} showLogin={showLogin}/>
-        : <SignUpLayout setShowLogin={setShowLogin} matches={matches} showLogin={showLogin}/>;
+    return showLogin ? <LoginLayout setShowLogin={setShowLogin} notSmall={notSmall} showLogin={showLogin}/>
+        : <SignUpLayout setShowLogin={setShowLogin} notSmall={notSmall} showLogin={showLogin}/>;
 };
 
