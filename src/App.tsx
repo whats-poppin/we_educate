@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 // import {firestore} from "./firebase";
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
@@ -10,6 +10,8 @@ import {MyCourses} from "./pages/my-courses";
 import {Course} from "./pages/course";
 import {Profile} from "./pages/profile";
 import {Auth} from "./pages/auth";
+import {AuthContext, AuthProvider} from "./contexts/auth";
+import {PrivateRoutes} from "./components/private-routes/private-routes";
 //Add Data
 
 // firestore.collection("users").add({
@@ -70,23 +72,19 @@ Ending State, favorite.color and favorite.subject are no longer present:
 
 
 const App = () => {
-    const authenticated = true;
-    return (
-        <ThemeProvider theme={theme}>
+    return <ThemeProvider theme={theme}>
+        <AuthProvider>
             <Router>
                 <Switch>
                     <Route path="/" component={Home} exact/>
                     <Route path="/log-in" component={Auth} exact/>
                     <Route path="/explore" component={Explore} exact/>
                     <Route path={"/course"} component={Course} exact/>
-                    <Route path={"/my-courses"} render={() =>
-                        !authenticated ? <Redirect to='/login'/> : <MyCourses/>} exact/>
-                    <Route path={"/profile"} render={() =>
-                        !authenticated ? <Redirect to='/login'/> : <Profile/>} exact/>
+                    <PrivateRoutes/>
                 </Switch>
             </Router>
-        </ThemeProvider>
-    );
+        </AuthProvider>
+    </ThemeProvider>
 };
 
 export default App;

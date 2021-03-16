@@ -6,7 +6,11 @@ export const AuthContext = React.createContext(null);
 export const AuthProvider: React.FC = ({children}) => {
     const [user, setUser] = useState(null);
     useEffect(() => {
-        auth.onAuthStateChanged(setUser);
+        (async () => {
+            auth.onAuthStateChanged(async (userAuth: any) => {
+                setUser(userAuth);
+            });
+        })()
     }, []);
 
     return (
