@@ -1,11 +1,12 @@
 import React from "react";
-import {Navbar} from "../components/navbar/navbar";
+import {NavB} from "../components/navbar/navbar";
+import Jumbotron from "../components/jumbotron/Jumbotron";
 
 const Home = () => {
     return (
         <>
-            <Navbar/>
-            <h1 style={{textAlign: "center", fontSize: "2.7rem"}}>WE EDUCATE HOSTED SUCCESSFULLY. DEV WORK STARTED</h1>
+            <NavB/>
+            <Jumbotron/>
         </>
     )
 }

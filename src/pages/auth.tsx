@@ -1,13 +1,12 @@
 import React from "react";
-import {Navbar} from "../components/navbar/navbar";
+import {NavB} from "../components/navbar/navbar";
 import {AuthPage} from "../components/login-signup/login";
 
-const auth = () => {
-    return(
-        <div>
-            <Navbar/>
+export const Auth = () => {
+    return (
+        <>
+            <NavB/>
             <AuthPage/>
-
-        </div>
+        </>
     )
 }

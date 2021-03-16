@@ -5,12 +5,11 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import Home from "./pages/home";
 import {ThemeProvider} from "@material-ui/styles";
 import {theme} from "./utils/theme";
-import {AuthPage} from "./components/login-signup/login";
 import {Explore} from "./pages/explore";
 import {MyCourses} from "./pages/my-courses";
 import {Course} from "./pages/course";
 import {Profile} from "./pages/profile";
-import {AuthProvider} from "./contexts/auth";
+import {Auth} from "./pages/auth";
 //Add Data
 
 // firestore.collection("users").add({
@@ -74,20 +73,18 @@ const App = () => {
     const authenticated = true;
     return (
         <ThemeProvider theme={theme}>
-            <AuthProvider>
-                <Router>
-                    <Switch>
-                        <Route path="/" component={Home} exact/>
-                        <Route path="/login" component={AuthPage} exact/>
-                        <Route path="/explore" component={Explore} exact/>
-                        <Route path={"course"} component={Course} exact/>
-                        <Route path={"/myCourses"} render={() =>
-                            !authenticated ? <Redirect to='/'/> : <MyCourses/>} exact/>
-                        <Route path={"/profile"} render={() =>
-                            !authenticated ? <Redirect to='/'/> : <Profile/>} exact/>
-                    </Switch>
-                </Router>
-            </AuthProvider>
+            <Router>
+                <Switch>
+                    <Route path="/" component={Home} exact/>
+                    <Route path="/log-in" component={Auth} exact/>
+                    <Route path="/explore" component={Explore} exact/>
+                    <Route path={"/course"} component={Course} exact/>
+                    <Route path={"/my-courses"} render={() =>
+                        !authenticated ? <Redirect to='/login'/> : <MyCourses/>} exact/>
+                    <Route path={"/profile"} render={() =>
+                        !authenticated ? <Redirect to='/login'/> : <Profile/>} exact/>
+                </Switch>
+            </Router>
         </ThemeProvider>
     );
 };

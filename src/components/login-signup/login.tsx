@@ -1,18 +1,25 @@
 import React, {useState} from "react";
 import {useLoginSignupStyles} from "../../utils/component-styles/login-signup";
 import {Button, Grid, Slide, TextField} from "@material-ui/core";
-import {FaFacebookF, FaGoogle, FaLinkedinIn} from "react-icons/all";
+import {FaFacebookF, FaGoogle} from "react-icons/all";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {useTheme} from '@material-ui/core/styles';
 
-const SignUp = () => {
+
+const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
-
-    return <form className={classes.form} noValidate autoComplete="off">
+    const {notMedium, setShowLogin} = props;
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Create Account</h1>
         <div className={classes.socialContainer}>
-            <a href="#" className={classes.social}><FaFacebookF/></a>
-            <a href="#" className={classes.social}><FaGoogle/></a>
-            <a href="#" className={classes.social}><FaLinkedinIn/></a>
+            <div onClick={() => {
+            }} className={classes.social}><FaFacebookF/>
+            </div>
+            <div onClick={() => {
+            }} className={classes.social}><FaGoogle/>
+            </div>
         </div>
+
         <span style={{paddingTop: 20}}>or use your email</span>
         <TextField className={classes.input} id="outlined-basic"
                    margin={"normal"}
@@ -32,64 +39,94 @@ const SignUp = () => {
                    type={'password'}
                    variant="outlined"/>
         <Button variant="contained" color="primary" className={classes.button}>Sign Up</Button>
+        {
+            notMedium ? ""
+                : <div>
+                    <span style={{paddingTop: 20}}>or</span>
+                    <br/>
+                    <Button variant="contained" color="primary" onClick={() => {
+                        setShowLogin(true)
+                    }}
+                            className={classes.button}>{'Sign In Instead'}</Button>
+
+
+                </div>
+        }
     </form>
 };
 
-const Login = () => {
+const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
+    const {notMedium, setShowLogin} = props;
 
-    return <form className={classes.form} noValidate autoComplete="off">
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Sign In</h1>
         <div className={classes.socialContainer}>
-            <a href="#" className={classes.social}><FaFacebookF/></a>
-            <a href="#" className={classes.social}><FaGoogle/></a>
-            <a href="#" className={classes.social}><FaLinkedinIn/></a>
+            <div onClick={() => {
+            }} className={classes.social}><FaFacebookF/></div>
+            <div onClick={() => {
+            }} className={classes.social}><FaGoogle/></div>
         </div>
         <span style={{paddingTop: 20}}>or use your account</span>
         <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Email"
                    variant="outlined"/>
         <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Password"
                    variant="outlined"/>
-        <a href="#" style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}}>Forgot your
-            password?</a>
+        <div style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}} onClick={() => {
+        }}>
+            Forgot your password?
+        </div>
         <Button variant="contained" color="primary" className={classes.button}>Sign In</Button>
-    </form>
-};
-
-const LoginLayout = (props: { setShowLogin: any; showLogin: boolean; }) => {
-    const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin} = props;
-    return <Grid container justify="center" className={classes.rootContainer} spacing={0}>
-        <Slide direction='right' in={showLogin}>
-            <Grid key={1} item>
-                <div className={classes.overlay}>
-                    <h1>{'Hello, Friend!'}</h1>
-                    <p>{'Enter your personal details and start journey with us'}</p>
+        {
+            notMedium ? ""
+                : <>
+                    <span style={{paddingTop: 20}}>or</span>
+                    <br/>
                     <Button variant="contained" color="primary" onClick={() => {
                         setShowLogin(false);
                     }}
-                            className={classes.button}>{'Sign Up'}</Button>
-                </div>
-            </Grid>
-        </Slide>
+                            className={classes.button}>{'Sign Up Instead'}</Button>
+                </>
+        }
+    </form>
+};
+
+const LoginLayout = (props: { setShowLogin: any; notMedium: boolean; showLogin: boolean; }) => {
+    const classes = useLoginSignupStyles();
+    const {setShowLogin, showLogin, notMedium} = props;
+    return <Grid container justify="center" className={notMedium ? classes.rootContainer : ""} spacing={0}>
+        {notMedium ? <Slide direction='right' in={showLogin}>
+                <Grid key={1} item>
+                    <div className={classes.overlay}>
+                        <h1>{'Hello, Friend!'}</h1>
+                        <p>{'Enter your personal details and start journey with us'}</p>
+                        <Button variant="contained" color="primary" onClick={() => {
+                            setShowLogin(false);
+                        }}
+                                className={classes.button}>{'Sign Up'}</Button>
+                    </div>
+                </Grid>
+            </Slide>
+            : <div/>}
         <Slide direction='right' in={showLogin}>
             <Grid key={0} item>
-                {<Login/>}
+                {<Login setShowLogin={setShowLogin} notMedium={notMedium}/>}
             </Grid>
         </Slide>
     </Grid>
 };
 
-const SignUpLayout = (props: { setShowLogin: any; showLogin: boolean; }) => {
+const SignUpLayout = (props: { setShowLogin: any; notMedium: boolean; showLogin: boolean; }) => {
+
     const classes = useLoginSignupStyles();
-    const {setShowLogin, showLogin} = props;
-    return <Grid container justify="center" className={classes.rootContainer} spacing={0}>
+    const {setShowLogin, showLogin, notMedium} = props;
+    return <Grid container justify="center" className={notMedium ? classes.rootContainer : ""} spacing={0}>
         <Slide direction='left' in={!showLogin}>
             <Grid key={0} item>
-                {<SignUp/>}
+                {<SignUp notMedium={notMedium} setShowLogin={setShowLogin}/>}
             </Grid>
         </Slide>
-        <Slide direction='left' in={!showLogin}>
+        {notMedium ? <Slide direction='left' in={!showLogin}>
             <Grid key={1} item>
                 <div className={classes.overlay}>
                     <h1>{'Welcome Back!'}</h1>
@@ -100,14 +137,16 @@ const SignUpLayout = (props: { setShowLogin: any; showLogin: boolean; }) => {
                             className={classes.button}>{'Sign In'}</Button>
                 </div>
             </Grid>
-        </Slide>
+        </Slide> : <div/>}
     </Grid>;
 };
 
 export const AuthPage = () => {
     const [showLogin, setShowLogin] = useState(true);
+    const theme = useTheme();
+    const notMedium = useMediaQuery(theme.breakpoints.up('md'));
 
-    return showLogin ? <LoginLayout setShowLogin={setShowLogin} showLogin={showLogin}/>
-        : <SignUpLayout setShowLogin={setShowLogin} showLogin={showLogin}/>;
+    return showLogin ? <LoginLayout setShowLogin={setShowLogin} notMedium={notMedium} showLogin={showLogin}/>
+        : <SignUpLayout setShowLogin={setShowLogin} notMedium={notMedium} showLogin={showLogin}/>;
 };
 

@@ -14,6 +14,7 @@ export const theme = responsiveFontSizes(createMuiTheme({
                 '"Apple Color Emoji"',
                 '"Segoe UI Emoji"',
                 '"Segoe UI Symbol"',
+                '"Montesrrat'
             ].join(','),
         },
         palette: {
