@@ -11,7 +11,7 @@ const Jumbotron = () => {
         <>
             <div className = "container-grid">
                 <div className="item">
-                    <h1 style={{fontSize: "3rem", fontWeight: 700}}>Committed to Excellence</h1>
+                    <h1>Committed to Excellence</h1>
                     <p style={{fontWeight:600}}>
                         Education is the essential thing for our life, and it
                         <br/>
@@ -23,18 +23,18 @@ const Jumbotron = () => {
                 <img src={logo} alt="logo" id="logo"/>
             </div>
             <div className="container-flex">
-                <InputGroup>
-                    <FormControl
-                        placeholder="Enter your e-mail"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                    />
-                    <InputGroup.Append>
-                        <a href="/login">
-                            <Button type="submit" variant="outline-secondary"><AiOutlineArrowRight/></Button>
-                        </a>
-                    </InputGroup.Append>
-                </InputGroup>
+                <form action="/login" method="get">
+                    <InputGroup>
+                        <FormControl
+                            placeholder="Enter your e-mail"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                        />
+                        <InputGroup.Append>
+                                <Button type="submit" variant="outline-secondary"><AiOutlineArrowRight/></Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </form>
                 <a href="#" className="arrow-link">
                     <div className="arrows">
                         <MdKeyboardArrowDown className="arrow"/>
