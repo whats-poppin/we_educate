@@ -2,18 +2,15 @@ import {createStyles, fade, makeStyles, Theme} from "@material-ui/core/styles";
 
 export const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
-        grow: {
-            flexGrow: 1,
+
+
+        brandLogo :{
+            height: '3.6rem',
+            width: '8rem',
+            margin: '0 1rem 0 0',
+            padding: '10px'
         },
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            display: 'none',
-            [theme.breakpoints.up('sm')]: {
-                display: 'block',
-            },
-        },
+
         search: {
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
@@ -21,11 +18,11 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
             '&:hover': {
                 backgroundColor: fade(theme.palette.common.white, 0.25),
             },
-            marginRight: theme.spacing(2),
+            // paddingLeft: '20rem',
             marginLeft: 0,
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                marginLeft: theme.spacing(3),
+                marginLeft: theme.spacing(1),
                 width: 'auto',
             },
         },
@@ -36,32 +33,25 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
             pointerEvents: 'none',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
         },
         inputRoot: {
+            marginLeft: '20rem',
             color: 'inherit',
         },
         inputInput: {
+
+            marginLeft: '20rem',
             padding: theme.spacing(1, 1, 1, 0),
             // vertical padding + font size from searchIcon
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             transition: theme.transitions.create('width'),
             width: '100%',
-            [theme.breakpoints.up('md')]: {
-                width: '20ch',
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
             },
-        },
-        sectionDesktop: {
-            display: 'none',
-            [theme.breakpoints.up('md')]: {
-                display: 'flex',
-            },
-        },
-        sectionMobile: {
-            display: 'flex',
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
-        },
+        }
     }),
 );

@@ -1,14 +1,12 @@
 import React from "react";
 import {NavB} from "../components/navbar/navbar";
-import Jumbotron from "../components/jumbotron/Jumbotron";
+import {AuthPage} from "../components/login-signup/login";
 
-const Home = () => {
+export const Auth = () => {
     return (
         <>
             <NavB/>
-            <Jumbotron/>
+            <AuthPage/>
         </>
     )
 }
-
-export default Home;

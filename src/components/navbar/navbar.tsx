@@ -1,157 +1,59 @@
-import React, {useState} from 'react';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import {useNavbarStyles} from "../../utils/component-styles/navbar";
+import React, {useEffect, useState} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
+import Navbar from 'react-bootstrap/Navbar';
+import {Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.css';
+import './navbar.css';
+import {BsSearch} from "react-icons/bs";
+import {useHistory} from 'react-router-dom';
 
-export const Navbar = () => {
-    const classes = useNavbarStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+export const NavB = () => {
+    const [showSearchBar, setShowSearchBar] = useState(false)
+    const history = useHistory()
+    const [selectedTab, setSelectedTab] = useState('')
+    const tabs = ['explore', 'my-courses', 'log-in'];
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    useEffect(() => {
+        setSelectedTab(window.location.pathname.slice(1));
+    }, []);
 
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-            id={menuId}
-            keepMounted
-            transformOrigin={{vertical: 'top', horizontal: 'right'}}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{vertical: 'top', horizontal: 'right'}}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle/>
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
+    console.log(selectedTab);
 
     return (
-        <div className={classes.grow}>
-            <AppBar position="static">
-                <Toolbar>
-                    <img src={brand_logo} alt="We Educate" style={{height: '2.5rem', margin: '0 1rem 0 0'}}/>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon/>
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{'aria-label': 'search'}}
-                        />
-                    </div>
-                    <div className={classes.grow}/>
-                    <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon/>
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon/>
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle/>
-                        </IconButton>
-                    </div>
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon/>
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </div>
-    );
-}
+        <>
+            <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
+                <Navbar.Brand onClick={() => {
+                    history.push('/')
+                }}>
+                    <img src={brand_logo} alt="logo" className="brand_logo"/>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                    </Nav>
+                    <Form inline>
+                        <BsSearch className="search_button" onClick={() => {
+                            setShowSearchBar(!showSearchBar)
+                        }}/>
+                        {showSearchBar ? <div className="fade-in">
+                            <InputGroup>
+                                <FormControl
+                                    placeholder="Press Enter to search"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                />
+                            </InputGroup>
+                        </div> : <div/>}
+                    </Form>
+                    {tabs.map((tab) =>
+                        <Nav.Link onClick={() => {
+                            history.push(`/${tab}`);
+                        }}>
+                            {tab.toUpperCase().replaceAll('-', ' ')}
+                        </Nav.Link>
+                    )}
+                </Navbar.Collapse>
+            </Navbar>
+        </>
+    )
+};
