@@ -26,7 +26,15 @@ export const NavB = () => {
                         <BsSearch className="search_button" onClick={()=>{
                             setShowSearchBar(!showSearchBar)
                         }}/>
-                        {showSearchBar ? <input className="fade-in" type="search" placeholder="Press enter to search" />: <div/>}
+                        {showSearchBar ? <div className="fade-in">
+                            <InputGroup>
+                                <FormControl
+                                    placeholder="Press Enter to search"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                />
+                            </InputGroup>
+                        </div>: <div/>}
                     </Form>
                     <Nav.Link href="#home">MY COURSES</Nav.Link>
                     <Nav.Link href="#home">EXPLORE</Nav.Link>
