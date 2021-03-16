@@ -9,6 +9,7 @@ import {Course} from "./pages/course";
 import {Auth} from "./pages/auth";
 import {AuthProvider} from "./contexts/auth";
 import {PrivateRoutes} from "./components/private-routes/private-routes";
+import {ErrorBoundary} from "./utils/error-boundary";
 //Add Data
 
 // firestore.collection("users").add({
@@ -69,19 +70,21 @@ Ending State, favorite.color and favorite.subject are no longer present:
 
 
 const App = () => {
-    return <ThemeProvider theme={theme}>
-        <AuthProvider>
-            <Router>
-                <Switch>
-                    <Route path="/" component={Home} exact/>
-                    <Route path="/log-in" component={Auth} exact/>
-                    <Route path="/explore" component={Explore} exact/>
-                    <Route path={"/course"} component={Course} exact/>
-                    <PrivateRoutes/>
-                </Switch>
-            </Router>
-        </AuthProvider>
-    </ThemeProvider>
+    return <ErrorBoundary>
+        <ThemeProvider theme={theme}>
+            <AuthProvider>
+                <Router>
+                    <Switch>
+                        <Route path="/" component={Home} exact/>
+                        <Route path="/log-in" component={Auth} exact/>
+                        <Route path="/explore" component={Explore} exact/>
+                        <Route path={"/course"} component={Course} exact/>
+                        <PrivateRoutes/>
+                    </Switch>
+                </Router>
+            </AuthProvider>
+        </ThemeProvider>
+    </ErrorBoundary>
 };
 
 export default App;
