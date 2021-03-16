@@ -9,7 +9,7 @@ import {useTheme} from '@material-ui/core/styles';
 const SignUp = (props: { setShowLogin: any; notSmall: boolean }) => {
     const classes = useLoginSignupStyles();
     const {notSmall, setShowLogin} = props;
-    return <form className={classes.form} noValidate autoComplete="off">
+    return <form className={classes.form} noValidate autoComplete="off" style={notSmall ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Create Account</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
@@ -59,7 +59,7 @@ const Login = (props: { setShowLogin: any; notSmall: boolean }) => {
     const classes = useLoginSignupStyles();
     const {notSmall, setShowLogin} = props;
 
-    return <form className={classes.form} noValidate autoComplete="off">
+    return <form className={classes.form} noValidate autoComplete="off" style={notSmall ? {} : {marginTop:'5rem'}}>
         <h1 className={classes.h1}>Sign In</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
