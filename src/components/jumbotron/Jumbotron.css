@@ -130,7 +130,7 @@
     .container-grid{
         display: flex;
         flex-direction: column;
-        padding-top: 5rem;
+        padding-top: 11rem;
     }
     .input-group {
         font-family: Montserrat, sans-serif;
