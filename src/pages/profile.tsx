@@ -1,7 +1,14 @@
 import React from 'react';
+import {ViewProfile} from '../components/view-profile/viewProfile'
+import {NavB} from "../components/navbar/navbar";
 
-export const Profile = () => {
-    return <div>
-        Profile
-    </div>;
+const Profile = () => {
+    return (
+        <>
+            <NavB/>
+            <ViewProfile/>
+        </>
+    )
 };
+
+export default Profile;

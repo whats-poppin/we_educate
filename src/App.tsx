@@ -8,7 +8,7 @@ import {theme} from "./utils/theme";
 import {Explore} from "./pages/explore";
 import {MyCourses} from "./pages/my-courses";
 import {Course} from "./pages/course";
-import {Profile} from "./pages/profile";
+import Profile from "./pages/profile";
 import {Auth} from "./pages/auth";
 //Add Data
 
