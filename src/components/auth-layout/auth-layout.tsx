@@ -4,12 +4,23 @@ import {Button, Grid, Slide, TextField} from "@material-ui/core";
 import {FaFacebookF, FaGoogle} from "react-icons/all";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useTheme} from '@material-ui/core/styles';
+import {useLocation} from "react-router-dom";
 
 
 const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
     const {notMedium, setShowLogin} = props;
-    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
+    const location = useLocation();
+    const [email, setEmail] = useState((location.state as { email: string, type: string })?.email ?? "");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [password, setPassword] = useState("");
+    const validateEmail = () => {
+        const atPos = email.indexOf("@");
+        const dotPos = email.lastIndexOf(".");
+        return (atPos < 1 || (dotPos - atPos < 2));
+    }
+
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop: '5rem'}}>
         <h1 className={classes.h1}>Create Account</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
@@ -24,21 +35,35 @@ const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
         <TextField className={classes.input} id="outlined-basic"
                    margin={"normal"}
                    label="Email"
-                   type={'text'}
+                   onChange={(e) => setEmail(e.target.value)}
+                   value={email}
+                   type={'email'}
                    variant="outlined"/>
         <TextField className={classes.input}
                    id="outlined-basic"
                    margin={"normal"}
                    label="Password"
+                   value={password}
+                   onChange={(e) => setPassword(e.target.value)}
                    type={'password'}
                    variant="outlined"/>
         <TextField className={classes.input}
                    id="outlined-basic"
                    margin={"normal"}
                    label="Confirm Password"
+                   value={confirmPassword}
+                   onChange={(e) => setConfirmPassword(e.target.value)}
                    type={'password'}
                    variant="outlined"/>
-        <Button variant="contained" color="primary" className={classes.button}>Sign Up</Button>
+        <Button variant="contained"
+                disabled={!(!validateEmail() && password.length >= 8 && confirmPassword === password)}
+                color="primary" onClick={() => {
+            console.log(`pass: ${password}`);
+            console.log(`email: ${email}`);
+            console.log(`confirmPass: ${confirmPassword}`)
+        }} className={classes.button}>
+            Sign Up
+        </Button>
         {
             notMedium ? ""
                 : <div>
@@ -58,8 +83,15 @@ const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
 const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
     const {notMedium, setShowLogin} = props;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const validateEmail = () => {
+        const atPos = email.indexOf("@");
+        const dotPos = email.lastIndexOf(".");
+        return (atPos < 1 || (dotPos - atPos < 2));
+    }
 
-    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop:'5rem'}}>
+    return <form className={classes.form} noValidate autoComplete="off" style={notMedium ? {} : {marginTop: '5rem'}}>
         <h1 className={classes.h1}>Sign In</h1>
         <div className={classes.socialContainer}>
             <div onClick={() => {
@@ -68,15 +100,37 @@ const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
             }} className={classes.social}><FaGoogle/></div>
         </div>
         <span style={{paddingTop: 20}}>or use your account</span>
-        <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Email"
-                   variant="outlined"/>
-        <TextField className={classes.input} id="outlined-basic" margin={"normal"} label="Password"
-                   variant="outlined"/>
+        <TextField
+            className={classes.input}
+            id="outlined-basic"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            margin={"normal"}
+            label="Email"
+            variant="outlined"/>
+        <TextField
+            className={classes.input}
+            id="outlined-basic"
+            onChange={(e) => {
+                setPassword(e.target.value)
+            }}
+            value={password}
+            margin={"normal"}
+            label="Password"
+            variant="outlined"/>
         <div style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}} onClick={() => {
         }}>
             Forgot your password?
         </div>
-        <Button variant="contained" color="primary" className={classes.button}>Sign In</Button>
+        <Button variant="contained" color="primary"
+                disabled={!(!validateEmail() && password.length >= 8 )}
+                onClick={() => {
+                    console.log(`pass: ${password}`);
+                    console.log(`email: ${email}`);
+                }}
+                className={classes.button}>
+            Sign In
+        </Button>
         {
             notMedium ? ""
                 : <>
@@ -141,8 +195,9 @@ const SignUpLayout = (props: { setShowLogin: any; notMedium: boolean; showLogin:
     </Grid>;
 };
 
-export const AuthPage = () => {
-    const [showLogin, setShowLogin] = useState(true);
+export const AuthLayout = () => {
+    const location = useLocation();
+    const [showLogin, setShowLogin] = useState((location?.state as { email: string, type: string })?.type !== 'signup');
     const theme = useTheme();
     const notMedium = useMediaQuery(theme.breakpoints.up('md'));
 
