@@ -37,22 +37,22 @@ export const login = async (event: any, email: string, password: string): Promis
     }
 };
 
-export const signup = async (event: any, email: string, password: string): Promise<firebase.auth.UserCredential | string> => {
-    event.preventDefault();
-    try {
-        // auth.signInWithEmailAndPassword()
-        return 'inworks';
-    } catch (e) {
-        return e.message;
-    }
-};
-
-export const forgotPassword = async (event: any, email: string): Promise<boolean | string> => {
-    event.preventDefault();
-    try {
-        // auth.sendPasswordResetEmail()
-        return true;
-    } catch (e) {
-        return e.message;
-    }
-};
+// export const signup = async (event: any, email: string, password: string): Promise<firebase.auth.UserCredential | string> => {
+//     event.preventDefault();
+//     try {
+//         // auth.signInWithEmailAndPassword()
+//         return 'inworks';
+//     } catch (e) {
+//         return e.message;
+//     }
+// };
+//
+// export const forgotPassword = async (event: any, email: string): Promise<boolean | string> => {
+//     event.preventDefault();
+//     try {
+//         // auth.sendPasswordResetEmail()
+//         return true;
+//     } catch (e) {
+//         return e.message;
+//     }
+// };
