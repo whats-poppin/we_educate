@@ -8,8 +8,8 @@ export const PrivateRoutes = () => {
     const {user} = useContext(AuthContext);
     return <>
         <Route path={"/my-courses"} render={() =>
-            !user ? <Redirect to='/log-in'/> : <MyCourses/>} exact/>
+            !user ? <Redirect to='/auth'/> : <MyCourses/>} exact/>
         <Route path={"/profile"} render={() =>
-            !user ? <Redirect to='/log-in'/> : <Profile/>} exact/>
+            !user ? <Redirect to='/auth'/> : <Profile/>} exact/>
     </>
 };
