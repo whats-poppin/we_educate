@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-// import {firestore} from "./firebase";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./pages/home";
 import {ThemeProvider} from "@material-ui/styles";
@@ -11,6 +10,7 @@ import {Auth} from "./pages/auth";
 import {AuthProvider} from "./contexts/auth";
 import {PrivateRoutes} from "./components/private-routes/private-routes";
 import {ErrorBoundary} from "./utils/error-boundary";
+import {SnackbarToggleProvider} from './contexts/snackbar-toggle';
 //Add Data
 
 // firestore.collection("users").add({
@@ -73,17 +73,19 @@ Ending State, favorite.color and favorite.subject are no longer present:
 const App = () => {
     return <ErrorBoundary>
         <ThemeProvider theme={theme}>
-            <AuthProvider>
-                <Router>
-                    <Switch>
-                        <Route path="/" component={Home} exact/>
-                        <Route path="/auth" component={Auth} exact/>
-                        <Route path="/explore" component={Explore} exact/>
-                        <Route path={"/course"} component={Course} exact/>
-                        <PrivateRoutes/>
-                    </Switch>
-                </Router>
-            </AuthProvider>
+            <SnackbarToggleProvider>
+                <AuthProvider>
+                    <Router>
+                        <Switch>
+                            <Route path="/" component={Home} exact/>
+                            <Route path="/auth" component={Auth} exact/>
+                            <Route path="/explore" component={Explore} exact/>
+                            <Route path={"/course"} component={Course} exact/>
+                            <PrivateRoutes/>
+                        </Switch>
+                    </Router>
+                </AuthProvider>
+            </SnackbarToggleProvider>
         </ThemeProvider>
     </ErrorBoundary>
 };

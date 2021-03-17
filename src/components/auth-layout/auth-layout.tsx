@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {useLoginSignupStyles} from "../../utils/component-styles/login-signup";
 import {Button, Grid, Slide, TextField} from "@material-ui/core";
 import {FaFacebookF, FaGoogle} from "react-icons/all";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useTheme} from '@material-ui/core/styles';
 import {useLocation} from "react-router-dom";
+import {AuthContext} from "../../contexts/auth";
+import {login} from "../../controllers/auth-controller";
+import {SnackbarToggleContext} from "../../contexts/snackbar-toggle";
 
 
 const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
@@ -73,18 +76,21 @@ const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                         setShowLogin(true)
                     }}
                             className={classes.button}>{'Sign In Instead'}</Button>
-
-
                 </div>
         }
     </form>
 };
 
-const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
+const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {notMedium, setShowLogin} = props;
+    const {setUser} = useContext(AuthContext);
+    const {setSnackbarDefinition} = useContext(SnackbarToggleContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const {notMedium, setShowLogin} = props;
+
     const validateEmail = () => {
         const atPos = email.indexOf("@");
         const dotPos = email.lastIndexOf(".");
@@ -107,6 +113,7 @@ const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
             value={email}
             margin={"normal"}
             label="Email"
+            type='email'
             variant="outlined"/>
         <TextField
             className={classes.input}
@@ -117,16 +124,24 @@ const Login = (props: { setShowLogin: any; notMedium: boolean }) => {
             value={password}
             margin={"normal"}
             label="Password"
+            type="password"
             variant="outlined"/>
         <div style={{paddingTop: 20, textDecoration: 'none', color: '#333333'}} onClick={() => {
         }}>
             Forgot your password?
         </div>
         <Button variant="contained" color="primary"
-                disabled={!(!validateEmail() && password.length >= 8 )}
-                onClick={() => {
-                    console.log(`pass: ${password}`);
-                    console.log(`email: ${email}`);
+                disabled={!(!validateEmail() && password.length >= 8)}
+                onClick={async (event) => {
+                    const loginRes = await login(event, email, password);
+                    if (typeof loginRes !== 'string')
+                        setUser(loginRes)
+                    else
+                        setSnackbarDefinition({
+                            visible: true,
+                            severity: 'error',
+                            message: loginRes as string
+                        });
                 }}
                 className={classes.button}>
             Sign In
