@@ -11,7 +11,7 @@ export const NavB = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
     const history = useHistory()
     const [selectedTab, setSelectedTab] = useState('')
-    const tabs = ['explore', 'my-courses', 'log-in'];
+    const tabs = ['explore', 'my-courses', 'auth'];
 
     useEffect(() => {
         setSelectedTab(window.location.pathname.slice(1));
@@ -46,10 +46,10 @@ export const NavB = () => {
                         </div> : <div/>}
                     </Form>
                     {tabs.map((tab) =>
-                        <Nav.Link onClick={() => {
+                        <Nav.Link key={tab} onClick={() => {
                             history.push(`/${tab}`);
                         }}>
-                            {tab.toUpperCase().replaceAll('-', ' ')}
+                            {tab === 'auth' ? 'LOGIN' : tab.toUpperCase().replaceAll('-', ' ')}
                         </Nav.Link>
                     )}
                 </Navbar.Collapse>
