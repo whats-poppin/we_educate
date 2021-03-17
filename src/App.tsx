@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+// import {firestore} from "./firebase";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./pages/home";
 import {ThemeProvider} from "@material-ui/styles";
@@ -76,7 +77,7 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/" component={Home} exact/>
-                        <Route path="/log-in" component={Auth} exact/>
+                        <Route path="/auth" component={Auth} exact/>
                         <Route path="/explore" component={Explore} exact/>
                         <Route path={"/course"} component={Course} exact/>
                         <PrivateRoutes/>
