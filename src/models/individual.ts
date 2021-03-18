@@ -7,7 +7,7 @@ export class Individual {
     name: string;
     email: string;
     product: string[]; //Product[]
-    password: string;
+    createdAt: Date;
     meta: Object;
 
     constructor(
@@ -17,7 +17,7 @@ export class Individual {
         name: string,
         email: string,
         product: string[], //Product[]
-        password: string,
+        createdAt: Date,
         meta: Object) {
         this.id = id;
         this.subscriptionIds = subscriptionIds;
@@ -25,7 +25,7 @@ export class Individual {
         this.name = name;
         this.email = email;
         this.product = product;
-        this.password = password;
+        this.createdAt = createdAt;
         this.meta = meta;
     }
 }
