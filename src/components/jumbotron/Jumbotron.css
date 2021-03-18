@@ -141,6 +141,9 @@
     ::-webkit-input-placeholder {
         font-size: 0.65rem;
     }
+    ::-moz-placeholder{
+        font-size: 0.65rem;
+    }
 
 
     .item{

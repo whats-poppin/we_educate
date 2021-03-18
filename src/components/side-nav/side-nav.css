@@ -1,0 +1,20 @@
+.flex-column {
+    display: flex;
+    margin:0 5rem;
+    justify-content: left;
+}
+
+.nav-links {
+    color: #8C8C8C;
+    font-weight: 500;
+}
+
+.nav-links:hover{
+    color: #731E1C;
+}
+
+@media all and (max-width: 775px) {
+    .flex-column{
+        text-align: center;
+    }
+}

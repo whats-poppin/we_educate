@@ -1,0 +1,39 @@
+.rootContainer {
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    padding-top: 5rem;
+}
+
+
+.userName {
+    text-align: center;
+    font-weight: bold;
+}
+
+.userImg-wrapper {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.userImg {
+    border-radius: 100%;
+}
+
+.info{
+    padding: 1rem 5rem;
+    width: 100%;
+    align-items: center;
+}
+
+
+@media all and (max-width: 775px) {
+    .rootContainer {
+        flex-direction: column;
+    }
+
+    .info {
+        padding: 2rem 3rem;
+    }
+}
+
