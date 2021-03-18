@@ -6,7 +6,7 @@ const Profile = () => {
     return (
         <>
             <NavB/>
-            <ViewProfile/>
+            {/*<ViewProfile/>*/}
         </>
     )
 };
