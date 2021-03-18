@@ -1,0 +1,53 @@
+.flex-column {
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    margin: 5rem 0;
+    justify-content: left;
+    text-align: center;
+}
+
+.userName {
+    text-align: center;
+    font-weight: bold;
+}
+
+.userImg-wrapper {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.userImg {
+    border-radius: 100%;
+}
+
+.nav-links {
+    color: #8C8C8C;
+    font-weight: 500;
+    text-decoration: none !important;
+}
+
+.nav-links:hover{
+    color: #731E1C;
+    text-decoration: none !important;
+}
+
+button {
+    border: none;
+    background: transparent;
+}
+
+.card-header{
+    background: transparent;
+    padding: 0;
+    border: 0 solid transparent;
+}
+
+.card-body{
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.card, .card-group .card-heading+.card-collapse>.card-body{
+    border: none;
+}
