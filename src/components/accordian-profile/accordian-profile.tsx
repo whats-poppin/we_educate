@@ -11,7 +11,7 @@ import DeleteAccountForm from "../delete-account-form/delete-account-form";
 const AccordianProfile = () => {
     return (
         <>
-            <Nav defaultActiveKey="/home" className="flex-column">
+            <Nav defaultActiveKey="/home" className="flex-column1">
                 <Nav.Item className = "userImg-wrapper"> <img src="https://ui-avatars.com/api/?name=Mohan+Gautam" alt="DP" className="userImg"/></Nav.Item>
                 <Nav.Item className = "userName">Mohan Gautam</Nav.Item>
                 <Accordion>
