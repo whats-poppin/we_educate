@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
 import {Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
