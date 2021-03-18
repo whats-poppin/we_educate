@@ -4,6 +4,17 @@
     padding-top: 5rem;
 }
 
+.info{
+    padding: 1rem 5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    padding: 0 5rem;
+    justify-content: left;
+}
 
 .userName {
     text-align: center;
@@ -20,14 +31,20 @@
     border-radius: 100%;
 }
 
-.info{
-    padding: 1rem 5rem;
-    width: 100%;
-    align-items: center;
+.nav-links {
+    color: #8C8C8C;
+    font-weight: 500;
+}
+
+.nav-links:hover{
+    color: #731E1C;
 }
 
 
 @media all and (max-width: 775px) {
+    .flex-column{
+        text-align: center;
+    }
     .rootContainer {
         flex-direction: column;
     }
