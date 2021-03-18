@@ -13,12 +13,7 @@ export const NavB = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
     const history = useHistory();
     const {user} = useContext(AuthContext);
-    const [selectedTab, setSelectedTab] = useState('')
     const tabs = ['explore', 'my-courses', 'auth'];
-
-    useEffect(() => {
-        setSelectedTab(window.location.pathname.slice(1));
-    }, []);
 
     return (
         <>
