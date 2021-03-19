@@ -37,7 +37,12 @@ const RenderLinks: React.FC = () => {
                 {tab.toUpperCase().replaceAll('-', ' ')}
             </Nav.Link>
         )}
-        {!user ? 'LOGIN' : <ProfileDropdown/>}</>
+        {!user ? <Nav.Link key={'auth'} onClick={async () => {
+                history.push(`auth`);
+            }}>
+                LOGIN </Nav.Link> :
+            <ProfileDropdown/>}
+    </>
 };
 
 export const NavB: React.FC = () => {
