@@ -15,7 +15,7 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             transform: 'translate(-50%, -50%)',
             width: '768px',
             maxWidth: '65%',
-            minHeight: '480px',
+            minHeight: '560px',
             margin: 'auto',
             // alignItems: 'center',
             // justifyContent: 'center',
@@ -56,16 +56,24 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 5px',
+            '&:hover': {
+                backgroundColor: '#965F5F'
+            },
             height: '40px',
             width: '40px',
             color: '#333333'
         },
+        inputLogin: {
+            width: '15rem',
+        },
         input: {
-            width: '15rem'
+            width: '15rem',
+            margin: '1.5rem',
+            height: '1.5rem'
         },
         button: {
             borderRadius: '20px',
-            backgroundColor: '#FF4B2B',
+            backgroundColor: '#bf2906',
             color: '#FFFFFF',
             fontSize: '12px',
             fontWeight: 'bold',
@@ -86,7 +94,7 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             zIndex: 100
         },
         overlay: {
-            background: 'linear-gradient(to right, #FF4B2B, #FF416C)',
+            background: '#731E1C',
             backgroundRepeat: 'no-repeat',
             display: 'flex',
             alignItems: 'center',

@@ -6,7 +6,7 @@
     font-family: Montserrat, sans-serif;
 }
 
-#mainNavbar .nav-link{
+#mainNavbar .nav-link {
     font-size: 1.5rem;
     font-weight: 600;
     color: #4A5461;
@@ -23,11 +23,11 @@
 }
 
 #mainNavbar.scroll {
-    background: rgb(0,0,0);
+    background: rgb(0, 0, 0);
     transition: background 500ms;
 }
 
-.brand_logo{
+.brand_logo {
     /*height: '3.6rem',*/
     /*width: '8rem',*/
     /*margin: '0 1rem 0 0',*/
@@ -49,40 +49,63 @@
 .fade-in {
     -webkit-animation: fadeIn ease-in-out 500ms;
 }
+
 @keyframes fadeIn {
-    0% {width:0;}
-    100% {width:231.6px;}
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 231.6px;
+    }
 }
 
 @-moz-keyframes fadeIn {
-    0% {width:0;}
-    100% {width:200px;}
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 200px;
+    }
 }
 
 @-webkit-keyframes fadeIn {
-    0% {width:0;}
-    100% {width:200px;}
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 200px;
+    }
 }
 
 @-o-keyframes fadeIn {
-    0% {width:0;}
-    100% {width:200px;}
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 200px;
+    }
 }
 
 @-ms-keyframes fadeIn {
-    0% {width:0;}
-    100% {width:200px;}
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 200px;
+    }
 }
 
 
 @media all and (max-width: 991px) {
-    .form-control{
+    .form-control {
         width: 100%;
     }
-    .search_button{
+
+    .search_button {
         margin-left: 0.7rem;
         margin-top: 0.3rem;
     }
+
     #mainNavbar .nav-link:hover {
         color: #731E1C;
         border-bottom: none;

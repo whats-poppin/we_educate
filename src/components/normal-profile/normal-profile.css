@@ -1,0 +1,57 @@
+.rootContainer {
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    padding-top: 5rem;
+}
+
+.info {
+    padding: 1rem 5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    margin: 0 5rem;
+    justify-content: left;
+}
+
+.userName {
+    text-align: center;
+    font-weight: bold;
+}
+
+.userImg-wrapper {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.userImg {
+    border-radius: 100%;
+}
+
+.nav-links {
+    color: #8C8C8C;
+    font-weight: 500;
+}
+
+.nav-links:hover {
+    color: #731E1C;
+}
+
+
+@media all and (max-width: 775px) {
+    .flex-column {
+        text-align: center;
+    }
+
+    .rootContainer {
+        flex-direction: column;
+    }
+
+    .info {
+        padding: 2rem 3rem;
+    }
+}
+

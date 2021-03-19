@@ -19,10 +19,10 @@ export const theme = responsiveFontSizes(createMuiTheme({
         },
         palette: {
             primary: {
-                main: colors.greyWhite,
+                main: colors.darkBrown,
             },
             secondary: {
-                main: colors.darkBrown,
+                main: colors.darkGrey,
             },
         },
     })

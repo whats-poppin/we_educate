@@ -19,7 +19,7 @@ const Jumbotron = () => {
     }
     return (
         <>
-            <div className="container-grid">
+            <div className="container-grid" style={notSmall ? {} : {paddingTop: '5rem'}}>
                 <div className="item">
                     <h1>Committed to Excellence</h1>
                     <p style={{fontWeight: 600}}>
@@ -30,10 +30,13 @@ const Jumbotron = () => {
                         Education is necessary to understand the universe.
                     </p>
                 </div>
-                <img src={logo} alt="logo" id="logo"/>
+                <img src={logo} alt="logo" id="logo" style={notSmall ? {} : {
+                    height: '5rem',
+                    width: '10rem'
+                }}/>
             </div>
             <div className="container-flex"
-                 style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start'}}>
+                 style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start', padding: '0rem 1rem'}}>
                 <form>
                     <InputGroup>
                         <FormControl
@@ -68,8 +71,7 @@ const Jumbotron = () => {
                 </div>
             </div>
         </>
-    )
-        ;
+    );
 };
 
 export default Jumbotron;
