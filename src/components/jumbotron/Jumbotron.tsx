@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from '../../assets/brand_logo.png'
 import {Button, FormControl, InputGroup} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css';
 import './Jumbotron.css';
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {MdKeyboardArrowDown} from "react-icons/md";
+import {useHistory} from 'react-router-dom';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const Jumbotron = () => {
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const notSmall = useMediaQuery('(min-width:500px)');
+    const validateEmail = () => {
+        const atPos = email.indexOf("@");
+        const dotPos = email.lastIndexOf(".");
+        return (atPos < 1 || (dotPos - atPos < 2));
+    }
     return (
         <>
             <div className="container-grid">
@@ -22,18 +32,31 @@ const Jumbotron = () => {
                 </div>
                 <img src={logo} alt="logo" id="logo"/>
             </div>
-            <div className="container-flex">
+            <div className="container-flex"
+                 style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start'}}>
                 <form>
                     <InputGroup>
                         <FormControl
                             placeholder="Enter your e-mail"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)}
                             aria-label="Recipient's username"
                             aria-describedby="basic-addon2"
                         />
                         <InputGroup.Append>
-                            <Button type="submit" onClick={(e) => {
-                                e.preventDefault();
-                            }} variant="outline-secondary"><AiOutlineArrowRight/></Button>
+                            <Button type="submit"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        history.push({
+                                            pathname: `/auth`,
+                                            state: {email, type: 'signup'}
+                                        });
+                                    }}
+                                    disabled={validateEmail()}
+                                    variant="outline-secondary">
+                                <AiOutlineArrowRight/>
+                            </Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </form>
@@ -45,7 +68,8 @@ const Jumbotron = () => {
                 </div>
             </div>
         </>
-    );
+    )
+        ;
 };
 
 export default Jumbotron;

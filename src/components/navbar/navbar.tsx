@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
 import {Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
@@ -6,21 +6,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './navbar.css';
 import {BsSearch} from "react-icons/bs";
 import {useHistory} from 'react-router-dom';
+import {AuthContext} from "../../contexts/auth";
+import {signOut} from "../../controllers/auth-controller";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {theme} from "../../utils/theme";
 
 export const NavB = () => {
     const notMedium = useMediaQuery(theme.breakpoints.up('md'));
     const [showSearchBar, setShowSearchBar] = useState(false)
-    const history = useHistory()
-    const [selectedTab, setSelectedTab] = useState('')
-    const tabs = ['explore', 'my-courses', 'log-in'];
-
-    useEffect(() => {
-        setSelectedTab(window.location.pathname.slice(1));
-    }, []);
-
-    console.log(selectedTab);
+    const history = useHistory();
+    const {user} = useContext(AuthContext);
+    const tabs = ['explore', 'my-courses', 'auth'];
 
     return !notMedium ? <><Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
         <Navbar.Brand onClick={() => {
@@ -33,10 +29,14 @@ export const NavB = () => {
             <Nav className="mr-auto">
             </Nav>
             {tabs.map((tab) =>
-                <Nav.Link onClick={() => {
+                <Nav.Link key={tab} onClick={async () => {
+                    if (user && tab === 'auth')
+                        await signOut();
                     history.push(`/${tab}`);
                 }}>
-                    {tab.toUpperCase().replaceAll('-', ' ')}
+                    {tab === 'auth' ? user
+                        ? 'LOGOUT'
+                        : 'LOGIN' : tab.toUpperCase().replaceAll('-', ' ')}
                 </Nav.Link>
             )}
             <Form inline>
@@ -75,10 +75,14 @@ export const NavB = () => {
                     </div> : <div/>}
                 </Form>
                 {tabs.map((tab) =>
-                    <Nav.Link onClick={() => {
+                    <Nav.Link key={tab} onClick={async () => {
+                        if (user && tab === 'auth')
+                            await signOut();
                         history.push(`/${tab}`);
                     }}>
-                        {tab.toUpperCase().replaceAll('-', ' ')}
+                        {tab === 'auth' ? user
+                            ? 'LOGOUT'
+                            : 'LOGIN' : tab.toUpperCase().replaceAll('-', ' ')}
                     </Nav.Link>
                 )}
             </Navbar.Collapse>
