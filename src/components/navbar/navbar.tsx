@@ -5,10 +5,10 @@ import {Form, Nav,} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css';
 import './navbar.css';
 import {useHistory} from 'react-router-dom';
-import {AuthContext} from "../../contexts/auth";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {ProfileDropdown} from "../profile-dropdown/profile-dropdown";
 import {SearchBar, SearchField} from "../search-bar/search-bar";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 const RenderBrand = () => {
     const history = useHistory();
@@ -25,7 +25,7 @@ const RenderBrand = () => {
 const RenderLinks: React.FC = () => {
     const tabs = ['explore', 'my-courses'];
     const history = useHistory();
-    const {user} = useContext(AuthContext);
+    const {user} = useContext(UserDetailsContext);
 
     return <>
         {tabs.map((tab) =>

@@ -1,16 +1,15 @@
 import React, {useContext} from 'react';
 import {Accordion, Card, Nav} from "react-bootstrap";
 import EditProfile from "../edit-profile/edit-profile";
-import AccountDetails from "../account-details/account-details";
+import OrganisationDetails from "../account-details/organisation-details";
 import './accordian-profile.css'
 import PaymentHistory from "../payment-history/payment-history";
-import PrivacyDetails from "../privacy-details/privacy-details";
 import DeleteAccount from "../delete-account/delete-account";
-import {AuthContext} from "../../contexts/auth";
 import {Individual} from "../../models/individual";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 const AccordianProfile = () => {
-    const name = (useContext(AuthContext).user as Individual).name;
+    const name = (useContext(UserDetailsContext).user as Individual).name;
     return (
         <>
             <Nav defaultActiveKey="/home" className="flex-column1">
@@ -34,36 +33,24 @@ const AccordianProfile = () => {
                     <Card>
                         <Card.Header>
                             <Accordion.Toggle eventKey="1">
-                                <Nav.Link className="nav-links">Account</Nav.Link>
+                                <Nav.Link className="nav-links">Organisations</Nav.Link>
                             </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="1">
                             <Card.Body>
-                                <AccountDetails/>
+                                <OrganisationDetails/>
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>
                     <Card>
                         <Card.Header>
                             <Accordion.Toggle eventKey="2">
-                                <Nav.Link className="nav-links">Payment Methods</Nav.Link>
+                                <Nav.Link className="nav-links">Payment History</Nav.Link>
                             </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="2">
                             <Card.Body>
                                 <PaymentHistory/>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle eventKey="4">
-                                <Nav.Link className="nav-links">Privacy</Nav.Link>
-                            </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="4">
-                            <Card.Body>
-                                <PrivacyDetails/>
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>

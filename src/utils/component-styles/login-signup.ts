@@ -56,8 +56,8 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 5px',
-            '&:hover':{
-                backgroundColor:'#965F5F'
+            '&:hover': {
+                backgroundColor: '#965F5F'
             },
             height: '40px',
             width: '40px',
@@ -68,8 +68,8 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
         },
         input: {
             width: '15rem',
-            margin:'1.5rem',
-            height:'1.5rem'
+            margin: '1.5rem',
+            height: '1.5rem'
         },
         button: {
             borderRadius: '20px',

@@ -27,7 +27,7 @@
     text-decoration: none !important;
 }
 
-.nav-links:hover{
+.nav-links:hover {
     color: #731E1C;
     text-decoration: none !important;
 }
@@ -37,17 +37,17 @@ button {
     background: transparent;
 }
 
-.card-header{
+.card-header {
     background: transparent;
     padding: 0;
     border: 0 solid transparent;
 }
 
-.card-body{
+.card-body {
     width: 100%;
     padding: 0 1rem;
 }
 
-.card, .card-group .card-heading+.card-collapse>.card-body{
+.card, .card-group .card-heading + .card-collapse > .card-body {
     border: none;
 }

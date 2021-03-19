@@ -1,14 +1,15 @@
 import React, {useContext, useState} from "react";
 import {Dropdown} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {AuthContext} from "../../contexts/auth";
 import {Individual} from "../../models/individual";
 import {signOut} from "../../controllers/auth-controller";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 export const ProfileDropdown: React.FC = () => {
     const history = useHistory();
     const [showDropdown, setShowDropdown] = useState(false);
-    const name = (useContext(AuthContext).user as Individual).name;
+    const name = (useContext(UserDetailsContext).user as Individual).name;
+    const {setUser} = useContext(UserDetailsContext);
 
     return <Dropdown show={showDropdown}
                      navbar={true}>
@@ -29,6 +30,7 @@ export const ProfileDropdown: React.FC = () => {
             </Dropdown.Item>
             <Dropdown.Item eventKey="2" onClick={async () => {
                 await signOut();
+                setUser(null);
                 history.push('/');
             }}>
                 LOGOUT

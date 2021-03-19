@@ -1,19 +1,18 @@
 import {useLoginSignupStyles} from "../../utils/component-styles/login-signup";
 import React, {useContext, useState} from "react";
-import {AuthContext} from "../../contexts/auth";
 import {SnackbarToggleContext} from "../../contexts/snackbar-toggle";
 import {FaFacebookF, FaGoogle} from "react-icons/all";
 import {Button, TextField} from "@material-ui/core";
 import {forgotPassword, login, socialAuth} from "../../controllers/auth-controller";
 import {useHistory} from "react-router-dom";
 import {Individual} from "../../models/individual";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const {setUser} = useContext(AuthContext);
+    const {setUser} = useContext(UserDetailsContext);
     const history = useHistory();
     const {setSnackbarDefinition} = useContext(SnackbarToggleContext);
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

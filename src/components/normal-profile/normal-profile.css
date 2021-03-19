@@ -4,7 +4,7 @@
     padding-top: 5rem;
 }
 
-.info{
+.info {
     padding: 1rem 5rem;
     width: 100%;
     align-items: center;
@@ -36,15 +36,16 @@
     font-weight: 500;
 }
 
-.nav-links:hover{
+.nav-links:hover {
     color: #731E1C;
 }
 
 
 @media all and (max-width: 775px) {
-    .flex-column{
+    .flex-column {
         text-align: center;
     }
+
     .rootContainer {
         flex-direction: column;
     }
