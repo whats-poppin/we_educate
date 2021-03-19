@@ -5,13 +5,13 @@ import {FaFacebookF, FaGoogle} from "react-icons/all";
 import {Button, TextField} from "@material-ui/core";
 import {signup, socialAuth} from "../../controllers/auth-controller";
 import {SnackbarToggleContext} from "../../contexts/snackbar-toggle";
-import {AuthContext} from "../../contexts/auth";
 import {Individual} from "../../models/individual";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
     const {setSnackbarDefinition} = useContext(SnackbarToggleContext);
-    const {setUser} = useContext(AuthContext);
+    const {setUser} = useContext(UserDetailsContext);
     const history = useHistory();
 
     const {notMedium, setShowLogin} = props;

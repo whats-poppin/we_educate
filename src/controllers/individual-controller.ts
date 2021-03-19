@@ -1,1 +1,2 @@
-export const individualController = () => {};
+export const individualController = () => {
+};

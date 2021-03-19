@@ -1,15 +1,15 @@
 import {Redirect, Route} from "react-router-dom";
 import React, {useContext} from "react";
-import {AuthContext} from "../../contexts/auth";
 import {MyCourses} from "../../pages/my-courses";
 import {Profile} from "../../pages/profile";
-import {Auth} from "../../pages/auth";
+import {AuthLayout} from "../auth-layout/auth-layout";
+import {UserDetailsContext} from "../../contexts/user-details";
 
 export const PrivateRoutes = () => {
-    const {user} = useContext(AuthContext);
+    const {user} = useContext(UserDetailsContext);
     return <>
         <Route path="/auth" render={() =>
-            !user ? <Auth/> : <Redirect to='/'/>} exact/>
+            !user ? <AuthLayout/> : <Redirect to='/'/>} exact/>
         <Route path={"/my-courses"} render={() =>
             !user ? <Redirect to='/auth'/> : <MyCourses/>} exact/>
         <Route path={"/profile"} render={() =>

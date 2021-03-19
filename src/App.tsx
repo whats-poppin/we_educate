@@ -10,6 +10,8 @@ import {AuthProvider} from "./contexts/auth";
 import {PrivateRoutes} from "./components/private-routes/private-routes";
 import {ErrorBoundary} from "./utils/error-boundary";
 import {SnackbarToggleProvider} from './contexts/snackbar-toggle';
+import {NavB} from "./components/navbar/navbar";
+import {UserDetailsProvider} from "./contexts/user-details";
 
 // Update the doc without using dot notation.
 // firestore.collection("users").doc("frank").update({
@@ -26,14 +28,17 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <SnackbarToggleProvider>
                 <AuthProvider>
-                    <Router>
-                        <Switch>
-                            <Route path="/" component={Home} exact/>
-                            <Route path="/explore" component={Explore} exact/>
-                            <Route path={"/course"} component={Course} exact/>
-                            <PrivateRoutes/>
-                        </Switch>
-                    </Router>
+                    <UserDetailsProvider>
+                        <Router>
+                            <NavB/>
+                            <Switch>
+                                <Route path="/" component={Home} exact/>
+                                <Route path="/explore" component={Explore} exact/>
+                                <Route path={"/course"} component={Course} exact/>
+                                <PrivateRoutes/>
+                            </Switch>
+                        </Router>
+                    </UserDetailsProvider>
                 </AuthProvider>
             </SnackbarToggleProvider>
         </ThemeProvider>

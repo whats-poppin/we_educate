@@ -1,10 +1,8 @@
 import React from 'react';
-import {NavB} from "../components/navbar/navbar";
 
 export const MyCourses = () => {
     return <div>
-        <NavB/>
-        <h1 style={{marginTop: '5rem'}}>
+        <h1 style={{marginTop: '7rem'}}>
             My Courses
         </h1>
     </div>;

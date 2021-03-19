@@ -4,7 +4,7 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
 
 
-        brandLogo :{
+        brandLogo: {
             height: '3.6rem',
             width: '8rem',
             margin: '0 1rem 0 0',

@@ -7,11 +7,11 @@ export class Product {
     meta: Object
 
     constructor(id: string,
-    name: string,
-    events: string[],
-    description: string,
-    imgUrl: string,
-    meta: Object) {
+                name: string,
+                events: string[],
+                description: string,
+                imgUrl: string,
+                meta: Object) {
         this.id = id;
         this.name = name;
         this.events = events;

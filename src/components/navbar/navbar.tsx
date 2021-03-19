@@ -1,59 +1,72 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
-import {Form, FormControl, InputGroup, Nav,} from "react-bootstrap";
+import {Form, Nav,} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css';
 import './navbar.css';
-import {BsSearch} from "react-icons/bs";
 import {useHistory} from 'react-router-dom';
-import {AuthContext} from "../../contexts/auth";
-import {signOut} from "../../controllers/auth-controller";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {ProfileDropdown} from "../profile-dropdown/profile-dropdown";
+import {SearchBar, SearchField} from "../search-bar/search-bar";
+import {UserDetailsContext} from "../../contexts/user-details";
 
-export const NavB = () => {
-    const [showSearchBar, setShowSearchBar] = useState(false)
+const RenderBrand = () => {
     const history = useHistory();
-    const {user} = useContext(AuthContext);
-    const tabs = ['explore', 'my-courses', 'auth'];
+    return <>
+        <Navbar.Brand onClick={() => {
+            history.push('/')
+        }}>
+            <img src={brand_logo} alt="logo" className="brand_logo"/>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+    </>;
+};
 
-    return (
-        <>
-            <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
-                <Navbar.Brand onClick={() => {
-                    history.push('/')
-                }}>
-                    <img src={brand_logo} alt="logo" className="brand_logo"/>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                    </Nav>
-                    <Form inline>
-                        <BsSearch className="search_button" onClick={() => {
-                            setShowSearchBar(!showSearchBar)
-                        }}/>
-                        {showSearchBar ? <div className="fade-in">
-                            <InputGroup>
-                                <FormControl
-                                    placeholder="Press Enter to search"
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                />
-                            </InputGroup>
-                        </div> : <div/>}
-                    </Form>
-                    {tabs.map((tab) =>
-                        <Nav.Link key={tab} onClick={async () => {
-                            if (user && tab === 'auth')
-                                await signOut();
-                            history.push(`/${tab}`);
-                        }}>
-                            {tab === 'auth' ? user
-                                ? 'LOGOUT'
-                                : 'LOGIN' : tab.toUpperCase().replaceAll('-', ' ')}
-                        </Nav.Link>
-                    )}
-                </Navbar.Collapse>
-            </Navbar>
-        </>
-    )
+const RenderLinks: React.FC = () => {
+    const tabs = ['explore', 'my-courses'];
+    const history = useHistory();
+    const {user} = useContext(UserDetailsContext);
+
+    return <>
+        {tabs.map((tab) =>
+            <Nav.Link key={tab} onClick={async () => {
+                if ((user && tab !== 'auth') || !user)
+                    history.push(`/${tab}`);
+            }}>
+                {tab.toUpperCase().replaceAll('-', ' ')}
+            </Nav.Link>
+        )}
+        {!user ? <Nav.Link key={'auth'} onClick={async () => {
+                history.push(`auth`);
+            }}>
+                LOGIN </Nav.Link> :
+            <ProfileDropdown/>}
+    </>
+};
+
+export const NavB: React.FC = () => {
+    const notMedium = useMediaQuery('(min-width:991px)');
+    return !notMedium ? <>
+        <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
+            <RenderBrand/>
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                </Nav>
+                <RenderLinks/>
+                <Form inline>
+                    <SearchField/>
+                </Form>
+            </Navbar.Collapse>
+        </Navbar>
+    </> : <>
+        <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
+            <RenderBrand/>
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                </Nav>
+                <SearchBar/>
+                <RenderLinks/>
+            </Navbar.Collapse>
+        </Navbar>
+    </>
 };
