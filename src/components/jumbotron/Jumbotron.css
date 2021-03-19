@@ -4,12 +4,21 @@
 .container-grid{
     width: 100%;
     padding-top: 10rem;
-    height: 65vh;
+    height: 75vh;
     text-align: center;
     align-items: center;
     display: inline-grid;
     grid-template-columns: 60% 30%;
     overflow: hidden;
+}
+
+.container-flex {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    height: 25vh;
+    align-items: center;
+    width: 100%;
 }
 
 #logo {
@@ -39,15 +48,6 @@
     font-size: 3rem;
     font-weight: 800;
 
-}
-
-.container-flex {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    height: 35vh;
-    align-items: center;
-    width: 100%;
 }
 
 .input-group {
