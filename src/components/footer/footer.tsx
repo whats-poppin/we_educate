@@ -9,36 +9,12 @@ const Footer = () => {
                 <div className="FooterLinksContainer">
                     <div className="FooterLinksWrapper">
                         <div className="FooterLinkItems">
-                                {/*<div className="FooterLinkTitle"> About Us</div>*/}
                                 <div className="FooterLink">About</div>
                                 <div className="FooterLink">Explore</div>
                                 <div className="FooterLink">Privacy</div>
                                 <div className="FooterLink">T&C</div>
                         </div>
-                        {/*<div className="FooterLinkItems">*/}
-                        {/*        <div className="FooterLinkTitle"> About Us</div>*/}
-                        {/*        <div className="FooterLink">About</div>*/}
-                        {/*        <div className="FooterLink">Course</div>*/}
-                        {/*        <div className="FooterLink">Explore</div>*/}
-                        {/*        <div className="FooterLink">Terms Of Service</div>*/}
-                        {/*</div>*/}
                     </div>
-                    {/*<div className="FooterLinksWrapper">*/}
-                    {/*    <div className="FooterLinkItems">*/}
-                    {/*            <div className="FooterLinkTitle"> About Us</div>*/}
-                    {/*            <div className="FooterLink">About</div>*/}
-                    {/*            <div className="FooterLink">Course</div>*/}
-                    {/*            <div className="FooterLink">Explore</div>*/}
-                    {/*            <div className="FooterLink">Terms Of Service</div>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="FooterLinkItems">*/}
-                    {/*            <div className="FooterLinkTitle"> About Us</div>*/}
-                    {/*            <div className="FooterLink">About</div>*/}
-                    {/*            <div className="FooterLink">Course</div>*/}
-                    {/*            <div className="FooterLink">Explore</div>*/}
-                    {/*            <div className="FooterLink">Terms Of Service</div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
                     <div className="SocialMedia">
                             <div className="SocialMediaWrap">
