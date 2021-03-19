@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Col, Form} from "react-bootstrap";
 
-const FormAccount = () => {
+const AccountDetails = () => {
     return (
         <div>
             <Form>
@@ -54,4 +54,4 @@ const FormAccount = () => {
     );
 };
 
-export default FormAccount;
+export default AccountDetails;

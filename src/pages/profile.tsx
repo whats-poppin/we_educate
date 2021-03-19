@@ -1,17 +1,15 @@
 import React from 'react';
 import {NavB} from "../components/navbar/navbar";
-import EditProfile from "../components/edit-profile/editProfile";
+import NormalProfile from "../components/normal-profile/normal-profile";
 import AccordianProfile from "../components/accordian-profile/accordian-profile";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const Profile = () => {
+export const Profile = () => {
     const notSmall = useMediaQuery('(min-width:775px)');
     return (
         <>
             <NavB/>
-            {!notSmall ? <AccordianProfile/> : <EditProfile/>}
+            {!notSmall ? <AccordianProfile/> : <NormalProfile/>}
         </>
     )
 };
-
-export default Profile;

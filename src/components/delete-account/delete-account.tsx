@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeleteAccountForm = () => {
+const DeleteAccount = () => {
     return (
         <div>
             Delete Account Template
@@ -8,4 +8,4 @@ const DeleteAccountForm = () => {
     );
 };
 
-export default DeleteAccountForm;
+export default DeleteAccount;

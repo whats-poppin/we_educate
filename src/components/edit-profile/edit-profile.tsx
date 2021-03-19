@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Col, Form} from "react-bootstrap";
 
-const FormProfile = () => {
+const EditProfile = () => {
     return (
         <div>
             <Form>
@@ -54,4 +54,4 @@ const FormProfile = () => {
     );
 };
 
-export default FormProfile;
+export default EditProfile;

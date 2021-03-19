@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PaymentMethodsForm = () => {
+const PaymentHistory = () => {
     return (
         <div>
             Payment Methods Template
@@ -8,4 +8,4 @@ const PaymentMethodsForm = () => {
     );
 };
 
-export default PaymentMethodsForm;
+export default PaymentHistory;

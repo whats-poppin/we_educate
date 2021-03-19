@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PrivacyForm = () => {
+const PrivacyDetails = () => {
     return (
         <div>
             Privacy Form Template
@@ -8,4 +8,4 @@ const PrivacyForm = () => {
     );
 };
 
-export default PrivacyForm;
+export default PrivacyDetails;
