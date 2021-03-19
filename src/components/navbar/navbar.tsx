@@ -7,7 +7,6 @@ import './navbar.css';
 import {useHistory} from 'react-router-dom';
 import {AuthContext} from "../../contexts/auth";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {theme} from "../../utils/theme";
 import {ProfileDropdown} from "../profile-dropdown/profile-dropdown";
 import {SearchBar, SearchField} from "../search-bar/search-bar";
 
@@ -46,8 +45,7 @@ const RenderLinks: React.FC = () => {
 };
 
 export const NavB: React.FC = () => {
-    const notMedium = useMediaQuery(theme.breakpoints.up('md'));
-
+    const notMedium = useMediaQuery('(min-width:991px)');
     return !notMedium ? <>
         <Navbar bg="light" expand="lg" id="mainNavbar" fixed="top">
             <RenderBrand/>
