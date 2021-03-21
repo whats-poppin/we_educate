@@ -19,21 +19,19 @@ const Jumbotron = () => {
     }
     return (
         <>
-            <div className="container-grid" style={notSmall ? {} : {paddingTop: '5rem'}}>
+            <div className="container-grid">
                 <div className="item">
                     <h1>Committed to Excellence</h1>
                     <p style={{fontWeight: 600}}>
-                        Education is the essential thing for our life, and it
+                        What is the purpose of Education?
+                        Enlightenment.
                         <br/>
-                        helps in the growth of human civilisation.
+                        What is the purpose of Management Education?
                         <br/>
-                        Education is necessary to understand the universe.
+                        Transformation - to make individuals think differently.
                     </p>
                 </div>
-                <img src={logo} alt="logo" id="logo" style={notSmall ? {} : {
-                    height: '5rem',
-                    width: '10rem'
-                }}/>
+                <img src={logo} alt="logo" id="logo" />
             </div>
             <div className="container-flex"
                  style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start', padding: '0rem 1rem'}}>

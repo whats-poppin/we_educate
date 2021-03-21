@@ -130,7 +130,7 @@
     }
 }
 
-@media all and (max-width: 669px) {
+@media all and (max-width: 668px) {
     .container-grid {
         display: flex;
         flex-direction: column;
@@ -159,23 +159,21 @@
 
     .item h1 {
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .item p {
-        margin: 0;
-        text-align: center;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     #logo {
-        height: 11rem;
-        width: 18rem;
-        margin: 0;
+        height: 9rem;
+        width: 16rem;
+        margin-bottom: 1rem;
     }
 }
 
-@media all and (max-width: 547px) {
+@media all and (max-width: 501px) {
     .item p {
         font-size: 1rem;
     }
@@ -201,6 +199,6 @@
     }
 
     #logo {
-        margin: 3rem;
+        margin: 1rem;
     }
 }

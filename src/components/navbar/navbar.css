@@ -97,10 +97,6 @@
 
 
 @media all and (max-width: 991px) {
-    .form-control {
-        width: 100%;
-    }
-
     .search_button {
         margin-left: 0.7rem;
         margin-top: 0.3rem;

@@ -20,7 +20,7 @@ export const ProfileDropdown: React.FC = () => {
         >
             <img
                 src={`https://ui-avatars.com/api/?name=${name?.split(" ").join('+')}`} alt="DP"
-                className="userImg"/>
+                className="userImg" style={{height: "3rem", width: "3rem"}}/>
         </Dropdown.Toggle>
         <Dropdown.Menu>
             <Dropdown.Item eventKey="1" onClick={() => {
