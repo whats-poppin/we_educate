@@ -1,42 +1,48 @@
 import React from 'react';
 import './footer.css';
-import {FaInstagram, FaLinkedin, FaTwitter} from "react-icons/all";
+import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/all";
+import { useHistory } from 'react-router-dom';
 
 const Footer = () => {
+    const footers = [ 'About', 'Explore', 'T&C' ];
+    const history = useHistory();
     return (
         <div className="FooterContainer">
             <div className="FooterWrap">
                 <div className="FooterLinksContainer">
                     <div className="FooterLinksWrapper">
                         <div className="FooterLinkItems">
-                                <div className="FooterLink">About</div>
-                                <div className="FooterLink">Explore</div>
-                                <div className="FooterLink">Privacy</div>
-                                <div className="FooterLink">T&C</div>
+                            {
+                                footers.map((footer) =>
+                                    <div className="FooterLink" onClick={ () => {
+                                        history.push(footer.toLowerCase())
+                                    } }>{ footer.toUpperCase() }</div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
-                    <div className="SocialMedia">
-                            <div className="SocialMediaWrap">
-                                <div className="SocialLogo">
-                                    We Educate
-                                </div>
-                                <div className="WebsiteRights">
-                                    We Educate © {new Date().getFullYear()} All rights reserved
-                                </div>
-                                <div className="SocialIcons">
-                                    <div className="SocialIconLink">
-                                        <FaInstagram/>
-                                    </div>
-                                    <div className="SocialIconLink">
-                                        <FaLinkedin/>
-                                    </div>
-                                    <div className="SocialIconLink">
-                                        <FaTwitter/>
-                                    </div>
-                                </div>
+                <div className="SocialMedia">
+                    <div className="SocialMediaWrap">
+                        <div className="SocialLogo">
+                            We Educate
+                        </div>
+                        <div className="WebsiteRights">
+                            We Educate © { new Date().getFullYear() } All rights reserved
+                        </div>
+                        <div className="SocialIcons">
+                            <div className="SocialIconLink">
+                                <FaInstagram/>
+                            </div>
+                            <div className="SocialIconLink">
+                                <FaLinkedin/>
+                            </div>
+                            <div className="SocialIconLink">
+                                <FaTwitter/>
+                            </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     )
