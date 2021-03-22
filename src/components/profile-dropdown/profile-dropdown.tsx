@@ -19,22 +19,22 @@ export const ProfileDropdown: React.FC = () => {
             onClick={() => setShowDropdown((prev) => !prev)}
         >
             <img
-                src={`https://ui-avatars.com/api/?name=${name?.split(" ").join('+')}`} alt="DP"
+                src={`https://ui-avatars.com/api/?name=${name?.split(" ").join('+')}&bold=true`} alt="DP"
                 className="userImg" style={{height: "3rem", width: "3rem"}}/>
+            <Dropdown.Menu>
+                <Dropdown.Item eventKey="1" onClick={() => {
+                    history.push('/profile');
+                }}>
+                    PROFILE
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2" onClick={async () => {
+                    await signOut();
+                    setUser(null);
+                    history.push('/');
+                }}>
+                    LOGOUT
+                </Dropdown.Item>
+            </Dropdown.Menu>
         </Dropdown.Toggle>
-        <Dropdown.Menu>
-            <Dropdown.Item eventKey="1" onClick={() => {
-                history.push('/profile');
-            }}>
-                PROFILE
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="2" onClick={async () => {
-                await signOut();
-                setUser(null);
-                history.push('/');
-            }}>
-                LOGOUT
-            </Dropdown.Item>
-        </Dropdown.Menu>
     </Dropdown>
 };
