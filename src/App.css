@@ -1,3 +1,13 @@
 .App {
     text-align: center;
 }
+
+body::-webkit-scrollbar
+{
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background-color: #731E1C;
+}
