@@ -10,16 +10,6 @@ import { SnackbarToggleProvider } from './contexts/snackbar-toggle';
 import { NavB } from "./components/navbar/navbar";
 import { UserDetailsProvider } from "./contexts/user-details";
 
-// Update the doc without using dot notation.
-// firestore.collection("users").doc("frank").update({
-//     favorites: {
-//         food: "Ice Cream"
-//     }
-// }).then(function() {
-//     console.log("Frank food updated");
-// });
-
-
 const App = () => {
     return <ErrorBoundary>
         <ThemeProvider theme={ theme }>
