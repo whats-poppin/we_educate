@@ -84,6 +84,37 @@ export const signOut = async (): Promise<void | string> => {
     }
 };
 
+export const reauthenticate = (currentPassword: string) => {
+    try {
+        const user = auth.currentUser;
+        const cred = firebase.auth.EmailAuthProvider.credential(
+            user.email, currentPassword);
+        return user.reauthenticateWithCredential(cred);
+    } catch ( e ) {
+        return false;
+    }
+};
+
+export const changePassword = async (currentPassword: string, newPassword: string) => {
+    const isReauthencticated = await reauthenticate(currentPassword);
+    const user = auth.currentUser;
+    user.updatePassword(newPassword).then(() => {
+        console.log("Password updated!");
+    }).catch((error) => {
+        console.log(error);
+    });
+};
+
+export const changeEmail = async (currentPassword: string, newEmail: string) => {
+    const isReauthencticated = await reauthenticate(currentPassword);
+    const user = auth.currentUser;
+    user.updateEmail(newEmail).then(() => {
+        console.log("Email updated!");
+    }).catch((error) => {
+        console.log(error);
+    });
+};
+
 export const forgotPassword = async (email: string): Promise<void | string> => {
     try {
         await auth.sendPasswordResetEmail(email);

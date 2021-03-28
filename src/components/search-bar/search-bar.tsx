@@ -1,6 +1,7 @@
 import {BsSearch} from "react-icons/bs";
 import {Form, FormControl, InputGroup} from "react-bootstrap";
 import React, {useState} from "react";
+import './search-bar.css'
 
 export const SearchField = () => {
     return <InputGroup>
@@ -8,6 +9,7 @@ export const SearchField = () => {
             placeholder="Press Enter to search"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
+            className = "search_input"
         />
     </InputGroup>
 };
