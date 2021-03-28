@@ -1,7 +1,9 @@
 import React from 'react';
-import {Card} from "@material-ui/core";
-export const CourseCard = () => {
+import { Card } from "@material-ui/core";
+import { Product } from "../../models/product";
+
+export const CourseCard: React.FC<{ course: Product }> = ({ course }) => {
     return <Card>
-        Card init
+        { course.name }
     </Card>;
 };
