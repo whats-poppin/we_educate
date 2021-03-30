@@ -100,24 +100,17 @@ export const reauthenticate = (currentPassword?: string) => {
     }
 };
 
-export const changePassword = async (currentPassword: string, newPassword: string) => {
-    const isReauthencticated = await reauthenticate(currentPassword);
-    const user = auth.currentUser;
-    user.updatePassword(newPassword).then(() => {
-        console.log("Password updated!");
-    }).catch((error) => {
-        console.log(error);
-    });
-};
-
-export const changeEmail = async (currentPassword: string, newEmail: string) => {
-    const isReauthencticated = await reauthenticate(currentPassword);
-    const user = auth.currentUser;
-    user.updateEmail(newEmail).then(() => {
-        console.log("Email updated!");
-    }).catch((error) => {
-        console.log(error);
-    });
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.updatePassword(newPassword)
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
+        return e.message;
+    }
 };
 
 export const forgotPassword = async (email: string): Promise<void | string> => {
