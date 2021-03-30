@@ -84,12 +84,17 @@ export const signOut = async (): Promise<void | string> => {
     }
 };
 
-export const reauthenticate = (currentPassword: string) => {
+export const reauthenticate = (currentPassword?: string) => {
     try {
         const user = auth.currentUser;
-        const cred = firebase.auth.EmailAuthProvider.credential(
-            user.email, currentPassword);
-        return user.reauthenticateWithCredential(cred);
+        if ( user.providerData[0].providerId === 'password' ) {
+            const cred = firebase.auth.EmailAuthProvider.credential(
+                user.email, currentPassword);
+            return user.reauthenticateWithCredential(cred);
+        } else {
+            return user.reauthenticateWithPopup(user.providerData[0].providerId === 'google.com' ?
+                googleAuthProvider : facebookAuthProvider);
+        }
     } catch ( e ) {
         return false;
     }

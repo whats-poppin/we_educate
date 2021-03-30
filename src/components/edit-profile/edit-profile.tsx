@@ -48,7 +48,7 @@ const EditProfile = () => {
             value={ name }
             variant="outlined"/>
         { notSmall ? <Tooltip title="Save Name" placement="right">
-            <IconButton onClick={ handleNameChange } size={ 'small' }
+            <IconButton onClick={ handleNameChange } size={ 'small' } disabled={ user.name === name }
                         style={ {
                             marginTop: '2rem',
                             marginLeft: '5px',
@@ -56,7 +56,7 @@ const EditProfile = () => {
                         } }>
                 <TiTick title={ "Save Name" }/>
             </IconButton>
-        </Tooltip> : <Button onClick={ handleNameChange } variant="contained" color={ 'primary' }>
+        </Tooltip> : <Button disabled={ user.name === name } onClick={ handleNameChange } variant="contained" color={ 'primary' }>
             Save Name
         </Button> }
         <br/>
