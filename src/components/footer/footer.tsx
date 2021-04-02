@@ -14,7 +14,7 @@ const Footer = () => {
                         <div className="FooterLinkItems">
                             {
                                 footers.map((footer) =>
-                                    <div className="FooterLink" onClick={ () => {
+                                    <div className="FooterLink" key={footer} onClick={ () => {
                                         history.push(footer.toLowerCase())
                                     } }>{ footer.toUpperCase() }</div>
                                 )

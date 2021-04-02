@@ -3,28 +3,31 @@ import { CourseCard } from "../components/course-card/course-card";
 import { AllCoursesContext } from "../contexts/all-courses";
 import { Product } from "../models/product";
 import { Loader } from "../components/loader/loader";
+import { fetchAllCourses } from "../controllers/courses-controller";
+import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 
 export const Explore = () => {
     const { allCourses, setAllCourses }: {
         allCourses: Product[],
         setAllCourses: React.Dispatch<React.SetStateAction<Product[]>>
     } = useContext(AllCoursesContext);
+    const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
 
     useEffect(() => {
         if ( allCourses.length === 0 ) {
-            setTimeout(() => setAllCourses([ new Product(
-                '1', 'bruh', [], '', {
-                    duration: '1 ghnta',
-                    faculty: ' bruh',
-                    participantLevel: "Level – 0 / Lower-level Managers",
-                    studyMaterial: [ 'bruhible' ],
-                    competenciesDevelopment: [ 'u be a bruh' ],
-                    contents: [ 'Be a bruh' ],
-                    fee: 'Get us laid'
-                }
-            ) ]), 2000);
+            ( async () => {
+                const allCoursesResponse = await fetchAllCourses();
+                if ( typeof allCoursesResponse === 'string' ) {
+                    setSnackbarDefinition({
+                        visible: true,
+                        severity: 'error',
+                        message: allCoursesResponse
+                    });
+                } else
+                    setAllCourses(allCoursesResponse);
+            } )();
         }
-    }, [ allCourses, setAllCourses ]);
+    }, [ allCourses, setAllCourses, setSnackbarDefinition ]);
 
     return <>
         <h1 style={ { marginTop: '7rem' } }>

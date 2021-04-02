@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Individual } from "../models/individual";
 import { AuthContext } from "./auth";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { getLoggedInUser } from "../controllers/auth-controller";
 
 export const UserDetailsContext = React.createContext(null);

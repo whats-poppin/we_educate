@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 export type SessionEvent = {
     startTime: firebase.firestore.Timestamp,

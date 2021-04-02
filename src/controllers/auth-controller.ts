@@ -1,5 +1,5 @@
 import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
 
 export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
