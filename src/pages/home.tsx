@@ -7,7 +7,6 @@ import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { fetchAllCourses } from "../controllers/courses-controller";
 import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
-import { Loader } from "../components/loader/loader";
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
@@ -21,7 +20,7 @@ const Home = () => {
 
     useEffect(() => {
         if ( allCourses.length === 0 ) {
-            (async () => {
+            ( async () => {
                 const allCoursesResponse = await fetchAllCourses();
                 if ( typeof allCoursesResponse === 'string' ) {
                     setSnackbarDefinition({
@@ -31,7 +30,7 @@ const Home = () => {
                     });
                 } else
                     setAllCourses(allCoursesResponse);
-            })();
+            } )();
         }
     }, [ allCourses, setAllCourses, setSnackbarDefinition ]);
 
@@ -44,8 +43,7 @@ const Home = () => {
 
     return <>
         <Jumbotron/>
-        { allCourses.length >= 1 ?
-            <Explore ref={ exploreRef }/> : <Loader/> }
+        <Explore ref={ exploreRef }/>
         <Footer/>
     </>
 }

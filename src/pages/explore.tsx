@@ -4,6 +4,7 @@ import { AllCoursesContext } from "../contexts/all-courses";
 import { Product } from "../models/product";
 import { Container } from "@material-ui/core";
 import { Col, Row } from "react-bootstrap";
+import { Loader } from "../components/loader/loader";
 
 export const Explore = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     const { allCourses }: {
@@ -14,14 +15,15 @@ export const Explore = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
         <h1 style={ { marginTop: '7rem' } }>
             Explore
         </h1>
-        <Container>
-            <Row className={ 'justify-content-md-center' }>
-                { allCourses.map((course, idx) =>
-                    <Col style={ { flexGrow: 0 } } key={ idx }>
-                        <CourseCard course={ course }/>
-                    </Col>
-                ) }
-            </Row>
-        </Container>
+        { allCourses.length >= 1 ?
+            <Container>
+                <Row className={ 'justify-content-md-center' }>
+                    { allCourses.map((course, idx) =>
+                        <Col style={ { flexGrow: 0 } } key={ idx }>
+                            <CourseCard course={ course }/>
+                        </Col>
+                    ) }
+                </Row>
+            </Container> : <Loader/> }
     </div>;
 });

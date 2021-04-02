@@ -5,13 +5,19 @@ import { fetchAllCourses } from "../controllers/courses-controller";
 import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { Product } from "../models/product";
 import { Loader } from "../components/loader/loader";
+import { UserDetailsContext } from "../contexts/user-details";
+import { Accordion, AccordionDetails, Typography } from "@material-ui/core";
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import { BiDownArrow } from "react-icons/all";
 
 export const Course = () => {
     const location = useLocation();
     const history = useHistory();
+    const { user } = useContext(UserDetailsContext);
     const { allCourses, setAllCourses } = useContext(AllCoursesContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ selectedCourse, setSelectedCourse ] = useState<Product>(null);
+    const [ ownedCourse, setOwnedCourse ] = useState(false);
 
     useEffect(() => {
         if ( allCourses.length === 0 ) {
@@ -37,10 +43,31 @@ export const Course = () => {
                     break;
                 }
             }
+            const ownedCourse = ( () => user?.product.includes(id) )();
+            setOwnedCourse(ownedCourse);
         }
-    }, [ allCourses, location, setSnackbarDefinition, setAllCourses, history ]);
+    }, [ allCourses, location, setSnackbarDefinition, setAllCourses, history, user ]);
 
-    return selectedCourse ? <div style={ { marginTop: '20rem' } }>
-        Course { selectedCourse.name }
-    </div> : <Loader/>;
+    return selectedCourse ?
+        <>
+            <h2 style={ { marginTop: '20rem' } }>
+                { selectedCourse.name }
+            </h2>
+            { ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
+                <AccordionSummary
+                    expandIcon={ <BiDownArrow/> }
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>Events</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion> : null }
+        </>
+        : <Loader/>;
 };
