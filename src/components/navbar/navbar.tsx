@@ -1,46 +1,47 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
-import {Form, Nav,} from "react-bootstrap";
+import { Form, Nav, } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css';
 import './navbar.css';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {ProfileDropdown} from "../profile-dropdown/profile-dropdown";
-import {SearchBar, SearchField} from "../search-bar/search-bar";
-import {UserDetailsContext} from "../../contexts/user-details";
+import { ProfileDropdown } from "../profile-dropdown/profile-dropdown";
+import { SearchBar, SearchField } from "../search-bar/search-bar";
+import { UserDetailsContext } from "../../contexts/user-details";
 
 const RenderBrand = () => {
     const history = useHistory();
     return <>
-        <Navbar.Brand onClick={() => {
+        <Navbar.Brand onClick={ () => {
             history.push('/')
-        }}>
-            <img src={brand_logo} alt="logo" className="brand_logo"/>
+        } }>
+            <img src={ brand_logo } alt="logo" className="brand_logo"/>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
     </>;
 };
 
 const RenderLinks: React.FC = () => {
-    const tabs = ['explore', 'my-courses'];
     const history = useHistory();
-    const {user} = useContext(UserDetailsContext);
+    const { user } = useContext(UserDetailsContext);
 
     return <>
-        {tabs.map((tab) =>
-            <Nav.Link key={tab} onClick={async () => {
-                if ((user && tab !== 'auth') || !user)
-                    history.push(`/${tab}`);
-            }}>
-                {tab.toUpperCase().replaceAll('-', ' ')}
-            </Nav.Link>
-        )}
-        {!user ? <Nav.Link key={'auth'} onClick={async () => {
+        <Nav.Link onClick={ async () => history.push('/my-courses') }>
+            MY COURSES
+        </Nav.Link>
+        <Nav.Link onClick={ async () => history.push({
+            pathname: `/`,
+            state: { showExplore: true }
+        }) }>
+            EXPLORE
+        </Nav.Link>
+
+        { !user ? <Nav.Link key={ 'auth' } onClick={ async () => {
                 history.push(`auth`);
-            }}>
+            } }>
                 LOGIN </Nav.Link> :
-            <ProfileDropdown/>}
+            <ProfileDropdown/> }
     </>
 };
 

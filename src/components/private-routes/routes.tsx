@@ -5,7 +5,6 @@ import { Profile } from "../../pages/profile";
 import { AuthLayout } from "../auth-layout/auth-layout";
 import { UserDetailsContext } from "../../contexts/user-details";
 import Home from "../../pages/home";
-import { Explore } from "../../pages/explore";
 import { Course } from "../../pages/course";
 import { About } from "../../pages/about";
 import { TnC } from "../../pages/tnc";
@@ -14,7 +13,6 @@ export const Routes = () => {
     const { user } = useContext(UserDetailsContext);
     return <>
         <Route path="/" component={ Home } exact/>
-        <Route path="/explore" component={ Explore } exact/>
         <Route path={ "/course" } component={ Course } exact/>
         <Route path={ "/about" } component={ About } exact/>
         <Route path={ "/t&c" } component={ TnC } exact/>

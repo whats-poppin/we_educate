@@ -4,7 +4,7 @@ import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/all";
 import { useHistory } from 'react-router-dom';
 
 const Footer = () => {
-    const footers = [ 'About', 'Explore', 'T&C' ];
+    const footers = [ 'About', 'T&C' ];
     const history = useHistory();
     return (
         <div className="FooterContainer">
@@ -14,7 +14,7 @@ const Footer = () => {
                         <div className="FooterLinkItems">
                             {
                                 footers.map((footer) =>
-                                    <div className="FooterLink" key={footer} onClick={ () => {
+                                    <div className="FooterLink" key={ footer } onClick={ () => {
                                         history.push(footer.toLowerCase())
                                     } }>{ footer.toUpperCase() }</div>
                                 )
