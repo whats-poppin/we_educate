@@ -1,0 +1,9 @@
+.course{
+    /*background: #BFBEBD;*/
+    background: rgba(191, 190, 189, 0.5);
+}
+
+.course img {
+    padding: 0.35rem;
+    border-radius: 10px;
+}
