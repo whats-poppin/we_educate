@@ -14,6 +14,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
         try {
             const individual: Individual = new Individual(
                 userAuth.user.uid,
+                '',
                 { active: [], cancelled: [], expired: [] },
                 '',
                 name,

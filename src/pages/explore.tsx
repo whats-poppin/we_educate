@@ -16,7 +16,7 @@ export const Explore = () => {
                 '1', 'bruh', [], '', {
                     duration: '1 ghnta',
                     faculty: ' bruh',
-                    participants: "Level – 0 / Lower-level Managers",
+                    participantLevel: "Level – 0 / Lower-level Managers",
                     studyMaterial: [ 'bruhible' ],
                     competenciesDevelopment: [ 'u be a bruh' ],
                     contents: [ 'Be a bruh' ],

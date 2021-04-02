@@ -2,6 +2,7 @@ import { ISubscriptionId } from "../interfaces/subscription-id";
 
 export class Individual {
     id: string;
+    roles: string;
     subscriptionIds: ISubscriptionId; // Subscription[]
     organisationId: string; // if no org then null
     name: string;
@@ -13,6 +14,7 @@ export class Individual {
 
     constructor(
         id: string,
+        roles: string,
         subscriptionIds: ISubscriptionId, // Subscription[]
         organisationId: string, // if no org then null
         name: string,
@@ -22,6 +24,7 @@ export class Individual {
         createdAt: Date,
         meta: Object) {
         this.id = id;
+        this.roles = roles;
         this.transactionIds = transactionIds;
         this.subscriptionIds = subscriptionIds;
         this.organisationId = organisationId;
