@@ -4,6 +4,8 @@ import { UserDetailsContext } from "../../contexts/user-details";
 import { useHistory } from 'react-router-dom';
 import ReactCardFlip from "react-card-flip";
 import { Button } from '@material-ui/core';
+import {Card} from "react-bootstrap";
+import "./course-card.css";
 
 export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course }) => {
     const { user } = useContext(UserDetailsContext);
@@ -13,22 +15,39 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
     const ownedCourse: boolean = ( () => user?.product.includes(course.id) )();
 
     return <ReactCardFlip isFlipped={ isFlipped }>
-        <>
-            { course.name }
-            <br/>
-            <Button onClick={ () => setIsFlipped(!isFlipped) }>
-                Flip
-            </Button>
-        </>
-        <>
-            <Button onClick={ () => setIsFlipped(!isFlipped) }>
-                Flip
-            </Button>
-            <h3 onClick={ () => {
-                history.push(`/course?id=${ course.id }`)
-            } }>
-                { ownedCourse ? 'Go to course' : 'know more' }
-            </h3>
-        </>
+        <div>
+            <Card style = {{height: '25rem', width: '22rem'}}
+                  className="course"
+                  onClick={ () => setIsFlipped(!isFlipped) }
+            >
+                <Card.Img variant="top" src={course.imgUrl} />
+                <Card.Body>
+                    <Card.Title style = {{fontWeight: 'bold', padding: '0.7rem 0 0.7rem 0'}}>{ course.name  }</Card.Title>
+                    <Card.Text>
+                        Some quick example text to build on the card title and make up the bulk of
+                        the card's content.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </div>
+        <div>
+            <Card style = {{height: '25rem', width: '22rem'}}
+                  className="course"
+                  onClick={ () => setIsFlipped(!isFlipped) }
+            >
+                <Card.Img variant="top" src={course.imgUrl} />
+                <Card.Body>
+                    <Card.Title style = {{fontWeight: 'bold'}}>{ course.name }</Card.Title>
+                    <Card.Text>
+                        <Button
+                            onClick={ () => {
+                            history.push(`/course?id=${ course.id }`)
+                        }} >
+                            { ownedCourse ? 'Go to course' : 'know more' }
+                        </Button>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </div>
     </ReactCardFlip>;
 });
