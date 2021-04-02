@@ -4,10 +4,10 @@ import { AuthContext } from "./auth";
 import firebase from 'firebase/app';
 import { getLoggedInUser } from "../controllers/auth-controller";
 
-export const UserDetailsContext = React.createContext(null);
+export const UserDetailsContext = React.createContext<{ user: Individual | null, setUser: React.Dispatch<React.SetStateAction<Individual>> }>(null);
 
 export const UserDetailsProvider: React.FC = ({ children }) => {
-    const [ user, setUser ] = useState<Individual | undefined>(null);
+    const [ user, setUser ] = useState<Individual>(null);
     const { authStatus }: { authStatus: firebase.User } = useContext(AuthContext);
 
     useEffect(() => {

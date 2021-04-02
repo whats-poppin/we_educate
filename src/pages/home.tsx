@@ -21,7 +21,6 @@ const Home = () => {
 
     useEffect(() => {
         if ( allCourses.length === 0 ) {
-            console.log('a');
             (async () => {
                 const allCoursesResponse = await fetchAllCourses();
                 if ( typeof allCoursesResponse === 'string' ) {
