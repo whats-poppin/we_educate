@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import React, { useContext } from "react";
 import { MyCourses } from "../../pages/my-courses";
 import { Profile } from "../../pages/profile";
@@ -11,7 +11,7 @@ import { TnC } from "../../pages/tnc";
 
 export const Routes = () => {
     const { user } = useContext(UserDetailsContext);
-    return <>
+    return <Switch>
         <Route path="/" component={ Home } exact/>
         <Route path={ "/course" } component={ Course } exact/>
         <Route path={ "/about" } component={ About } exact/>
@@ -22,6 +22,6 @@ export const Routes = () => {
             !user ? <Redirect to='/auth'/> : <MyCourses/> } exact/>
         <Route path={ "/profile" } render={ () =>
             !user ? <Redirect to='/auth'/> : <Profile/> } exact/>
-        <Redirect to='/'/>
-    </>
+        <Route component={ Home }/>
+    </Switch>
 };

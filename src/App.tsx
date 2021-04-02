@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "./utils/theme";
 import { AuthProvider } from "./contexts/auth";
@@ -20,9 +20,7 @@ const App = () => {
                         <AllCoursesProvider>
                             <Router>
                                 <NavB/>
-                                <Switch>
-                                    <Routes/>
-                                </Switch>
+                                <Routes/>
                             </Router>
                         </AllCoursesProvider>
                     </UserDetailsProvider>
