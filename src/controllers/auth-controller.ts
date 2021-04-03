@@ -18,7 +18,6 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
                 { active: [], cancelled: [], expired: [] },
                 '',
                 name,
-                [],
                 email,
                 [],
                 createdAt,
