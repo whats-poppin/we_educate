@@ -9,6 +9,7 @@ import { UserDetailsContext } from "../contexts/user-details";
 import { Accordion, AccordionDetails, Typography } from "@material-ui/core";
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { BiDownArrow } from "react-icons/all";
+import { decipher } from "../utils/encrypt-decrypt";
 
 export const Course = () => {
     const location = useLocation();
@@ -18,6 +19,7 @@ export const Course = () => {
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ selectedCourse, setSelectedCourse ] = useState<Product>(null);
     const [ ownedCourse, setOwnedCourse ] = useState(false);
+    const myDecipher = decipher(process.env.REACT_APP_M_NHI_BTAUNGA);
 
     useEffect(() => {
         if ( allCourses.length === 0 ) {
@@ -59,13 +61,15 @@ export const Course = () => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography>Events</Typography>
+                    <Typography>
+                        Events
+                    </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                        sit amet blandit leo lobortis eget.
-                    </Typography>
+                    { selectedCourse.events.map((e) =>
+                        <Typography>
+                            { myDecipher(e.joinLink) }
+                        </Typography>) }
                 </AccordionDetails>
             </Accordion> : null }
         </>
