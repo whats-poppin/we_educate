@@ -41,19 +41,21 @@ const EditProfile = () => {
     };
 
     const handleNameChange = async () => {
-        const isChanged = await updateName(name);
-        if ( isChanged ) {
-            setUser({ ...user, name });
-            setSnackbarDefinition({
+        if (user.name !== name) {
+            const isChanged = await updateName(name);
+            if ( isChanged ) {
+                setUser({ ...user, name });
+                setSnackbarDefinition({
+                    visible: true,
+                    severity: 'success',
+                    message: "Successfully updated name"
+                });
+            } else setSnackbarDefinition({
                 visible: true,
-                severity: 'success',
-                message: "Successfully updated name"
+                severity: 'error',
+                message: "Error in updating name"
             });
-        } else setSnackbarDefinition({
-            visible: true,
-            severity: 'error',
-            message: "Error in updating name"
-        });
+        }
     };
 
     return <div>
@@ -67,13 +69,13 @@ const EditProfile = () => {
             value={ name }
             variant="outlined"/>
         { notSmall ? <Tooltip title="Save Name" placement="right">
-            <IconButton onClick={ handleNameChange } size={ 'small' } disabled={ user.name === name }
+            <IconButton onClick={ handleNameChange } size={ 'small' }
                         style={ {
                             marginTop: '2rem',
                             marginLeft: '5px',
                             backgroundColor: colors.lightGrey
                         } }>
-                <TiTick title={ "Save Name" }/>
+                <TiTick/>
             </IconButton>
         </Tooltip> : <Button disabled={ user.name === name } onClick={ handleNameChange } variant="contained"
                              color={ 'primary' }>

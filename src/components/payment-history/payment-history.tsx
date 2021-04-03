@@ -13,23 +13,28 @@ const PaymentHistory = () => {
 
 
     useEffect(() => {
-        ( async () => {
-            const transactionResponse = await getUserTransactions(user.id);
-            if ( typeof transactionResponse === 'string' ) {
-                setSnackbarDefinition({
-                    severity: 'error',
-                    message: transactionResponse,
-                    visible: true
-                });
-            } else {
-                setTransactions(transactionResponse as Transaction[]);
-            }
-        } )();
-        return;
-    }, []);
+        let mounted = true;
+        if ( transactions === null )
+            ( async () => {
+                const transactionResponse = await getUserTransactions(user.id);
+                if ( typeof transactionResponse === 'string' ) {
+                    setSnackbarDefinition({
+                        severity: 'error',
+                        message: transactionResponse,
+                        visible: true
+                    });
+                } else {
+                    if ( mounted )
+                        setTransactions(transactionResponse as Transaction[]);
+                }
+            } )();
+        return () => {
+            mounted = false;
+        }
+    }, [ user, setSnackbarDefinition, transactions ]);
 
     return <div>
-        Payment Methods Template
+        Payment History
         { transactions ? transactions.length > 0 ? transactions.map((transaction: Transaction) =>
                 <TransactionCard transaction={ transaction }/>)
             : <h3>
