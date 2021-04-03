@@ -7,7 +7,7 @@ const Footer = () => {
     const footers = [ 'About', 'T&C' ];
     const history = useHistory();
     return (
-        <div className="FooterContainer">
+        <div className="FooterContainer" >
             <div className="FooterWrap">
                 <div className="FooterLinksContainer">
                     <div className="FooterLinksWrapper">

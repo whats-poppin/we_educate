@@ -3,8 +3,7 @@ import { Product } from "../../models/product";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { useHistory } from 'react-router-dom';
 import ReactCardFlip from "react-card-flip";
-import { Button } from '@material-ui/core';
-import {Card} from "react-bootstrap";
+import { Button,Card } from 'react-bootstrap';
 import "./course-card.css";
 
 export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course }) => {
@@ -31,7 +30,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
             </Card>
         </div>
         <div>
-            <Card style = {{height: '25rem', width: '22rem'}}
+            <Card style = {{height: '25rem', width: '22rem' }}
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
@@ -39,12 +38,14 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                 <Card.Body>
                     <Card.Title style = {{fontWeight: 'bold'}}>{ course.name }</Card.Title>
                     <Card.Text>
-                        <Button
-                            onClick={ () => {
-                            history.push(`/course?id=${ course.id }`)
-                        }} >
-                            { ownedCourse ? 'Go to course' : 'know more' }
-                        </Button>
+                        <div className="card-button">
+                            <Button variant="dark"
+                                onClick={ () => {
+                                history.push(`/course?id=${ course.id }`)
+                            }} >
+                                { ownedCourse ? 'Go to course' : 'know more' }
+                            </Button>
+                        </div>
                     </Card.Text>
                 </Card.Body>
             </Card>
