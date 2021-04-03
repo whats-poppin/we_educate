@@ -11,6 +11,22 @@ import { UserDetailsProvider } from "./contexts/user-details";
 import { Routes } from "./components/private-routes/routes";
 import { AllCoursesProvider } from "./contexts/all-courses";
 
+export const loadScript = (src: string) => {
+    return new Promise((resolve) => {
+        const script = document.createElement('script')
+        script.src = src
+        script.onload = () => {
+            resolve(true)
+        }
+        script.onerror = () => {
+            resolve(false)
+        }
+        document.body.appendChild(script)
+    });
+};
+
+export const __DEV__ = document.domain === 'localhost';
+
 const App = () => {
     return <ErrorBoundary>
         <ThemeProvider theme={ theme }>

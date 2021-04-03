@@ -41,32 +41,35 @@ app.get('/logo.svg', (req, res) => {
 // })
 
 app.post('/razorpay', async (req, res) => {
-    const idToPrices = {
-        "mcLd9L85pFBPJKAk8DpC": 10000,
-    };
+    if (req.body.courseId && req.body.qty) {
+        const idToPrices = {
+            "mcLd9L85pFBPJKAk8DpC": 10000,
+        };
+        const payment_capture = true;
+        const amount = idToPrices[req.body.courseId];
+        const currency = 'INR';
 
-    const payment_capture = 1;
-    const amount = idToPrices[req.body.courseId];
-    const currency = 'INR';
+        const options = {
+            amount: amount * 100 * req.body.qty,
+            currency,
+            receipt: shortid.generate(),
+            payment_capture
+        };
 
-    const options = {
-        amount: amount * 100 * req.body.qty,
-        currency,
-        receipt: shortid.generate(),
-        payment_capture
-    };
-
-    try {
-        const response = await razorpay.orders.create(options);
-        console.log(response);
-        res.json({
-            status: "success",
-            response,
-            message: "Successfully created the order."
-        });
-    } catch (error) {
-        console.log(error);
-        res.json({status: 'failed', message: error.message})
+        try {
+            const response = await razorpay.orders.create(options);
+            res.json({
+                status: "success",
+                response,
+                message: "Successfully created the order."
+            });
+        } catch (error) {
+            console.log(error);
+            res.json({status: 'failed', message: error.message})
+        }
+    } else {
+        console.log(req.body);
+        res.json({status: 'failed', message: "Missing required parameters."})
     }
 });
 

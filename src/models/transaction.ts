@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+
 export class Transaction {
     id: string;
     userId: string;
@@ -5,8 +7,8 @@ export class Transaction {
     razorpayId: string;
     successful: boolean;
     refundRequested: boolean;
-    refundStatus: boolean;
-    date: Date;
+    refundStatus: 'Not Initiated' | 'Processing' | 'Refunded';
+    date: firebase.firestore.Timestamp;
     totalAmount: number;
     meta: Object;
 
@@ -16,8 +18,8 @@ export class Transaction {
                 razorpayId: string,
                 successful: boolean,
                 refundRequested: boolean,
-                refundStatus: boolean,
-                date: Date,
+                refundStatus: 'Not Initiated' | 'Processing' | 'Refunded',
+                date: firebase.firestore.Timestamp,
                 totalAmount: number,
                 meta: Object) {
         this.id = id;
