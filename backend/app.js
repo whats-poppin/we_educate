@@ -64,11 +64,9 @@ app.post('/razorpay', async (req, res) => {
                 message: "Successfully created the order."
             });
         } catch (error) {
-            console.log(error);
             res.json({status: 'failed', message: error.message})
         }
     } else {
-        console.log(req.body);
         res.json({status: 'failed', message: "Missing required parameters."})
     }
 });
