@@ -37,6 +37,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
 export const login = async (event: any, email: string, password: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.signInWithEmailAndPassword(email, password);
         return await getLoggedInUser(result.user.uid);
     } catch ( error ) {
@@ -56,6 +57,7 @@ export const getLoggedInUser = async (uid: string): Promise<Individual | string>
 export const signup = async (event: any, email: string, password: string, displayName: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.createUserWithEmailAndPassword(email, password);
         return await createUserProfileDocument(result, displayName);
     } catch ( e ) {
@@ -66,6 +68,7 @@ export const signup = async (event: any, email: string, password: string, displa
 export const socialAuth = async (provider: string): Promise<Individual | string> => {
     try {
         let result: firebase.auth.UserCredential;
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         if ( provider === 'google' ) {
             result = await auth.signInWithPopup(googleAuthProvider);
         } else {
