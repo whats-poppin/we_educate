@@ -6,7 +6,7 @@ import {Button, Table} from "react-bootstrap";
 export const OrganisationDetails = () => {
     return (
         <>
-            <Table  size="sm">
+            <Table responsive>
                 <thead>
                 <tr>
                     <th>#</th>
@@ -26,12 +26,11 @@ export const OrganisationDetails = () => {
                 </tr>
                 </tbody>
             </Table>
-            <Button
-                style={{marginLeft: "65vw", marginTop: "5vh"}}
-                variant="danger"
-            >
-                Leave organisation
-            </Button>
+            <div style = {{display: "flex", justifyContent: "center"}}>
+                <Button variant="danger">
+                    Leave organisation
+                </Button>
+            </div>
         </>
     );
 };
