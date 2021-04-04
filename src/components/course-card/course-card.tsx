@@ -43,7 +43,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                                 onClick={ () => {
                                 history.push(`/course?id=${ course.id }`)
                             }} >
-                                { ownedCourse ? 'Go to course' : 'know more' }
+                                { ownedCourse ? 'Go to course' : 'KNOW MORE' }
                             </Button>
                         </div>
                     </Card.Text>

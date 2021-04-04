@@ -18,16 +18,16 @@ export const MyCourses = () => {
         return courses;
     } )();
 
-    return <div style={ { display: 'grid', placeItems: 'center', padding: '1rem' } }>
-        <h2 style={ { marginTop: '7rem', marginBottom: '3rem' } }>
-            My Courses
-        </h2>
+    return <div style={ { display: 'grid', placeItems: 'center', padding: '5rem' } }>
+        {/*<h2 style={ { marginTop: '7rem', marginBottom: '3rem' } }>*/}
+        {/*    My Courses*/}
+        {/*</h2>*/}
         { user.product.length > 0
             ? userCourses.map((course, idx) =>
                 <CourseCard key={ idx } course={ course }/>)
             : <div style={ { display: 'grid', placeItems: 'center' } }>
                 <h4 style={ { marginBottom: '1.5rem' } }>
-                    It looks you don't have any courses :-(
+                    It looks like you don't have any courses
                 </h4>
                 <Button variant={ 'contained' } color={ 'primary' }
                         onClick={ () => history.push({ pathname: `/`, state: { showExplore: true } }) }>
