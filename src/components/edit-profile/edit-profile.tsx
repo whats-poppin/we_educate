@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Accordion } from "react-bootstrap";
-import { Button, IconButton, TextField } from "@material-ui/core";
+import { Button, CircularProgress, IconButton, TextField } from "@material-ui/core";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { auth } from "../../firebase";
@@ -18,12 +18,14 @@ const EditProfile = () => {
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const notSmall = useMediaQuery('(min-width:352px)');
 
+    const [ loading, setLoading ] = useState(false);
     const [ name, setName ] = useState(user.name);
     const [ confirmPassword, setConfirmPassword ] = useState('');
     const [ newPassword, setNewPassword ] = useState('');
     const [ password, setPassword ] = useState('');
 
     const handlePasswordChange = async () => {
+        setLoading(true);
         const resultMessage = await changePassword(password, newPassword);
         if ( resultMessage === 'success' ) {
             setSnackbarDefinition({
@@ -38,10 +40,11 @@ const EditProfile = () => {
                 message: resultMessage
             });
         }
+        setLoading(false);
     };
 
     const handleNameChange = async () => {
-        if (user.name !== name) {
+        if ( user.name !== name ) {
             const isChanged = await updateName(name);
             if ( isChanged ) {
                 setUser({ ...user, name });
@@ -120,7 +123,7 @@ const EditProfile = () => {
                         <br/>
                         <Button variant="outlined" disabled={ confirmPassword !== newPassword }
                                 onClick={ handlePasswordChange }>
-                            Submit
+                            { !loading ? 'Submit' : <CircularProgress/> }
                         </Button>
                     </>
                 </Accordion.Collapse>

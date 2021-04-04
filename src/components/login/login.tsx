@@ -2,7 +2,7 @@ import { useLoginSignupStyles } from "../../utils/component-styles/login-signup"
 import React, { useContext, useState } from "react";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { FaFacebookF, FaGoogle } from "react-icons/all";
-import { Button, TextField } from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { forgotPassword, login, socialAuth } from "../../controllers/auth-controller";
 import { useHistory } from "react-router-dom";
 import { Individual } from "../../models/individual";
@@ -13,6 +13,7 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const { setUser } = useContext(UserDetailsContext);
     const history = useHistory();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
+    const [ loading, setLoading ] = useState(false);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
 
@@ -84,8 +85,14 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
             margin={ "normal" }
             label="Password"
             type="password"
+            helperText={'*Length should be greater than 7'}
             variant="outlined"/>
-        <div style={ { paddingTop: 20, textDecoration: 'none', color: '#333333', cursor: 'pointer' } as React.CSSProperties }
+        <div style={ {
+            paddingTop: 20,
+            textDecoration: 'none',
+            color: '#333333',
+            cursor: 'pointer'
+        } as React.CSSProperties }
              onClick={ async () => {
                  if ( !email ) {
                      setSnackbarDefinition({
@@ -112,13 +119,15 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
             Forgot your password?
         </div>
         <Button variant="contained" color="primary"
-                disabled={ !( !validateEmail() && password.length >= 8 ) }
+                disabled={ !( !validateEmail() && password.length >= 8 ) && loading }
                 onClick={ async (event) => {
+                    setLoading(true);
                     const result = await login(event, email, password);
                     checkResult(result);
+                    setLoading(false);
                 } }
                 className={ classes.button }>
-            Sign In
+            { !loading ? 'Sign In' : <CircularProgress/> }
         </Button>
         {
             notMedium ? ""

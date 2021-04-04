@@ -8,7 +8,6 @@ import DeleteAccount from "../delete-account/delete-account";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
-import { Organisation } from "../../models/organisation";
 
 const AccordianProfile = () => {
     const name = ( useContext(UserDetailsContext).user as Individual ).name;
