@@ -1,24 +1,26 @@
+import firebase from "firebase/app";
+
 export class Transaction {
     id: string;
+    userId: string;
     discount: string;
     razorpayId: string;
     successful: boolean;
     refundRequested: boolean;
-    refundStatus: boolean;
-    date: Date;
+    refundStatus: 'Not Initiated' | 'Processing' | 'Refunded';
+    date: firebase.firestore.Timestamp;
     totalAmount: number;
-    payableAmount: number;
     meta: Object;
 
     constructor(id: string,
+                userId: string,
                 discount: string,
                 razorpayId: string,
                 successful: boolean,
                 refundRequested: boolean,
-                refundStatus: boolean,
-                date: Date,
+                refundStatus: 'Not Initiated' | 'Processing' | 'Refunded',
+                date: firebase.firestore.Timestamp,
                 totalAmount: number,
-                payableAmount: number,
                 meta: Object) {
         this.id = id;
         this.discount = discount;
@@ -28,7 +30,6 @@ export class Transaction {
         this.refundStatus = refundStatus;
         this.date = date;
         this.totalAmount = totalAmount;
-        this.payableAmount = payableAmount;
         this.meta = meta;
     }
 }

@@ -1,5 +1,5 @@
 import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
 
 export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
@@ -14,6 +14,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
         try {
             const individual: Individual = new Individual(
                 userAuth.user.uid,
+                '',
                 { active: [], cancelled: [], expired: [] },
                 '',
                 name,
@@ -35,6 +36,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
 export const login = async (event: any, email: string, password: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.signInWithEmailAndPassword(email, password);
         return await getLoggedInUser(result.user.uid);
     } catch ( error ) {
@@ -54,6 +56,7 @@ export const getLoggedInUser = async (uid: string): Promise<Individual | string>
 export const signup = async (event: any, email: string, password: string, displayName: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.createUserWithEmailAndPassword(email, password);
         return await createUserProfileDocument(result, displayName);
     } catch ( e ) {
@@ -64,6 +67,7 @@ export const signup = async (event: any, email: string, password: string, displa
 export const socialAuth = async (provider: string): Promise<Individual | string> => {
     try {
         let result: firebase.auth.UserCredential;
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         if ( provider === 'google' ) {
             result = await auth.signInWithPopup(googleAuthProvider);
         } else {
@@ -83,35 +87,45 @@ export const signOut = async (): Promise<void | string> => {
     }
 };
 
-export const reauthenticate = (currentPassword: string) => {
+export const reauthenticate = (currentPassword?: string) => {
     try {
         const user = auth.currentUser;
-        const cred = firebase.auth.EmailAuthProvider.credential(
-            user.email, currentPassword);
-        return user.reauthenticateWithCredential(cred);
+        if ( user.providerData[0].providerId === 'password' ) {
+            const cred = firebase.auth.EmailAuthProvider.credential(
+                user.email, currentPassword);
+            return user.reauthenticateWithCredential(cred);
+        } else {
+            return user.reauthenticateWithPopup(user.providerData[0].providerId === 'google.com' ?
+                googleAuthProvider : facebookAuthProvider);
+        }
     } catch ( e ) {
         return false;
     }
 };
 
-export const changePassword = async (currentPassword: string, newPassword: string) => {
-    const isReauthencticated = await reauthenticate(currentPassword);
-    const user = auth.currentUser;
-    user.updatePassword(newPassword).then(() => {
-        console.log("Password updated!");
-    }).catch((error) => {
-        console.log(error);
-    });
+export const deleteAccount = async (currentPassword?: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.delete();
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
+        return e.message;
+    }
 };
-
-export const changeEmail = async (currentPassword: string, newEmail: string) => {
-    const isReauthencticated = await reauthenticate(currentPassword);
-    const user = auth.currentUser;
-    user.updateEmail(newEmail).then(() => {
-        console.log("Email updated!");
-    }).catch((error) => {
-        console.log(error);
-    });
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.updatePassword(newPassword)
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
+        return e.message;
+    }
 };
 
 export const forgotPassword = async (email: string): Promise<void | string> => {
