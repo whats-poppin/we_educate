@@ -103,6 +103,18 @@ export const reauthenticate = (currentPassword?: string) => {
     }
 };
 
+export const deleteAccount = async (currentPassword?: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.delete();
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
+        return e.message;
+    }
+};
 export const changePassword = async (currentPassword: string, newPassword: string): Promise<string> => {
     try {
         const isReAuthencticated = await reauthenticate(currentPassword);

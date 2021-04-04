@@ -16,6 +16,8 @@ export const UserDetailsProvider: React.FC = ({ children }) => {
                 const user = await getLoggedInUser(authStatus.uid);
                 setUser(user as Individual)
             } )()
+        } else {
+            setUser(null);
         }
     }, [ authStatus ]);
 

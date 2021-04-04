@@ -8,6 +8,26 @@ import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 
+export const SocialAuth = ({ checkResult }: { checkResult: (result: Individual | string) => void }) => {
+    const classes = useLoginSignupStyles();
+    return <div className={ classes.socialContainer }>
+        <div
+            onClick={ async () => {
+                const result = await socialAuth('facebook');
+                checkResult(result);
+            } } className={ classes.social }>
+             <FaFacebookF/>
+        </div>
+        <div
+            onClick={ async () => {
+                const result = await socialAuth('google');
+                checkResult(result);
+            } } className={ classes.social }>
+            <FaGoogle/>
+        </div>
+    </div>;
+}
+
 export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
@@ -48,20 +68,7 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Create Account</h1>
-        <div className={ classes.socialContainer }>
-            <div
-                onClick={ async () => {
-                    const result = await socialAuth('facebook');
-                    checkResult(result);
-                } } className={ classes.social }><FaFacebookF/>
-            </div>
-            <div
-                onClick={ async () => {
-                    const result = await socialAuth('google');
-                    checkResult(result);
-                } } className={ classes.social }><FaGoogle/>
-            </div>
-        </div>
+        <SocialAuth checkResult={ checkResult } />
 
         <span style={ { paddingTop: 20 } }>or use your email</span>
         <TextField className={ classes.input } id="outlined-basic"
