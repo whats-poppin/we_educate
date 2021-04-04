@@ -1,24 +1,26 @@
 import React, { useContext, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { signOut } from "../../controllers/auth-controller";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const ProfileDropdown: React.FC = () => {
     const history = useHistory();
     const [ showDropdown, setShowDropdown ] = useState(false);
+    const notMedium = useMediaQuery('(min-width:991px)');
     const { setUser } = useContext(UserDetailsContext);
 
-    return <Dropdown show={ showDropdown }
-                     navbar={ true }>
+    return notMedium ? <Dropdown show={ showDropdown }
+                                 navbar={ true }>
         <Dropdown.Toggle
             split={ false }
             style={ { height: 'min-content', background: "none", border: 'none' } }
             onClick={ () => setShowDropdown((prev) => !prev) }
         >
             <ProfileAvatar/>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={ { top: '121%', left: '-70px' } }>
                 <Dropdown.Item eventKey="1" onClick={ () => {
                     history.push('/profile');
                 } }>
@@ -33,5 +35,18 @@ export const ProfileDropdown: React.FC = () => {
                 </Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown.Toggle>
-    </Dropdown>
+    </Dropdown> : <>
+        <Nav.Link eventKey="1" onClick={ () => {
+            history.push('/profile');
+        } }>
+            PROFILE
+        </Nav.Link>
+        <Nav.Link eventKey="2" onClick={ async () => {
+            await signOut();
+            setUser(null);
+            history.push('/');
+        } }>
+            LOGOUT
+        </Nav.Link>
+    </>;
 };
