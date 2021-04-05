@@ -15,7 +15,7 @@ const WeCarousel = () => {
     };
     return (
         <>
-            <Carousel activeIndex={index} onSelect={handleSelect} interval={10000} pause={false}>
+            <Carousel activeIndex={index} onSelect={handleSelect} interval={5000} pause={false}  controls={false}>
                 <Carousel.Item>
                     <div className="car-wrap">
                         <img
@@ -48,7 +48,8 @@ const WeCarousel = () => {
                             src={books3}
                             alt="First slide"
                         />
-                        <p>programs are based on six I’s: Inquiry, Information, Inspire, Innovate, Implementation, and Impact. </p>
+                        <p>WE’s programs are based on six I’s: Inquiry, Information, Inspire, Innovate, Implementation,
+                            and Impact.</p>
 
                     </div>
                 </Carousel.Item>

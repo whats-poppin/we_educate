@@ -1,4 +1,5 @@
-p{
+.carousel-item p{
+    font-family: Lato, sans-serif;
     font-size: 1.5rem;
     text-align: center;
     color: black;
@@ -56,4 +57,24 @@ p{
     }
 }
 
+.carousel-indicators> li
+{
+    background-color: #965F5F;
+}
 
+.carousel-indicators > li:focus,
+.carousel-indicators > li:hover
+{
+    background-color: #731E1C;
+}
+
+.carousel-indicators > .active
+{
+    background-color: #731E1C !Important;
+}
+
+/*.pagination > .active > a:hover*/
+/*{*/
+/*    background-color: #5A4181 !Important;*/
+/*    border: solid 1px #5A4181;*/
+/*}*/
