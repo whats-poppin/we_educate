@@ -15,14 +15,14 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
 
     return <ReactCardFlip isFlipped={ isFlipped }>
         <div>
-            <Card style = {{height: '25rem', width: '22rem'}}
+            <Card style = {{height: '28rem', width: '22rem'}}
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
                 <Card.Img variant="top" src={course.imgUrl} />
                 <Card.Body>
-                    <Card.Title style = {{fontWeight: 'bold', padding: '0.7rem 0 0.7rem 0'}}>{ course.name  }</Card.Title>
-                    <Card.Text>
+                    <Card.Title style = {{fontWeight: 'bolder', padding: '0.8rem 0 1rem 0', fontSize: '1.14rem'}}>{ course.name  }</Card.Title>
+                    <Card.Text style={{fontSize: '1.2rem', fontFamily: 'Lato, sans-serif'}}>
                         Some quick example text to build on the card title and make up the bulk of
                         the card's content.
                     </Card.Text>
@@ -30,14 +30,14 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
             </Card>
         </div>
         <div>
-            <Card style = {{height: '25rem', width: '22rem' }}
+            <Card style = {{height: '28rem', width: '22rem' }}
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
                 <Card.Img variant="top" src={course.imgUrl} />
                 <Card.Body>
-                    <Card.Title style = {{fontWeight: 'bold'}}>{ course.name }</Card.Title>
-                    <Card.Text>
+                    <Card.Title style = {{fontWeight: 'bolder', padding: '0.8rem 0 1rem 0', fontSize: '1.14rem'}}>{ course.name }</Card.Title>
+                    <Card.Text >
                         <div className="card-button">
                             <Button variant="dark"
                                 onClick={ () => {
