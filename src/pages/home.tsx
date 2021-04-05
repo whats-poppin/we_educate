@@ -7,6 +7,7 @@ import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { fetchAllCourses } from "../controllers/courses-controller";
 import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
+import WeCarousel from "../components/carousel/we-carousel"
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
@@ -42,8 +43,11 @@ const Home = () => {
     }, [ location, exploreRef ])
 
     return <>
-        <Jumbotron/>
-        <Explore ref={ exploreRef }/>
+        <div className="home-body">
+            <Jumbotron/>
+            <WeCarousel/>
+            <Explore ref={ exploreRef }/>
+        </div>
         <Footer/>
     </>
 }

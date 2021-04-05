@@ -2,6 +2,7 @@
     /*background: #BFBEBD;*/
     background: rgba(191, 190, 189, 0.5);
     display: flex;
+    font-family: Montserrat, sans-serif;
 }
 
 .course img {
