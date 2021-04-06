@@ -15,7 +15,13 @@ const WeCarousel = () => {
     };
     return (
         <>
-            <Carousel activeIndex={index} onSelect={handleSelect} interval={5000} pause={false}  controls={false}>
+            <Carousel activeIndex={index}
+                      onSelect={handleSelect}
+                      interval={5000}
+                      pause={false}
+                      controls={false}
+                      touch={true}
+            >
                 <Carousel.Item>
                     <div className="car-wrap">
                         <img

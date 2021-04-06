@@ -12,14 +12,14 @@ export const Explore = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     } = useContext(AllCoursesContext);
 
     return <div ref={ ref }>
-        <h1 style={ { marginBottom: '3rem', textAlign: "center" , fontFamily: ' Montserrat, sans-serif'} }>
+        <h1 style={ { marginBottom: '3rem', textAlign: "center", fontFamily: ' Montserrat, sans-serif' } }>
             EXPLORE
         </h1>
         { allCourses.length >= 1 ?
             <Container>
                 <Row className={ 'justify-content-md-center' }>
                     { allCourses.map((course, idx) =>
-                        <Col style={ { flexGrow: 0 } } key={ idx }>
+                        <Col style={ { flexGrow: 0, margin: '1rem 0.5rem' } } key={ idx }>
                             <CourseCard course={ course }/>
                         </Col>
                     ) }
