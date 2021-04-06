@@ -33,39 +33,49 @@ export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, 
             })
         }).then((t) =>
         t.json()
-    );
+    ).catch(() => setSnackbarDefinition({
+        visible: true,
+        severity: 'error',
+        message: 'Something went wrong, please try again later.',
+    }));
 
-    if ( data.status === 'success' ) {
-        const options = {
-            key: __DEV__ ? 'rzp_test_TAfCw5zIu2X8dJ' : 'rzp_test_TAfCw5zIu2X8dJ',
-            currency: data.currency,
-            amount: data.response.amount.toString(),
-            order_id: data.id,
-            name: courseName,
-            description: 'Purchase and Start Learning',
-            image: 'http://localhost:3001/logo.svg',
-            handler: async (response: any) => {
-                await saveTransaction({
-                    razorpayId: response.razorpay_payment_id,
-                    userId,
-                    totalAmount: data.response.amount / 100
-                });
-                await onCoursePurchaseSuccess(courseId, userId);
-                setSnackbarDefinition({
-                    visible: true,
-                    severity: 'success',
-                    message: 'Successfully purchased the course'
-                });
-                setUser({ ...user, product: [ ...user.product, courseId ] })
-            },
-            prefill: {
-                name,
-                email
+    if ( data ) {
+        if ( data.status === 'success' ) {
+            const options = {
+                key: __DEV__ ? 'rzp_test_TAfCw5zIu2X8dJ' : 'rzp_test_TAfCw5zIu2X8dJ',
+                currency: data.currency,
+                amount: data.response.amount.toString(),
+                order_id: data.id,
+                name: courseName,
+                description: 'Purchase and Start Learning',
+                image: 'http://localhost:3001/logo.svg',
+                handler: async (response: any) => {
+                    await saveTransaction({
+                        razorpayId: response.razorpay_payment_id,
+                        userId,
+                        totalAmount: data.response.amount / 100
+                    });
+                    await onCoursePurchaseSuccess(courseId, userId);
+                    setSnackbarDefinition({
+                        visible: true,
+                        severity: 'success',
+                        message: 'Successfully purchased the course'
+                    });
+                    setUser({ ...user, product: [ ...user.product, courseId ] })
+                },
+                prefill: {
+                    name,
+                    email
+                }
             }
-        }
-        const _window = window as any;
-        const paymentObject = new _window.Razorpay(options)
-        paymentObject.open();
+            const _window = window as any;
+            const paymentObject = new _window.Razorpay(options)
+            paymentObject.open();
+        } else setSnackbarDefinition({
+            visible: true,
+            severity: 'error',
+            message: data.message,
+        });
     }
 };
 
@@ -133,19 +143,27 @@ export const Course = () => {
                 if ( !user ) {
                     history.push('/auth');
                 } else {
-                    DisplayRazorpay({
-                        courseName: selectedCourse.name,
-                        name: user.name,
-                        email: user.email,
-                        courseId: selectedCourse.id,
-                        qty: 1,
-                        userId: user.id,
-                        setSnackbarDefinition,
-                        setUser,
-                        user
-                    }).then(() => {
-                        console.log('Payment Intent Processed');
-                    });
+                    try {
+                        DisplayRazorpay({
+                            courseName: selectedCourse.name,
+                            name: user.name,
+                            email: user.email,
+                            courseId: selectedCourse.id,
+                            qty: 1,
+                            userId: user.id,
+                            setSnackbarDefinition,
+                            setUser,
+                            user
+                        }).then(() => {
+                            console.log('Payment Intent Processed');
+                        });
+                    } catch ( e ) {
+                        setSnackbarDefinition({
+                            message: e.message,
+                            severity: 'error',
+                            visibility: true
+                        });
+                    }
                 }
             } }>
                 Buy for { selectedCourse.meta.fee }

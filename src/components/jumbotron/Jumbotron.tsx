@@ -10,25 +10,12 @@ import Typist from 'react-typist';
 const Jumbotron = () => {
     const [count, setCount] = useState(1);
     useEffect(() => {
-        // document.title = `You clicked ${count} times`;
-        // console.log("Count: " + count);
         setCount(1);
     }, [count]);
     const notSmall = useMediaQuery('(min-width:500px)');
     return (
         <>
             <div className="container-grid">
-                {/*<div className="item">*/}
-                {/*    <h1>Committed to Excellence</h1>*/}
-                {/*    <p style={{fontWeight: 600}}>*/}
-                {/*        What is the purpose of Education?*/}
-                {/*        Enlightenment.*/}
-                {/*        <br/>*/}
-                {/*        What is the purpose of Management Education?*/}
-                {/*        <br/>*/}
-                {/*        Transformation - to make individuals think differently.*/}
-                {/*    </p>*/}
-                {/*</div>*/}
                 <img src={logo} alt="logo" id="logo" />
                 <p style={{marginTop: '2rem',
                     fontFamily: 'Montserrat, sans-serif',
@@ -40,7 +27,6 @@ const Jumbotron = () => {
                             <Typist.Backspace count={10} delay={800} />
                             <span> Committed to Excellence</span>
                             <Typist.Backspace count={23} delay={800} />
-                            {/*<span> second text that replaces is here</span>*/}
                         </Typist>
                     ) : (
                         ""
