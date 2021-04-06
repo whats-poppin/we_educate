@@ -2,14 +2,14 @@ import {ISubscriptionId} from '../interfaces/subscription-id';
 
 export class Organisation {
     id: string;
-    product: string[];
-    orgName: string;
+    product: string[];//
+    orgName: string;//
     subscriptionIds: ISubscriptionId;
     members: string[];
-    email: string;
+    email: string;//
     password: string;
     joinCode: number;
-    strength: number;
+    strength: number;//
     meta: Object;
 
     constructor(id: string,

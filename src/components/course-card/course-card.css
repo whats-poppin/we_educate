@@ -1,0 +1,17 @@
+.course {
+    /*background: #BFBEBD;*/
+    background: rgba(191, 190, 189, 0.5);
+    display: flex;
+    font-family: Montserrat, sans-serif;
+}
+
+.course img {
+    padding: 0.35rem;
+    border-radius: 10px;
+}
+
+.card-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -1,7 +1,7 @@
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 
-export const useLoginSignupStyles = makeStyles((theme: Theme) =>
+export const useLoginSignupStyles = makeStyles(() =>
     createStyles({
         h1: {
             fontWeight: 800
@@ -81,7 +81,7 @@ export const useLoginSignupStyles = makeStyles((theme: Theme) =>
             letterSpacing: '1px',
             textTransform: 'uppercase',
             transition: 'transform 80ms ease-in',
-            margin: '15px'
+            margin: '40px 15px 15px 15px'
         },
         overlayContainer: {
             position: 'absolute',

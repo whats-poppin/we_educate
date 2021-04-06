@@ -1,20 +1,21 @@
-import {auth, facebookAuthProvider, firestore, googleAuthProvider} from "../firebase";
-import firebase from 'firebase';
-import {Individual} from "../models/individual";
+import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
+import firebase from 'firebase/app';
+import { Individual } from "../models/individual";
 
 export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
-    if (!userAuth)
+    if ( !userAuth )
         return 'An error occurred, please try again later.';
-    const userRef = firestore.doc(`users/${userAuth.user.uid}`);
+    const userRef = firestore.doc(`users/${ userAuth.user.uid }`);
     const userSnapshot = await userRef.get();
-    if (!userSnapshot.exists) {
-        const {email} = userAuth.user;
+    if ( !userSnapshot.exists ) {
+        const { email } = userAuth.user;
         const name = displayName ?? userAuth.user.displayName;
         const createdAt = new Date();
         try {
             const individual: Individual = new Individual(
                 userAuth.user.uid,
-                {active: [], cancelled: [], expired: []},
+                '',
+                { active: [], cancelled: [], expired: [] },
                 '',
                 name,
                 email,
@@ -24,7 +25,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
             );
             await userRef.set(Object.assign({}, individual));
             return individual;
-        } catch (e) {
+        } catch ( e ) {
             return e.message;
         }
     } else {
@@ -35,18 +36,19 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
 export const login = async (event: any, email: string, password: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.signInWithEmailAndPassword(email, password);
         return await getLoggedInUser(result.user.uid);
-    } catch (error) {
+    } catch ( error ) {
         return error.message;
     }
 };
 
 export const getLoggedInUser = async (uid: string): Promise<Individual | string> => {
     try {
-        const userSnapshot = await firestore.doc(`users/${uid}`).get();
+        const userSnapshot = await firestore.doc(`users/${ uid }`).get();
         return userSnapshot.data() as Individual;
-    } catch (e) {
+    } catch ( e ) {
         return e.message;
     }
 };
@@ -54,9 +56,10 @@ export const getLoggedInUser = async (uid: string): Promise<Individual | string>
 export const signup = async (event: any, email: string, password: string, displayName: string): Promise<Individual | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.createUserWithEmailAndPassword(email, password);
         return await createUserProfileDocument(result, displayName);
-    } catch (e) {
+    } catch ( e ) {
         return e.message;
     }
 };
@@ -64,13 +67,14 @@ export const signup = async (event: any, email: string, password: string, displa
 export const socialAuth = async (provider: string): Promise<Individual | string> => {
     try {
         let result: firebase.auth.UserCredential;
-        if (provider === 'google') {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        if ( provider === 'google' ) {
             result = await auth.signInWithPopup(googleAuthProvider);
         } else {
             result = await auth.signInWithPopup(facebookAuthProvider);
         }
         return !result.additionalUserInfo.isNewUser ? await getLoggedInUser(result.user.uid) : await createUserProfileDocument(result);
-    } catch (e) {
+    } catch ( e ) {
         return e.message;
     }
 };
@@ -78,7 +82,48 @@ export const socialAuth = async (provider: string): Promise<Individual | string>
 export const signOut = async (): Promise<void | string> => {
     try {
         await auth.signOut();
-    } catch (e) {
+    } catch ( e ) {
+        return e.message;
+    }
+};
+
+export const reauthenticate = (currentPassword?: string) => {
+    try {
+        const user = auth.currentUser;
+        if ( user.providerData[0].providerId === 'password' ) {
+            const cred = firebase.auth.EmailAuthProvider.credential(
+                user.email, currentPassword);
+            return user.reauthenticateWithCredential(cred);
+        } else {
+            return user.reauthenticateWithPopup(user.providerData[0].providerId === 'google.com' ?
+                googleAuthProvider : facebookAuthProvider);
+        }
+    } catch ( e ) {
+        return false;
+    }
+};
+
+export const deleteAccount = async (currentPassword?: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.delete();
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
+        return e.message;
+    }
+};
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<string> => {
+    try {
+        const isReAuthencticated = await reauthenticate(currentPassword);
+        const user = auth.currentUser;
+        if ( isReAuthencticated ) {
+            await user.updatePassword(newPassword)
+            return 'success';
+        } else return 'Unknown Error Occurred!!';
+    } catch ( e ) {
         return e.message;
     }
 };
@@ -86,7 +131,7 @@ export const signOut = async (): Promise<void | string> => {
 export const forgotPassword = async (email: string): Promise<void | string> => {
     try {
         await auth.sendPasswordResetEmail(email);
-    } catch (e) {
+    } catch ( e ) {
         return e.message;
     }
 };
