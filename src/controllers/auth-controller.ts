@@ -10,7 +10,7 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
     if ( !userSnapshot.exists ) {
         const { email } = userAuth.user;
         const name = displayName ?? userAuth.user.displayName;
-        const createdAt = new Date();
+        const createdAt = firebase.firestore.Timestamp.fromDate(new Date());
         try {
             const individual: Individual = new Individual(
                 userAuth.user.uid,

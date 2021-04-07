@@ -1,4 +1,5 @@
 import { ISubscriptionId } from "../interfaces/subscription-id";
+import firebase from "firebase";
 
 export class Individual {
     id: string;
@@ -8,7 +9,7 @@ export class Individual {
     name: string;
     email: string;
     product: string[]; //Product[]
-    createdAt: Date;
+    createdAt: firebase.firestore.Timestamp;
     meta: Object;
 
     constructor(
@@ -19,7 +20,7 @@ export class Individual {
         name: string,
         email: string,
         product: string[], //Product[]
-        createdAt: Date,
+        createdAt: firebase.firestore.Timestamp,
         meta: Object) {
         this.id = id;
         this.roles = roles;

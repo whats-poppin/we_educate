@@ -1,6 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Accordion } from "react-bootstrap";
-import { Button, CircularProgress, IconButton, TextField } from "@material-ui/core";
+import {
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    CircularProgress,
+    IconButton,
+    TextField,
+    Typography
+} from "@material-ui/core";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { auth } from "../../firebase";
@@ -62,6 +71,26 @@ const EditProfile = () => {
     };
 
     return <div>
+        <Card>
+            <CardHeader
+                title="Profile Details"
+            />
+            <CardContent>
+                <Typography>
+                    Name:  { user.name }
+                </Typography>
+                <Typography>
+                    Email:  { user.email }
+                </Typography>
+                <Typography>
+                    Joined on:  {user.createdAt.toDate().toLocaleString()}
+                </Typography>
+                <Typography>
+                    { user.product.length === 0 ? 'Not enrolled in any course.' :
+                        `Enrolled in ${ user.product.length } ${ user.product.length === 1 ? 'program.' : 'programs.' }` }
+                </Typography>
+            </CardContent>
+        </Card>
         <TextField
             margin={ "normal" }
             label="Name"
