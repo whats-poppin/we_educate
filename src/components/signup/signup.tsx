@@ -108,8 +108,8 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                 onClick={ async (event) => {
                     setLoading(true);
                     const result = await signup(event, email, password, name);
-                    checkResult(result);
                     setLoading(false);
+                    checkResult(result);
                 } } className={ classes.button }>
             { !loading ? 'Sign Up' : <CircularProgress/> }
         </Button>

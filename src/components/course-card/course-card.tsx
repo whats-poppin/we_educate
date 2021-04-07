@@ -53,10 +53,11 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         fontSize: '1.14rem'
                     } }>{ course.name }</Card.Title>
                     <Card.Text style={ { fontSize: '1.2rem', fontFamily: 'Lato, sans-serif', textAlign: 'left' } }>
-                        { course.meta?.competenciesDevelopment.slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2).map((e, idx) => <>
-                            { idx + 1 }. { e }
-                            <br/>
-                        </>) }
+                        { course.meta?.competenciesDevelopment.slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2).map((e, idx) =>
+                            <div key={ idx }>
+                                { idx + 1 }. { e }
+                                <br/>
+                            </div>) }
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                         <div className="card-button">
                             <Button variant="dark"

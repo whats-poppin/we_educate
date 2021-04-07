@@ -106,8 +106,8 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                 onClick={ async (event) => {
                     setLoading(true);
                     const result = await login(event, email, password);
-                    checkResult(result);
                     setLoading(false);
+                    checkResult(result);
                 } }
                 className={ classes.button }>
             { !loading ? 'Sign In' : <CircularProgress/> }

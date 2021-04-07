@@ -134,8 +134,8 @@ export const Course = () => {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    { selectedCourse.events.map((e) =>
-                        <Typography>
+                    { selectedCourse.events.map((e,idx) =>
+                        <Typography key={idx}>
                             { myDecipher(e.joinLink) }
                         </Typography>) }
                 </AccordionDetails>
