@@ -27,10 +27,11 @@ const RenderLinks: React.FC = () => {
     const { user } = useContext(UserDetailsContext);
 
     return <>
-        <Nav.Link onClick={ async () => history.push({
+        <Nav.Link
+            onClick={ async () => history.push({
             pathname: `/`,
-            state: { showExplore: true }
-        }) }>
+            state: { showExplore: true } }) }
+        >
             EXPLORE
         </Nav.Link>
         <Nav.Link onClick={ async () => history.push('/my-courses') }>

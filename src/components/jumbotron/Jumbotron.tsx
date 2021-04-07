@@ -6,6 +6,7 @@ import {MdKeyboardArrowDown} from "react-icons/md";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 // @ts-ignore
 import Typist from 'react-typist';
+import {useHistory} from "react-router-dom";
 
 const Jumbotron = () => {
     const [count, setCount] = useState(1);
@@ -13,6 +14,8 @@ const Jumbotron = () => {
         setCount(1);
     }, [count]);
     const notSmall = useMediaQuery('(min-width:500px)');
+    const history = useHistory();
+
     return (
         <>
             <div className="container-grid">
@@ -37,7 +40,12 @@ const Jumbotron = () => {
             <div className="container-flex"
                  style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start', padding: '0rem 1rem'}}>
                 <div className="arrow-link">
-                    <div className="arrows">
+                    <div className="arrows"
+                         onClick={ async () => history.push({
+                             pathname: `/`,
+                             state: { showCarousel: true }
+                         }) }
+                    >
                         <MdKeyboardArrowDown className="arrow"/>
                         <MdKeyboardArrowDown className="arrow"/>
                     </div>
