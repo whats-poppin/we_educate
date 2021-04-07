@@ -43,6 +43,7 @@ const WeCarousel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
                       pause={ false }
                       controls={ false }
                       touch={ true }
+                      style={{height: '100vh', display: 'flex' ,alignItems: 'center'}}
             >
                 { carouselContent.map((item, idx) => <Carousel.Item key={idx}>
                     <div className="car-wrap">
