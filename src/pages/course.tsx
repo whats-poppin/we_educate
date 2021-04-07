@@ -88,7 +88,33 @@ export const Course = () => {
     const [ selectedCourse, setSelectedCourse ] = useState<Product>(null);
     const [ ownedCourse, setOwnedCourse ] = useState(false);
     const myDecipher = decipher(process.env.REACT_APP_M_NHI_BTAUNGA);
-
+    const handlePaymentIntent = () => {
+        if ( !user ) {
+            history.push('/auth');
+        } else {
+            try {
+                DisplayRazorpay({
+                    courseName: selectedCourse.name,
+                    name: user.name,
+                    email: user.email,
+                    courseId: selectedCourse.id,
+                    qty: 1,
+                    userId: user.id,
+                    setSnackbarDefinition,
+                    setUser,
+                    user
+                }).then(() => {
+                    console.log('Payment Intent Processed');
+                });
+            } catch ( e ) {
+                setSnackbarDefinition({
+                    message: e.message,
+                    severity: 'error',
+                    visibility: true
+                });
+            }
+        }
+    };
     useEffect(() => {
         if ( allCourses.length === 0 ) {
             ( async () => {
@@ -119,10 +145,23 @@ export const Course = () => {
     }, [ allCourses, location, setSnackbarDefinition, setAllCourses, history, user ]);
 
     return selectedCourse ?
-        <div style={ { marginTop: '7rem', padding: '1rem' } }>
+        <div style={ { marginTop: '7rem', padding: '1rem', display: 'grid', placeItems: 'center', textAlign: 'left' } }>
             <h2 style={ { marginBottom: '2rem' } }>
                 { selectedCourse.name }
             </h2>
+            <div style={ { width: '50%' } }>
+                <img
+                    className="d-block w-100"
+                    src={ selectedCourse.imgUrl }
+                    alt={ selectedCourse.name }
+                />
+            </div>
+            Meant for <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.participantLevel }</span>
+            <br/>
+            Duration <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.duration }</span>
+            <br/>
+            Taught By <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.faculty }</span>
+            <br/>
             { ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
                 <AccordionSummary
                     expandIcon={ <BiDownArrow/> }
@@ -134,40 +173,30 @@ export const Course = () => {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    { selectedCourse.events.map((e,idx) =>
-                        <Typography key={idx}>
+                    { selectedCourse.events.map((e, idx) =>
+                        <Typography key={ idx }>
                             { myDecipher(e.joinLink) }
                         </Typography>) }
                 </AccordionDetails>
-            </Accordion> : <Button variant='contained' color='primary' onClick={ () => {
-                if ( !user ) {
-                    history.push('/auth');
-                } else {
-                    try {
-                        DisplayRazorpay({
-                            courseName: selectedCourse.name,
-                            name: user.name,
-                            email: user.email,
-                            courseId: selectedCourse.id,
-                            qty: 1,
-                            userId: user.id,
-                            setSnackbarDefinition,
-                            setUser,
-                            user
-                        }).then(() => {
-                            console.log('Payment Intent Processed');
-                        });
-                    } catch ( e ) {
-                        setSnackbarDefinition({
-                            message: e.message,
-                            severity: 'error',
-                            visibility: true
-                        });
-                    }
-                }
-            } }>
+            </Accordion> : <Button variant='contained' color='primary' onClick={ handlePaymentIntent }>
                 Buy for { selectedCourse.meta.fee }
             </Button> }
-        </div>
-        : <Loader/>;
+            <h3>
+                #Competencies Development
+            </h3>
+            { selectedCourse.meta?.competenciesDevelopment.map((e, idx) =>
+                <div key={ idx }>
+                    { idx + 1 }. { e }
+                    <br/>
+                </div>) }
+            <h3>
+                #Contents
+            </h3>
+            { selectedCourse.meta?.contents.map((e, idx) =>
+                <div key={ idx }>
+                    { idx + 1 }. { e }
+                    <br/>
+                </div>) }
+        </div> :
+        <Loader/>;
 };
