@@ -12,7 +12,7 @@ export const Explore = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     } = useContext(AllCoursesContext);
 
     return <div ref={ ref }>
-        <h1 style={ { marginBottom: '3rem', textAlign: "center", fontFamily: ' Montserrat, sans-serif' } }>
+        <h1 style={ { marginBottom: '3rem', textAlign: "center", fontFamily: ' Montserrat, sans-serif' }} >
             EXPLORE
         </h1>
         { allCourses.length >= 1 ?
