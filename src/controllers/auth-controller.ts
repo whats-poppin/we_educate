@@ -33,12 +33,16 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
     }
 };
 
-export const login = async (event: any, email: string, password: string): Promise<Individual | string> => {
+export const login = async (event: any, email: string, password: string, orgLogin?: boolean): Promise<Individual | string> => {
     event.preventDefault();
     try {
-        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-        const result = await auth.signInWithEmailAndPassword(email, password);
-        return await getLoggedInUser(result.user.uid);
+        if ( orgLogin ) {
+            // implement org login
+        } else {
+            await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+            const result = await auth.signInWithEmailAndPassword(email, password);
+            return await getLoggedInUser(result.user.uid);
+        }
     } catch ( error ) {
         return error.message;
     }
@@ -53,12 +57,15 @@ export const getLoggedInUser = async (uid: string): Promise<Individual | string>
     }
 };
 
-export const signup = async (event: any, email: string, password: string, displayName: string): Promise<Individual | string> => {
+export const signup = async (event: any, email: string, password: string, displayName: string, orgSignUp?: boolean): Promise<Individual | string> => {
     event.preventDefault();
     try {
-        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-        const result = await auth.createUserWithEmailAndPassword(email, password);
-        return await createUserProfileDocument(result, displayName);
+        if ( orgSignUp ) {
+        } else {
+            await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+            const result = await auth.createUserWithEmailAndPassword(email, password);
+            return await createUserProfileDocument(result, displayName);
+        }
     } catch ( e ) {
         return e.message;
     }

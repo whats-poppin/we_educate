@@ -1,37 +1,35 @@
-import {ISubscriptionId} from '../interfaces/subscription-id';
+import { ISubscriptionId } from '../interfaces/subscription-id';
+
+export type OrgProduct = { name: string, id: string };
 
 export class Organisation {
     id: string;
-    product: string[];//
-    orgName: string;//
+    products: OrgProduct[];
+    orgName: string;
     subscriptionIds: ISubscriptionId;
     members: string[];
-    email: string;//
-    password: string;
-    joinCode: number;
-    strength: number;//
+    email: string;
+    address: string;
+    strength: number;
     meta: Object;
 
     constructor(id: string,
-                product: string[],
+                products: OrgProduct[],
                 orgName: string,
                 subscriptionIds: ISubscriptionId,
                 members: string[],
                 email: string,
-                password: string,
-                joinCode: number,
+                address: string,
                 strength: number,
                 meta: Object) {
         this.id = id;
-        this.product = product;
+        this.products = products;
         this.orgName = orgName;
+        this.address = address;
         this.subscriptionIds = subscriptionIds;
         this.members = members;
         this.email = email;
-        this.password = password;
-        this.joinCode = joinCode;
         this.strength = strength;
         this.meta = meta;
-
     }
 }
