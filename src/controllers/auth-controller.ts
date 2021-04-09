@@ -1,7 +1,10 @@
 import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
 import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
+import { registerOrganisation } from "./organisation-controller";
+import { Organisation } from "../models/organisation";
 
+// todo: use org here
 export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
     if ( !userAuth )
         return 'An error occurred, please try again later.';
@@ -57,13 +60,14 @@ export const getLoggedInUser = async (uid: string): Promise<Individual | string>
     }
 };
 
-export const signup = async (event: any, email: string, password: string, displayName: string, orgSignUp?: boolean): Promise<Individual | string> => {
+export const signup = async (event: any, email: string, password: string, displayName: string, address?: string, orgSignUp?: boolean): Promise<Individual | Organisation | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        const result = await auth.createUserWithEmailAndPassword(email, password);
         if ( orgSignUp ) {
+            return await registerOrganisation(displayName, address, email);
         } else {
-            await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-            const result = await auth.createUserWithEmailAndPassword(email, password);
             return await createUserProfileDocument(result, displayName);
         }
     } catch ( e ) {

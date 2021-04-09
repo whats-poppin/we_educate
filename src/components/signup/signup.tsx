@@ -6,7 +6,9 @@ import { Button, Checkbox, CircularProgress, Slide, TextField, Typography } from
 import { signup, socialAuth } from "../../controllers/auth-controller";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { Individual } from "../../models/individual";
+import { Organisation } from "../../models/organisation";
 import { UserDetailsContext } from "../../contexts/user-details";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 export const SocialAuth = ({ checkResult, showOrganisation }: { showOrganisation: boolean, checkResult: (result: Individual | string) => void }) => {
     const classes = useLoginSignupStyles();
@@ -34,6 +36,7 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const classes = useLoginSignupStyles();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const { setUser } = useContext(UserDetailsContext);
+    const { setOrganisation } = useContext(OrganisationDetailsContext);
     const history = useHistory();
     const [ loading, setLoading ] = useState(false);
     const { notMedium, setShowLogin } = props;
@@ -52,14 +55,14 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
         return ( atPos < 1 || ( dotPos - atPos < 2 ) );
     };
 
-    const checkResult = (result: Individual | string) => {
+    const checkResult = (result: Individual | Organisation | string) => {
         if ( typeof result !== 'string' ) {
             setSnackbarDefinition({
                 severity: 'success',
                 message: 'Signup successful!',
                 visible: true
             });
-            setUser(result);
+            showOrganisation ? setOrganisation(result as Organisation) : setUser(result as Individual);
             history.push('/');
         } else
             setSnackbarDefinition({
@@ -73,7 +76,7 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Create Account</h1>
         { showOrganisation ? null : <>
-            <SocialAuth checkResult={ checkResult } showOrganisation={showOrganisation}/>
+            <SocialAuth checkResult={ checkResult } showOrganisation={ showOrganisation }/>
             <span style={ { paddingTop: 10 } }>or use your email</span>
         </> }
         <TextField className={ classes.input } id="outlined-basic"
@@ -122,7 +125,9 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                 color="primary"
                 onClick={ async (event) => {
                     setLoading(true);
-                    const result = await signup(event, email, password, name);
+                    const result = showOrganisation ?
+                        await signup(event, email, password, name, address, true) :
+                        await signup(event, email, password, name);
                     setLoading(false);
                     checkResult(result);
                 } } className={ classes.button }>

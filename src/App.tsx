@@ -10,6 +10,7 @@ import { NavB } from "./components/navbar/navbar";
 import { UserDetailsProvider } from "./contexts/user-details";
 import { Routes } from "./components/private-routes/routes";
 import { AllCoursesProvider } from "./contexts/all-courses";
+import { OrganisationDetailsProvider } from './contexts/organisation-details';
 
 export const loadScript = (src: string) => {
     return new Promise((resolve) => {
@@ -33,12 +34,14 @@ const App = () => {
             <SnackbarToggleProvider>
                 <AuthProvider>
                     <UserDetailsProvider>
-                        <AllCoursesProvider>
-                            <Router>
-                                <NavB/>
-                                <Routes/>
-                            </Router>
-                        </AllCoursesProvider>
+                        <OrganisationDetailsProvider>
+                            <AllCoursesProvider>
+                                <Router>
+                                    <NavB/>
+                                    <Routes/>
+                                </Router>
+                            </AllCoursesProvider>
+                        </OrganisationDetailsProvider>
                     </UserDetailsProvider>
                 </AuthProvider>
             </SnackbarToggleProvider>
