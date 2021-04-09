@@ -23,7 +23,7 @@ export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, 
         alert('Razorpay SDK failed to load. Are you online?');
         return;
     }
-    const data = await fetch('http://localhost:3001/razorpay',
+    const data = await fetch('https://secret-oasis-81789.herokuapp.com/razorpay',
         {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, 
                 order_id: data.id,
                 name: courseName,
                 description: 'Purchase and Start Learning',
-                image: 'http://localhost:3001/logo.svg',
+                image: 'https://secret-oasis-81789.herokuapp.com/logo.svg',
                 handler: async (response: any) => {
                     await saveTransaction({
                         razorpayId: response.razorpay_payment_id,

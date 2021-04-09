@@ -73,7 +73,7 @@ export const OrganisationDetails: React.FC<{ organisation?: Organisation }> = ({
             </CardContent>
         </Card>
         <div style={ { display: "flex", justifyContent: "center", margin: '1rem' } }>
-            <Button variant="danger">
+            <Button variant="danger" onClick={ handleLeaveOrg }>
                 Leave organisation
             </Button>
         </div>
