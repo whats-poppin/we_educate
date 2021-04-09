@@ -46,7 +46,7 @@ export const OrganisationDetails: React.FC<{ organisation?: Organisation }> = ({
         }
     };
 
-    return !user.organisationId ? <>
+    return user.organisationId ? <>
         <Card>
             <CardHeader
                 title="Organisation Details"
