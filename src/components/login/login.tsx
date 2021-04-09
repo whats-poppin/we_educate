@@ -1,12 +1,13 @@
 import { useLoginSignupStyles } from "../../utils/component-styles/login-signup";
 import React, { useContext, useState } from "react";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
-import { Button, CircularProgress, TextField } from "@material-ui/core";
+import { Button, Checkbox, CircularProgress, TextField, Typography } from "@material-ui/core";
 import { forgotPassword, login } from "../../controllers/auth-controller";
 import { useHistory } from "react-router-dom";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { SocialAuth } from "../signup/signup";
+import { BsFillPersonFill, VscOrganization } from "react-icons/all";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
@@ -16,6 +17,7 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const [ loading, setLoading ] = useState(false);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ showOrganisation, setShowOrganisation ] = useState(false);
 
     const { notMedium, setShowLogin } = props;
 
@@ -45,10 +47,10 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Sign In</h1>
-        <SocialAuth checkResult={ checkResult }/>
-
-        <span style={ { paddingTop: 20 } }>or use your account</span>
-
+        <SocialAuth checkResult={ checkResult } showOrganisation={showOrganisation}/>
+        { showOrganisation ? null :
+            <span style={ { paddingTop: 10 } }>or use your email</span>
+        }
         <TextField
             className={ classes.inputLogin }
             id="outlined-basic"
@@ -123,5 +125,13 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                             className={ classes.button }>{ 'Sign Up Instead' }</Button>
                 </>
         }
+        <Typography style={ { cursor: 'pointer' } } onClick={ () => {
+            setShowOrganisation((prev) => !prev)
+        } }>
+            Or login as an { !showOrganisation ? "Organisation" : "Individual" }
+            <Checkbox icon={ <VscOrganization/> } checked={ showOrganisation }
+                      onChange={ () => {
+                      } } checkedIcon={ <BsFillPersonFill/> } name="check-org"/>
+        </Typography>
     </form>
 };

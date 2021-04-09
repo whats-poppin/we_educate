@@ -1,31 +1,33 @@
 import { useLoginSignupStyles } from "../../utils/component-styles/login-signup";
 import { useHistory, useLocation } from "react-router-dom";
 import React, { useContext, useState } from "react";
-import { FaFacebookF, FaGoogle } from "react-icons/all";
-import { Button, CircularProgress, TextField } from "@material-ui/core";
+import { BsFillPersonFill, FaFacebookF, FaGoogle, VscOrganization } from "react-icons/all";
+import { Button, Checkbox, CircularProgress, Slide, TextField, Typography } from "@material-ui/core";
 import { signup, socialAuth } from "../../controllers/auth-controller";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 
-export const SocialAuth = ({ checkResult }: { checkResult: (result: Individual | string) => void }) => {
+export const SocialAuth = ({ checkResult, showOrganisation }: { showOrganisation: boolean, checkResult: (result: Individual | string) => void }) => {
     const classes = useLoginSignupStyles();
-    return <div className={ classes.socialContainer }>
-        <div
-            onClick={ async () => {
-                const result = await socialAuth('facebook');
-                checkResult(result);
-            } } className={ classes.social }>
-             <FaFacebookF/>
+    return <Slide direction='right' in={ !showOrganisation }>
+        <div className={ classes.socialContainer }>
+            <div
+                onClick={ async () => {
+                    const result = await socialAuth('facebook');
+                    checkResult(result);
+                } } className={ classes.social }>
+                <FaFacebookF/>
+            </div>
+            <div
+                onClick={ async () => {
+                    const result = await socialAuth('google');
+                    checkResult(result);
+                } } className={ classes.social }>
+                <FaGoogle/>
+            </div>
         </div>
-        <div
-            onClick={ async () => {
-                const result = await socialAuth('google');
-                checkResult(result);
-            } } className={ classes.social }>
-            <FaGoogle/>
-        </div>
-    </div>;
+    </Slide>;
 }
 
 export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
@@ -37,6 +39,8 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const { notMedium, setShowLogin } = props;
     const location = useLocation();
 
+    const [ showOrganisation, setShowOrganisation ] = useState(false);
+    const [ address, setAddress ] = useState("");
     const [ email, setEmail ] = useState(( location.state as { email: string, type: string } )?.email ?? "");
     const [ name, setName ] = useState('');
     const [ confirmPassword, setConfirmPassword ] = useState("");
@@ -68,16 +72,27 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Create Account</h1>
-        <SocialAuth checkResult={ checkResult } />
-
-        <span style={ { paddingTop: 20 } }>or use your email</span>
+        { showOrganisation ? null : <>
+            <SocialAuth checkResult={ checkResult } showOrganisation={showOrganisation}/>
+            <span style={ { paddingTop: 10 } }>or use your email</span>
+        </> }
         <TextField className={ classes.input } id="outlined-basic"
                    margin={ "normal" }
-                   label="Name"
+                   label={ showOrganisation ? "Organisation Name" : "Name" }
                    onChange={ (e) => setName(e.target.value) }
                    value={ name }
                    type={ 'text' }
                    variant="outlined"/>
+        { showOrganisation ? <Slide direction='left' in={ showOrganisation }>
+            <TextField className={ classes.input } id="outlined-basic"
+                       margin={ "normal" }
+                       label="Address"
+                       onChange={ (e) => setAddress(e.target.value) }
+                       value={ address }
+                       type={ 'text' }
+                       variant="outlined"/>
+
+        </Slide> : null }
         <TextField className={ classes.input } id="outlined-basic"
                    margin={ "normal" }
                    label="Email"
@@ -124,5 +139,13 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                             className={ classes.button }>{ 'Sign In Instead' }</Button>
                 </div>
         }
+        <Typography style={ { cursor: 'pointer' } } onClick={ () => {
+            setShowOrganisation((prev) => !prev)
+        } }>
+            Or register as an { !showOrganisation ? "Organisation" : "Individual" }
+            <Checkbox icon={ <VscOrganization/> } checked={ showOrganisation }
+                      onChange={ () => {
+                      } } checkedIcon={ <BsFillPersonFill/> } name="check-org"/>
+        </Typography>
     </form>
 };

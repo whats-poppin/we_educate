@@ -10,7 +10,7 @@ export const fetchOrganisation = async (orgId: string): Promise<Organisation | s
     }
 };
 
-export const registerOrganisation = async (orgName: string, address: string): Promise<Organisation | string> => {
+export const registerOrganisation = async (orgName: string, address: string, email: string): Promise<Organisation | string> => {
     try {
         const orgData = await firestore.collection(`organisations`).add({
             products: [],
@@ -18,7 +18,7 @@ export const registerOrganisation = async (orgName: string, address: string): Pr
             address,
             subscriptionIds: { active: [], expired: [], cancelled: [] },
             members: [],
-            email: '',
+            email,
             strength: 0,
             meta: {}
         });
@@ -29,7 +29,7 @@ export const registerOrganisation = async (orgName: string, address: string): Pr
             id: orgData.id,
             subscriptionIds: { active: [], expired: [], cancelled: [] },
             members: [],
-            email: '',
+            email,
             strength: 0,
             meta: {}
         };
