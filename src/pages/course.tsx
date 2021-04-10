@@ -6,7 +6,7 @@ import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { Product } from "../models/product";
 import { Loader } from "../components/loader/loader";
 import { UserDetailsContext } from "../contexts/user-details";
-import {Accordion, AccordionDetails, Button, Card, Typography} from "@material-ui/core";
+import { Accordion, AccordionDetails, Button, Card, Typography } from "@material-ui/core";
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { BiDownArrow } from "react-icons/all";
 import { decipher } from "../utils/encrypt-decrypt";
@@ -15,6 +15,7 @@ import { saveTransaction } from "../controllers/transaction-controller";
 import { Individual } from "../models/individual";
 import "./course.css";
 import Footer from "../components/footer/footer";
+import { OrganisationDetailsContext } from "../contexts/organisation-details";
 
 export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, userId, setSnackbarDefinition, setUser, user }: {
     name: string, email: string, courseName: string,
@@ -85,6 +86,7 @@ export const Course = () => {
     const location = useLocation();
     const history = useHistory();
     const { user, setUser } = useContext(UserDetailsContext);
+    const { organisation } = useContext(OrganisationDetailsContext);
     const { allCourses, setAllCourses } = useContext(AllCoursesContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ selectedCourse, setSelectedCourse ] = useState<Product>(null);
@@ -143,7 +145,7 @@ export const Course = () => {
                     break;
                 }
             }
-            if ( !courseFound)
+            if ( !courseFound )
                 history.push('/');
 
             const ownedCourse = ( () => user?.product.includes(id) )();
@@ -153,7 +155,7 @@ export const Course = () => {
 
     return selectedCourse ?
         <>
-            <h2 style={{textAlign: 'center', marginTop: "6rem"}}>
+            <h2 style={ { textAlign: 'center', marginTop: "6rem" } }>
                 { selectedCourse.name }
             </h2>
             <div className="main-div">
@@ -188,8 +190,14 @@ export const Course = () => {
                                         { myDecipher(e.joinLink) }
                                     </Typography>) }
                             </AccordionDetails>
-                        </Accordion> : <Button variant='contained' color='primary' onClick={ handlePaymentIntent }>
-                            Buy for { selectedCourse.meta.fee }
+                        </Accordion> : <Button variant='contained' color='primary' onClick={ organisation ? () => {
+                            setSnackbarDefinition({
+                                visible: true,
+                                severity: 'success',
+                                message: 'Mobile number:- 99531029310, email:- abhinav@we-educate.com'
+                            });
+                        } : handlePaymentIntent }>
+                            { organisation ? 'Contact us to enroll' : `Buy for ${ selectedCourse.meta.fee }` }
                         </Button> }
                     </Card>
                 </div>
