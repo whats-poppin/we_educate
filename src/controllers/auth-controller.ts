@@ -3,37 +3,7 @@ import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
 import { fetchOrganisation, registerOrganisation } from "./organisation-controller";
 import { Organisation } from "../models/organisation";
-
-export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
-    if ( !userAuth )
-        return 'An error occurred, please try again later.';
-    const userRef = firestore.doc(`users/${ userAuth.user.uid }`);
-    const userSnapshot = await userRef.get();
-    if ( !userSnapshot.exists ) {
-        const { email } = userAuth.user;
-        const name = displayName ?? userAuth.user.displayName;
-        const createdAt = firebase.firestore.Timestamp.fromDate(new Date());
-        try {
-            const individual: Individual = new Individual(
-                userAuth.user.uid,
-                '',
-                { active: [], cancelled: [], expired: [] },
-                '',
-                name,
-                email,
-                [],
-                createdAt,
-                {},
-            );
-            await userRef.set(Object.assign({}, individual));
-            return individual;
-        } catch ( e ) {
-            return e.message;
-        }
-    } else {
-        return 'An error occurred, please contact the developers.';
-    }
-};
+import { registerUser } from "./individual-controller";
 
 export const login = async (event: any, email: string, password: string, orgLogin?: boolean): Promise<Individual | Organisation | string> => {
     event.preventDefault();
@@ -67,7 +37,7 @@ export const signup = async (event: any, email: string, password: string, displa
         if ( orgSignUp ) {
             return await registerOrganisation(displayName, address, email, result);
         } else {
-            return await createUserProfileDocument(result, displayName);
+            return await registerUser(result, displayName);
         }
     } catch ( e ) {
         return e.message;
@@ -83,7 +53,7 @@ export const socialAuth = async (provider: string): Promise<Individual | string>
         } else {
             result = await auth.signInWithPopup(facebookAuthProvider);
         }
-        return !result.additionalUserInfo.isNewUser ? await getLoggedInUser(result.user.uid) : await createUserProfileDocument(result);
+        return !result.additionalUserInfo.isNewUser ? await getLoggedInUser(result.user.uid) : await registerUser(result);
     } catch ( e ) {
         return e.message;
     }
