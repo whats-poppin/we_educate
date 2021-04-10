@@ -39,7 +39,7 @@ const RenderLinks: React.FC = () => {
         <Nav.Link onClick={ async () => history.push('/my-courses') }>
             MY COURSES
         </Nav.Link>
-        { !user || !organisation ? <Nav.Link key={ 'auth' } onClick={ async () => {
+        { !user && !organisation ? <Nav.Link key={ 'auth' } onClick={ async () => {
                 history.push(`auth`);
             } }>
                 LOGIN </Nav.Link> :

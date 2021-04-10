@@ -1,5 +1,6 @@
 import { firestore } from "../firebase";
 import { Organisation } from "../models/organisation";
+import firebase from "firebase";
 
 export const fetchOrganisation = async (orgId: string): Promise<Organisation | string> => {
     try {
@@ -10,33 +11,41 @@ export const fetchOrganisation = async (orgId: string): Promise<Organisation | s
     }
 };
 
-export const registerOrganisation = async (orgName: string, address: string, email: string): Promise<Organisation | string> => {
-    try {
-        const orgData = await firestore.collection(`organisations`).add({
-            products: [],
-            orgName,
-            address,
-            subscriptionIds: { active: [], expired: [], cancelled: [] },
-            members: [],
-            email,
-            strength: 0,
-            meta: {}
-        });
-        return {
-            products: [],
-            orgName,
-            address,
-            id: orgData.id,
-            subscriptionIds: { active: [], expired: [], cancelled: [] },
-            members: [],
-            email,
-            strength: 0,
-            meta: {}
-        };
-    } catch ( e ) {
-        return e.message;
+export const registerOrganisation = async (orgName: string, address: string, email: string, userAuth: firebase.auth.UserCredential,):
+        Promise<Organisation | string> => {
+        try {
+            const orgRef = firestore.doc(`organisations/${ userAuth.user.uid }`);
+            const orgSnapshot = await orgRef.get();
+            if ( !orgSnapshot.exists ) {
+                const orgData = {
+                    products: [ '' ],
+                    orgName,
+                    address,
+                    subscriptionIds: { active: [ '' ], expired: [ '' ], cancelled: [ '' ] },
+                    members: [ '' ],
+                    email,
+                    strength: 0,
+                    meta: {}
+                }
+                await orgRef.set(Object.assign({}, orgData));
+                return {
+                    products: [],
+                    orgName,
+                    address,
+                    id: userAuth.user.uid,
+                    subscriptionIds: { active: [], expired: [], cancelled: [] },
+                    members: [],
+                    email,
+                    strength: 0,
+                    meta: {}
+                };
+            }
+        } catch
+            ( e ) {
+            return e.message;
+        }
     }
-};
+;
 
 
 // todo: future work

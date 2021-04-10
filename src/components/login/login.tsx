@@ -8,12 +8,15 @@ import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { SocialAuth } from "../signup/signup";
 import { BsFillPersonFill, VscOrganization } from "react-icons/all";
+import { Organisation } from "../../models/organisation";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
     const { setUser } = useContext(UserDetailsContext);
     const history = useHistory();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
+    const { setOrganisation } = useContext(OrganisationDetailsContext);
     const [ loading, setLoading ] = useState(false);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -27,14 +30,14 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
         return ( atPos < 1 || ( dotPos - atPos < 2 ) );
     }
 
-    const checkResult = (result: Individual | string) => {
+    const checkResult = (result: Individual | Organisation | string) => {
         if ( typeof result !== 'string' ) {
             setSnackbarDefinition({
                 severity: 'success',
-                message: 'Sign in successful!',
+                message: 'Signup successful!',
                 visible: true
             });
-            setUser(result);
+            showOrganisation ? setOrganisation(result as Organisation) : setUser(result as Individual);
             history.push('/');
         } else
             setSnackbarDefinition({
@@ -47,7 +50,7 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Sign In</h1>
-        <SocialAuth checkResult={ checkResult } showOrganisation={showOrganisation}/>
+        <SocialAuth checkResult={ checkResult } showOrganisation={ showOrganisation }/>
         { showOrganisation ? null :
             <span style={ { paddingTop: 10 } }>or use your email</span>
         }
@@ -107,7 +110,9 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                 disabled={ !( !validateEmail() && password.length >= 8 ) && loading }
                 onClick={ async (event) => {
                     setLoading(true);
-                    const result = await login(event, email, password);
+                    const result = showOrganisation ?
+                        await login(event, email, password, true) :
+                        await login(event, email, password);
                     setLoading(false);
                     checkResult(result);
                 } }

@@ -1,10 +1,9 @@
 import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
 import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
-import { registerOrganisation } from "./organisation-controller";
+import { fetchOrganisation, registerOrganisation } from "./organisation-controller";
 import { Organisation } from "../models/organisation";
 
-// todo: use org here
 export const createUserProfileDocument = async (userAuth: firebase.auth.UserCredential, displayName?: string): Promise<Individual | string> => {
     if ( !userAuth )
         return 'An error occurred, please try again later.';
@@ -36,14 +35,14 @@ export const createUserProfileDocument = async (userAuth: firebase.auth.UserCred
     }
 };
 
-export const login = async (event: any, email: string, password: string, orgLogin?: boolean): Promise<Individual | string> => {
+export const login = async (event: any, email: string, password: string, orgLogin?: boolean): Promise<Individual | Organisation | string> => {
     event.preventDefault();
     try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        const result = await auth.signInWithEmailAndPassword(email, password);
         if ( orgLogin ) {
-            // implement org login
+            return await fetchOrganisation(result.user.uid);
         } else {
-            await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-            const result = await auth.signInWithEmailAndPassword(email, password);
             return await getLoggedInUser(result.user.uid);
         }
     } catch ( error ) {
@@ -66,7 +65,7 @@ export const signup = async (event: any, email: string, password: string, displa
         await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         const result = await auth.createUserWithEmailAndPassword(email, password);
         if ( orgSignUp ) {
-            return await registerOrganisation(displayName, address, email);
+            return await registerOrganisation(displayName, address, email, result);
         } else {
             return await createUserProfileDocument(result, displayName);
         }
