@@ -25,7 +25,7 @@ const Jumbotron = () => {
                     fontSize: '2rem',
                 }}>
                     {count ? (
-                        <Typist avgTypingDelay={800} onTypingDone={() => setCount(0)}>
+                        <Typist avgTypingDelay={100} onTypingDone={() => setCount(0)}>
                             <span> We Educate</span>
                             <Typist.Backspace count={10} delay={800} />
                             <span> Committed to Excellence</span>
