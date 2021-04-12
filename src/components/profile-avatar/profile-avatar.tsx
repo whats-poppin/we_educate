@@ -7,7 +7,7 @@ import { OrganisationDetailsContext } from "../../contexts/organisation-details"
 
 export const ProfileAvatar = () => {
     const name = ( useContext(UserDetailsContext)?.user as Individual )?.name;
-    const orgName = ( useContext(OrganisationDetailsContext).organisation as Organisation ).orgName;
+    const orgName = ( useContext(OrganisationDetailsContext)?.organisation as Organisation )?.orgName;
     return <img
         src={ auth?.currentUser?.providerData[0].photoURL ?? `
         https://ui-avatars.com/api/?name=${ name ? name?.split(" ").join('+') :
