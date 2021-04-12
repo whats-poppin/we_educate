@@ -77,13 +77,13 @@ const EditProfile = () => {
             />
             <CardContent>
                 <Typography>
-                    Name:  { user.name }
+                    Name: { user.name }
                 </Typography>
                 <Typography>
-                    Email:  { user.email }
+                    Email: { user.email }
                 </Typography>
                 <Typography>
-                    Joined on:  {user.createdAt.toDate().toLocaleString()}
+                    Joined on: { user.createdAt.toDate().toLocaleString() }
                 </Typography>
                 <Typography>
                     { user.product.length === 0 ? 'Not enrolled in any course.' :
@@ -115,7 +115,7 @@ const EditProfile = () => {
         </Button> }
         <br/>
         <br/>
-        { auth?.currentUser.providerData[0].providerId === 'password' ? <>
+        { auth?.currentUser?.providerData[0]?.providerId === 'password' ? <>
             <Accordion>
                 <Accordion.Toggle eventKey="0" style={ { padding: '0', marginBottom: '1rem' } }>
                     <Button variant="contained" color={ 'primary' } onClick={ () => {

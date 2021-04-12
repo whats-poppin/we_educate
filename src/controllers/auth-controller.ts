@@ -1,20 +1,15 @@
 import { auth, facebookAuthProvider, firestore, googleAuthProvider } from "../firebase";
 import firebase from 'firebase/app';
 import { Individual } from "../models/individual";
-import { fetchOrganisation, registerOrganisation } from "./organisation-controller";
+import { registerOrganisation } from "./organisation-controller";
 import { Organisation } from "../models/organisation";
 import { registerUser } from "./individual-controller";
 
-export const login = async (event: any, email: string, password: string, orgLogin?: boolean): Promise<Individual | Organisation | string> => {
+export const login = async (event: any, email: string, password: string): Promise<string> => {
     event.preventDefault();
     try {
         await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-        const result = await auth.signInWithEmailAndPassword(email, password);
-        if ( orgLogin ) {
-            return await fetchOrganisation(result.user.uid);
-        } else {
-            return await getLoggedInUser(result.user.uid);
-        }
+        await auth.signInWithEmailAndPassword(email, password);
     } catch ( error ) {
         return error.message;
     }

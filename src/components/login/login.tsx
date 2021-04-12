@@ -1,26 +1,20 @@
 import { useLoginSignupStyles } from "../../utils/component-styles/login-signup";
 import React, { useContext, useState } from "react";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
-import { Button, Checkbox, CircularProgress, TextField, Typography } from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { forgotPassword, login } from "../../controllers/auth-controller";
 import { useHistory } from "react-router-dom";
 import { Individual } from "../../models/individual";
-import { UserDetailsContext } from "../../contexts/user-details";
 import { SocialAuth } from "../signup/signup";
-import { BsFillPersonFill, VscOrganization } from "react-icons/all";
 import { Organisation } from "../../models/organisation";
-import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const { setUser } = useContext(UserDetailsContext);
     const history = useHistory();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
-    const { setOrganisation } = useContext(OrganisationDetailsContext);
     const [ loading, setLoading ] = useState(false);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const [ showOrganisation, setShowOrganisation ] = useState(false);
 
     const { notMedium, setShowLogin } = props;
 
@@ -37,7 +31,6 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                 message: 'Signup successful!',
                 visible: true
             });
-            showOrganisation ? setOrganisation(result as Organisation) : setUser(result as Individual);
             history.push('/');
         } else
             setSnackbarDefinition({
@@ -50,10 +43,8 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Sign In</h1>
-        <SocialAuth checkResult={ checkResult } showOrganisation={ showOrganisation }/>
-        { showOrganisation ? null :
-            <span style={ { paddingTop: 10 } }>or use your email</span>
-        }
+        <SocialAuth checkResult={ checkResult } showOrganisation={ false }/>
+        <span style={ { paddingTop: 10 } }>or use your email</span>
         <TextField
             className={ classes.inputLogin }
             id="outlined-basic"
@@ -110,9 +101,7 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                 disabled={ !( !validateEmail() && password.length >= 8 ) && loading }
                 onClick={ async (event) => {
                     setLoading(true);
-                    const result = showOrganisation ?
-                        await login(event, email, password, true) :
-                        await login(event, email, password);
+                    const result = await login(event, email, password);
                     setLoading(false);
                     checkResult(result);
                 } }
@@ -130,13 +119,5 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                             className={ classes.button }>{ 'Sign Up Instead' }</Button>
                 </>
         }
-        <Typography style={ { cursor: 'pointer' } } onClick={ () => {
-            setShowOrganisation((prev) => !prev)
-        } }>
-            Or login as an { !showOrganisation ? "Organisation" : "Individual" }
-            <Checkbox icon={ <VscOrganization/> } checked={ showOrganisation }
-                      onChange={ () => {
-                      } } checkedIcon={ <BsFillPersonFill/> } name="check-org"/>
-        </Typography>
     </form>
 };
