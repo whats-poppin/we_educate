@@ -1,0 +1,47 @@
+.main-div {
+    margin: 2rem;
+    display: grid;
+    grid-template-areas:
+    "course-hd course-desc"
+    "comp-dev course-content";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.course-image {
+    width: 40vw;
+}
+
+.header{
+    grid-area: course-hd;
+
+}
+
+.description{
+    grid-area: course-desc;
+    margin-top: 2rem;
+}
+
+.competencies{
+    grid-area: comp-dev;
+}
+
+.contents{
+    grid-area: course-content;
+}
+
+@media all and (max-width: 900px) {
+    .course-image {
+        width: 80vw;
+    }
+    .main-div{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+                    "course-hd"
+                    "course-desc"
+                    "comp-dev"
+                    "course-content";
+    }
+}

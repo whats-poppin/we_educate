@@ -5,23 +5,27 @@ import OrganisationDetails from "../account-details/organisation-details";
 import './accordian-profile.css'
 import PaymentHistory from "../payment-history/payment-history";
 import DeleteAccount from "../delete-account/delete-account";
-import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
-const AccordianProfile = () => {
-    const name = ( useContext(UserDetailsContext).user as Individual ).name;
+const AccordionProfile = () => {
+    const orgName = useContext(OrganisationDetailsContext)?.organisation?.orgName;
+    const userName = useContext(UserDetailsContext)?.user?.name;
+
     return <>
         <Nav defaultActiveKey="/home" className="flex-column1">
             <Nav.Item className="userImg-wrapper">
                 <ProfileAvatar/>
             </Nav.Item>
-            <Nav.Item className="userName">{ name }</Nav.Item>
+            <Nav.Item className="userName">{ userName ?? orgName }</Nav.Item>
             <Accordion>
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle eventKey="0">
-                            <Nav.Link className="nav-links">Profile</Nav.Link>
+                            <Nav.Link className="nav-links">
+                                Account Details
+                            </Nav.Link>
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -33,7 +37,9 @@ const AccordianProfile = () => {
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle eventKey="1">
-                            <Nav.Link className="nav-links">Organisations</Nav.Link>
+                            <Nav.Link className="nav-links">
+                                Organisation Dashboard
+                            </Nav.Link>
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
@@ -45,7 +51,9 @@ const AccordianProfile = () => {
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle eventKey="2">
-                            <Nav.Link className="nav-links">Payment History</Nav.Link>
+                            <Nav.Link className="nav-links">
+                                Payment History
+                            </Nav.Link>
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="2">
@@ -57,7 +65,9 @@ const AccordianProfile = () => {
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle eventKey="5">
-                            <Nav.Link className="nav-links">Delete Account</Nav.Link>
+                            <Nav.Link className="nav-links">
+                                Delete Account
+                            </Nav.Link>
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="5">
@@ -71,4 +81,4 @@ const AccordianProfile = () => {
     </>
 };
 
-export default AccordianProfile;
+export default AccordionProfile;

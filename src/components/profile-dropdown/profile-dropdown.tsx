@@ -5,12 +5,14 @@ import { signOut } from "../../controllers/auth-controller";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 export const ProfileDropdown: React.FC = () => {
     const history = useHistory();
     const [ showDropdown, setShowDropdown ] = useState(false);
     const notMedium = useMediaQuery('(min-width:991px)');
     const { setUser } = useContext(UserDetailsContext);
+    const { setOrganisation } = useContext(OrganisationDetailsContext);
 
     return notMedium ? <Dropdown show={ showDropdown }
                                  navbar={ true }>
@@ -29,6 +31,7 @@ export const ProfileDropdown: React.FC = () => {
                 <Dropdown.Item eventKey="2" onClick={ async () => {
                     await signOut();
                     setUser(null);
+                    setOrganisation(null);
                     history.push('/');
                 } }>
                     LOGOUT
@@ -44,6 +47,7 @@ export const ProfileDropdown: React.FC = () => {
         <Nav.Link eventKey="2" onClick={ async () => {
             await signOut();
             setUser(null);
+            setOrganisation(null);
             history.push('/');
         } }>
             LOGOUT

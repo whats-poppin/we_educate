@@ -10,7 +10,6 @@ import {
     TextField,
     Typography
 } from "@material-ui/core";
-import { Individual } from "../../models/individual";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { auth } from "../../firebase";
 import { updateName } from "../../controllers/individual-controller";
@@ -20,15 +19,17 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { colors } from "../../utils/constants";
 import Tooltip from "@material-ui/core/Tooltip";
 import { changePassword } from "../../controllers/auth-controller";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
+import { updateOrganisationName } from "../../controllers/organisation-controller";
 
 const EditProfile = () => {
-    const user = useContext(UserDetailsContext).user as Individual;
-    const { setUser } = useContext(UserDetailsContext);
+    const { user, setUser } = useContext(UserDetailsContext);
+    const { organisation, setOrganisation } = useContext(OrganisationDetailsContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const notSmall = useMediaQuery('(min-width:352px)');
 
     const [ loading, setLoading ] = useState(false);
-    const [ name, setName ] = useState(user.name);
+    const [ name, setName ] = useState(user ? user.name : organisation.orgName);
     const [ confirmPassword, setConfirmPassword ] = useState('');
     const [ newPassword, setNewPassword ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -53,41 +54,63 @@ const EditProfile = () => {
     };
 
     const handleNameChange = async () => {
-        if ( user.name !== name ) {
-            const isChanged = await updateName(name);
-            if ( isChanged ) {
-                setUser({ ...user, name });
-                setSnackbarDefinition({
+        if ( user ) {
+            if ( user.name !== name ) {
+                const isChanged = await updateName(name);
+                if ( isChanged ) {
+                    setUser({ ...user, name });
+                    setSnackbarDefinition({
+                        visible: true,
+                        severity: 'success',
+                        message: "Successfully updated name"
+                    });
+                } else setSnackbarDefinition({
                     visible: true,
-                    severity: 'success',
-                    message: "Successfully updated name"
+                    severity: 'error',
+                    message: "Error in updating name"
                 });
-            } else setSnackbarDefinition({
-                visible: true,
-                severity: 'error',
-                message: "Error in updating name"
-            });
+            }
+        } else {
+            if ( organisation.orgName !== name ) {
+                const isChanged = await updateOrganisationName(name);
+                if ( isChanged ) {
+                    setOrganisation({ ...organisation, orgName: name });
+                    setSnackbarDefinition({
+                        visible: true,
+                        severity: 'success',
+                        message: "Successfully updated name"
+                    });
+                } else setSnackbarDefinition({
+                    visible: true,
+                    severity: 'error',
+                    message: "Error in updating name"
+                });
+            }
         }
     };
 
     return <div>
         <Card>
             <CardHeader
-                title="Profile Details"
+                title="Account Details"
             />
             <CardContent>
                 <Typography>
-                    Name:  { user.name }
+                    Name: { user ? user.name : organisation.orgName }
                 </Typography>
                 <Typography>
-                    Email:  { user.email }
+                    Email: { user ? user.email : organisation.email }
                 </Typography>
+                { user && <Typography>
+                    Joined on: { user.createdAt.toDate().toLocaleString() }
+                </Typography> }
                 <Typography>
-                    Joined on:  {user.createdAt.toDate().toLocaleString()}
-                </Typography>
-                <Typography>
-                    { user.product.length === 0 ? 'Not enrolled in any course.' :
-                        `Enrolled in ${ user.product.length } ${ user.product.length === 1 ? 'program.' : 'programs.' }` }
+                    { user ? user.product.length === 0 ? 'Not enrolled in any course.' :
+                        `Enrolled in ${ user.product.length } ${ user.product.length === 1 ? 'program.' :
+                            'programs.' }` : organisation.products.length === 0 ? 'Not enrolled in any course.' :
+                        `Enrolled in ${ organisation.products.length } ${ organisation.products.length === 1 ? 'program.'
+                            : 'programs.' }`
+                    }
                 </Typography>
             </CardContent>
         </Card>
@@ -101,21 +124,23 @@ const EditProfile = () => {
             value={ name }
             variant="outlined"/>
         { notSmall ? <Tooltip title="Save Name" placement="right">
-            <IconButton onClick={ handleNameChange } size={ 'small' }
-                        style={ {
-                            marginTop: '2rem',
-                            marginLeft: '5px',
-                            backgroundColor: colors.lightGrey
-                        } }>
-                <TiTick/>
-            </IconButton>
-        </Tooltip> : <Button disabled={ user.name === name } onClick={ handleNameChange } variant="contained"
-                             color={ 'primary' }>
-            Save Name
-        </Button> }
+                <IconButton onClick={ handleNameChange } size={ 'small' }
+                            style={ {
+                                marginTop: '2rem',
+                                marginLeft: '5px',
+                                backgroundColor: colors.lightGrey
+                            } }>
+                    <TiTick/>
+                </IconButton>
+            </Tooltip> :
+            <Button disabled={ user ? user.name === name : organisation.orgName === name } onClick={ handleNameChange }
+                    variant="contained"
+                    color={ 'primary' }>
+                Save Name
+            </Button> }
         <br/>
         <br/>
-        { auth?.currentUser.providerData[0].providerId === 'password' ? <>
+        { auth?.currentUser?.providerData[0]?.providerId === 'password' ? <>
             <Accordion>
                 <Accordion.Toggle eventKey="0" style={ { padding: '0', marginBottom: '1rem' } }>
                     <Button variant="contained" color={ 'primary' } onClick={ () => {

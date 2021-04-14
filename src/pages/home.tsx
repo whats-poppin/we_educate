@@ -11,6 +11,8 @@ import WeCarousel from "../components/carousel/we-carousel"
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
+    const carouselRef = React.createRef<HTMLDivElement>();
+
     const location = useLocation();
     const { allCourses, setAllCourses }: {
         allCourses: Product[],
@@ -42,10 +44,18 @@ const Home = () => {
         return;
     }, [ location, exploreRef ])
 
+
+    useEffect(() => {
+        if ( ( location.state as { showCarousel: boolean } )?.showCarousel && carouselRef ) {
+            carouselRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+    }, [ location, carouselRef ])
+
     return <>
         <div className="home-body">
             <Jumbotron/>
-            <WeCarousel/>
+            <WeCarousel ref = { carouselRef }/>
             <Explore ref={ exploreRef }/>
         </div>
         <Footer/>

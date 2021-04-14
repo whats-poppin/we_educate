@@ -6,13 +6,16 @@ import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { Product } from "../models/product";
 import { Loader } from "../components/loader/loader";
 import { UserDetailsContext } from "../contexts/user-details";
-import { Accordion, AccordionDetails, Button, Typography } from "@material-ui/core";
+import { Accordion, AccordionDetails, Button, Card, Typography } from "@material-ui/core";
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { BiDownArrow } from "react-icons/all";
 import { decipher } from "../utils/encrypt-decrypt";
 import { __DEV__, loadScript } from "../App";
 import { saveTransaction } from "../controllers/transaction-controller";
 import { Individual } from "../models/individual";
+import "./course.css";
+import Footer from "../components/footer/footer";
+import { OrganisationDetailsContext } from "../contexts/organisation-details";
 
 export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, userId, setSnackbarDefinition, setUser, user }: {
     name: string, email: string, courseName: string,
@@ -23,7 +26,7 @@ export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, 
         alert('Razorpay SDK failed to load. Are you online?');
         return;
     }
-    const data = await fetch('http://localhost:3001/razorpay',
+    const data = await fetch('https://secret-oasis-81789.herokuapp.com/razorpay',
         {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
@@ -48,7 +51,7 @@ export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, 
                 order_id: data.id,
                 name: courseName,
                 description: 'Purchase and Start Learning',
-                image: 'http://localhost:3001/logo.svg',
+                image: 'https://secret-oasis-81789.herokuapp.com/logo.svg',
                 handler: async (response: any) => {
                     await saveTransaction({
                         razorpayId: response.razorpay_payment_id,
@@ -83,6 +86,7 @@ export const Course = () => {
     const location = useLocation();
     const history = useHistory();
     const { user, setUser } = useContext(UserDetailsContext);
+    const { organisation } = useContext(OrganisationDetailsContext);
     const { allCourses, setAllCourses } = useContext(AllCoursesContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ selectedCourse, setSelectedCourse ] = useState<Product>(null);
@@ -133,70 +137,97 @@ export const Course = () => {
         const id = urlParams.get('id');
         if ( !id ) history.push('/');
         else {
+            let courseFound = false;
             for ( const course of allCourses ) {
                 if ( course.id === id ) {
                     setSelectedCourse(course)
+                    courseFound = true;
                     break;
                 }
             }
+            if ( !courseFound )
+                history.push('/');
+
             const ownedCourse = ( () => user?.product.includes(id) )();
             setOwnedCourse(ownedCourse);
         }
     }, [ allCourses, location, setSnackbarDefinition, setAllCourses, history, user ]);
 
     return selectedCourse ?
-        <div style={ { marginTop: '7rem', padding: '1rem', display: 'grid', placeItems: 'center', textAlign: 'left' } }>
-            <h2 style={ { marginBottom: '2rem' } }>
+        <>
+            <h2 style={ { textAlign: 'center', marginTop: "6rem" } }>
                 { selectedCourse.name }
             </h2>
-            <div style={ { width: '50%' } }>
-                <img
-                    className="d-block w-100"
-                    src={ selectedCourse.imgUrl }
-                    alt={ selectedCourse.name }
-                />
+            <div className="main-div">
+                <div className="header">
+                    <img
+                        className="course-image"
+                        src={ selectedCourse.imgUrl }
+                        alt={ selectedCourse.name }
+                    />
+                </div>
+                <div className="description">
+                    <Card>
+                        Meant for <span>{ selectedCourse.meta.participantLevel }</span>
+                        <br/>
+                        Duration <span>{ selectedCourse.meta.duration }</span>
+                        <br/>
+                        Taught By <span>{ selectedCourse.meta.faculty }</span>
+                        <br/>
+                        { ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
+                            <AccordionSummary
+                                expandIcon={ <BiDownArrow/> }
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography>
+                                    Events
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                { selectedCourse.events.map((e, idx) =>
+                                    <Typography key={ idx }>
+                                        { myDecipher(e.joinLink) }
+                                    </Typography>) }
+                            </AccordionDetails>
+                        </Accordion> : <Button variant='contained' color='primary' onClick={ organisation ? () => {
+                            setSnackbarDefinition({
+                                visible: true,
+                                severity: 'success',
+                                message: 'Mobile number:- 99531029310, email:- abhinav@we-educate.com'
+                            });
+                        } : handlePaymentIntent }>
+                            { organisation ? 'Contact us to enroll' : `Buy for ${ selectedCourse.meta.fee }` }
+                        </Button> }
+                    </Card>
+                </div>
+                <div className="competencies">
+                    <Card>
+                        <h3>
+                            Competencies Development
+                        </h3>
+                        { selectedCourse.meta?.competenciesDevelopment.map((e, idx) =>
+                            <div key={ idx }>
+                                { idx + 1 }. { e }
+                                <br/>
+                            </div>) }
+                    </Card>
+                </div>
+                <div className="contents">
+                    <Card>
+                        <h3>
+                            Contents
+                        </h3>
+                        { selectedCourse.meta?.contents.map((e, idx) =>
+                            <div key={ idx }>
+                                { idx + 1 }. { e }
+                                <br/>
+                            </div>) }
+                    </Card>
+                </div>
             </div>
-            Meant for <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.participantLevel }</span>
-            <br/>
-            Duration <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.duration }</span>
-            <br/>
-            Taught By <span style={ { fontWeight: 'bold' } }>{ selectedCourse.meta.faculty }</span>
-            <br/>
-            { ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
-                <AccordionSummary
-                    expandIcon={ <BiDownArrow/> }
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography>
-                        Events
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    { selectedCourse.events.map((e, idx) =>
-                        <Typography key={ idx }>
-                            { myDecipher(e.joinLink) }
-                        </Typography>) }
-                </AccordionDetails>
-            </Accordion> : <Button variant='contained' color='primary' onClick={ handlePaymentIntent }>
-                Buy for { selectedCourse.meta.fee }
-            </Button> }
-            <h3>
-                #Competencies Development
-            </h3>
-            { selectedCourse.meta?.competenciesDevelopment.map((e, idx) =>
-                <div key={ idx }>
-                    { idx + 1 }. { e }
-                    <br/>
-                </div>) }
-            <h3>
-                #Contents
-            </h3>
-            { selectedCourse.meta?.contents.map((e, idx) =>
-                <div key={ idx }>
-                    { idx + 1 }. { e }
-                    <br/>
-                </div>) }
-        </div> :
+            <Footer/>
+        </>
+        :
         <Loader/>;
 };

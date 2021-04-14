@@ -5,16 +5,17 @@ import { useHistory } from 'react-router-dom';
 import ReactCardFlip from "react-card-flip";
 import { Button, Card } from 'react-bootstrap';
 import "./course-card.css";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course }) => {
     const { user } = useContext(UserDetailsContext);
     const history = useHistory();
     const [ isFlipped, setIsFlipped ] = useState(false);
-
+    const notSmall = useMediaQuery('(min-width:391px)');
     const ownedCourse: boolean = ( () => user?.product.includes(course.id) )();
     return <ReactCardFlip isFlipped={ isFlipped }>
         <div>
-            <Card style={ { height: '28rem', width: '22rem' } }
+            <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem'} }
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
@@ -41,7 +42,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
             </Card>
         </div>
         <div>
-            <Card style={ { height: '28rem', width: '22rem' } }
+            <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem'}}
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >

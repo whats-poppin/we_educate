@@ -5,12 +5,11 @@ import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { forgotPassword, login } from "../../controllers/auth-controller";
 import { useHistory } from "react-router-dom";
 import { Individual } from "../../models/individual";
-import { UserDetailsContext } from "../../contexts/user-details";
 import { SocialAuth } from "../signup/signup";
+import { Organisation } from "../../models/organisation";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const { setUser } = useContext(UserDetailsContext);
     const history = useHistory();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ loading, setLoading ] = useState(false);
@@ -25,14 +24,13 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
         return ( atPos < 1 || ( dotPos - atPos < 2 ) );
     }
 
-    const checkResult = (result: Individual | string) => {
+    const checkResult = (result: Individual | Organisation | string) => {
         if ( typeof result !== 'string' ) {
             setSnackbarDefinition({
                 severity: 'success',
-                message: 'Sign in successful!',
+                message: 'Signup successful!',
                 visible: true
             });
-            setUser(result);
             history.push('/');
         } else
             setSnackbarDefinition({
@@ -45,10 +43,8 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     return <form className={ classes.form } noValidate autoComplete="off"
                  style={ notMedium ? {} : { marginTop: '5rem' } }>
         <h1 className={ classes.h1 }>Sign In</h1>
-        <SocialAuth checkResult={ checkResult }/>
-
-        <span style={ { paddingTop: 20 } }>or use your account</span>
-
+        <SocialAuth checkResult={ checkResult } showOrganisation={ false }/>
+        <span style={ { paddingTop: 10 } }>or use your email</span>
         <TextField
             className={ classes.inputLogin }
             id="outlined-basic"

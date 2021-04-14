@@ -9,6 +9,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { ProfileDropdown } from "../profile-dropdown/profile-dropdown";
 import { SearchBar, SearchField } from "../search-bar/search-bar";
 import { UserDetailsContext } from "../../contexts/user-details";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 const RenderBrand = () => {
     const history = useHistory();
@@ -25,18 +26,20 @@ const RenderBrand = () => {
 const RenderLinks: React.FC = () => {
     const history = useHistory();
     const { user } = useContext(UserDetailsContext);
-
+    const { organisation } = useContext(OrganisationDetailsContext);
     return <>
-        <Nav.Link onClick={ async () => history.push({
-            pathname: `/`,
-            state: { showExplore: true }
-        }) }>
+        <Nav.Link
+            onClick={ async () => history.push({
+                pathname: `/`,
+                state: { showExplore: true }
+            }) }
+        >
             EXPLORE
         </Nav.Link>
         <Nav.Link onClick={ async () => history.push('/my-courses') }>
             MY COURSES
         </Nav.Link>
-        { !user ? <Nav.Link key={ 'auth' } onClick={ async () => {
+        { !user && !organisation ? <Nav.Link key={ 'auth' } onClick={ async () => {
                 history.push(`auth`);
             } }>
                 LOGIN </Nav.Link> :

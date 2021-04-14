@@ -6,13 +6,18 @@ import {MdKeyboardArrowDown} from "react-icons/md";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 // @ts-ignore
 import Typist from 'react-typist';
+import {useHistory} from "react-router-dom";
 
 const Jumbotron = () => {
     const [count, setCount] = useState(1);
     useEffect(() => {
         setCount(1);
+        return;
     }, [count]);
+
     const notSmall = useMediaQuery('(min-width:500px)');
+    const history = useHistory();
+
     return (
         <>
             <div className="container-grid">
@@ -22,7 +27,7 @@ const Jumbotron = () => {
                     fontSize: '2rem',
                 }}>
                     {count ? (
-                        <Typist avgTypingDelay={800} onTypingDone={() => setCount(0)}>
+                        <Typist avgTypingDelay={100} onTypingDone={() => setCount(0)}>
                             <span> We Educate</span>
                             <Typist.Backspace count={10} delay={800} />
                             <span> Committed to Excellence</span>
@@ -37,7 +42,12 @@ const Jumbotron = () => {
             <div className="container-flex"
                  style={notSmall ? {justifyContent: 'center'} : {justifyContent: 'flex-start', padding: '0rem 1rem'}}>
                 <div className="arrow-link">
-                    <div className="arrows">
+                    <div className="arrows"
+                         onClick={ async () => history.push({
+                             pathname: `/`,
+                             state: { showCarousel: true }
+                         }) }
+                    >
                         <MdKeyboardArrowDown className="arrow"/>
                         <MdKeyboardArrowDown className="arrow"/>
                     </div>

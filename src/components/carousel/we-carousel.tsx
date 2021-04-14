@@ -7,7 +7,7 @@ import books4 from "../../assets/books4.jpg";
 import "./we-carousel.css";
 
 
-const WeCarousel = () => {
+const WeCarousel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     const [ index, setIndex ] = useState(0);
     const carouselContent = [ {
         img: books1,
@@ -36,13 +36,14 @@ const WeCarousel = () => {
         setIndex(selectedIndex);
     };
     return (
-        <>
+        <div ref={ ref }>
             <Carousel activeIndex={ index }
                       onSelect={ handleSelect }
                       interval={ 5000 }
                       pause={ false }
                       controls={ false }
                       touch={ true }
+                      style={{height: '100vh', display: 'flex' ,alignItems: 'center'}}
             >
                 { carouselContent.map((item, idx) => <Carousel.Item key={idx}>
                     <div className="car-wrap">
@@ -55,8 +56,8 @@ const WeCarousel = () => {
                     </div>
                 </Carousel.Item>) }
             </Carousel>
-        </>
+        </div>
     );
-};
+});
 
 export default WeCarousel;

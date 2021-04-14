@@ -8,20 +8,22 @@ import Home from "../../pages/home";
 import { Course } from "../../pages/course";
 import { About } from "../../pages/about";
 import { TnC } from "../../pages/tnc";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 export const Routes = () => {
     const { user } = useContext(UserDetailsContext);
+    const { organisation } = useContext(OrganisationDetailsContext);
     return <Switch>
         <Route path="/" component={ Home } exact/>
         <Route path={ "/course" } component={ Course } exact/>
         <Route path={ "/about" } component={ About } exact/>
         <Route path={ "/t&c" } component={ TnC } exact/>
         <Route path="/auth" render={ () =>
-            !user ? <AuthLayout/> : <Redirect to='/'/> } exact/>
+            !user && !organisation ? <AuthLayout/> : <Redirect to='/'/> } exact/>
         <Route path={ "/my-courses" } render={ () =>
-            !user ? <Redirect to='/auth'/> : <MyCourses/> } exact/>
+            !user && !organisation? <Redirect to='/auth'/> : <MyCourses/> } exact/>
         <Route path={ "/profile" } render={ () =>
-            !user ? <Redirect to='/auth'/> : <Profile/> } exact/>
+            !user && !organisation ? <Redirect to='/auth'/> : <Profile/> } exact/>
         <Route component={ Home }/>
     </Switch>
 };
