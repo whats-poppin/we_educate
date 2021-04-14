@@ -11,6 +11,10 @@ export const fetchAllCourses = async (): Promise<Product[]> => {
     }
 };
 
+export const updateCourse = async () => {};
+
+export const addCourse = async () => {};
+
 export const onCoursePurchaseSuccess = async (courseId: string, userId: string): Promise<string> => {
     try {
         await firestore.doc(`users/${ userId }`)
