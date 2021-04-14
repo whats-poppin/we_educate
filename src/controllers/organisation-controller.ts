@@ -1,4 +1,4 @@
-import { firestore } from "../firebase";
+import { auth, firestore } from "../firebase";
 import { Organisation } from "../models/organisation";
 import firebase from "firebase";
 
@@ -6,6 +6,15 @@ export const fetchOrganisation = async (orgId: string): Promise<Organisation | s
     try {
         const organisationSnapshot = await firestore.doc(`organisations/${ orgId }`).get();
         return organisationSnapshot.data() as Organisation;
+    } catch ( e ) {
+        return e.message;
+    }
+};
+
+export const updateOrganisationName = async (name: string) => {
+    try {
+        await firestore.collection("organisations").doc(auth.currentUser.uid).update({ orgName: name });
+        return true;
     } catch ( e ) {
         return e.message;
     }
@@ -40,12 +49,10 @@ export const registerOrganisation = async (orgName: string, address: string, ema
                     meta: {}
                 };
             }
-        } catch
-            ( e ) {
+        } catch ( e ) {
             return e.message;
         }
-    }
-;
+};
 
 
 // todo: future work

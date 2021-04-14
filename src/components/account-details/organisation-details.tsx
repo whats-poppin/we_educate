@@ -7,9 +7,8 @@ import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { joinOrganisation, leaveOrganisation } from "../../controllers/individual-controller";
 
 export const OrganisationDetails: React.FC<{ organisation?: Organisation }> = ({ organisation }) => {
-    const { user } = useContext(UserDetailsContext);
+    const { user, setUser } = useContext(UserDetailsContext);
     const [ joinCode, setJoinCode ] = useState("");
-    const { setUser } = useContext(UserDetailsContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
 
     const handleLeaveOrg = async () => {
@@ -46,7 +45,7 @@ export const OrganisationDetails: React.FC<{ organisation?: Organisation }> = ({
         }
     };
 
-    return user.organisationId ? <>
+    return user ? user.organisationId ? <>
         <Card>
             <CardHeader
                 title="Organisation Details"
@@ -95,6 +94,8 @@ export const OrganisationDetails: React.FC<{ organisation?: Organisation }> = ({
                 color={ 'primary' }>
             Join
         </Button>
+    </> : <>
+        Coming Soon
     </>;
 };
 

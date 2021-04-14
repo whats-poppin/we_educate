@@ -7,29 +7,42 @@ import PaymentHistory from "../payment-history/payment-history";
 import DeleteAccount from "../delete-account/delete-account";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
+import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
 
 const NormalProfile = () => {
-    const [ selectedComponent, setSelectedComponent ] = useState("profile")
+    const [ selectedComponent, setSelectedComponent ] = useState("profile");
     const { user } = useContext(UserDetailsContext);
+    const { organisation } = useContext(OrganisationDetailsContext);
+
     return <div className="rootContainer">
         <Nav defaultActiveKey="/home" className="flex-column">
             <Nav.Item className="userImg-wrapper">
                 <ProfileAvatar/>
             </Nav.Item>
-            <Nav.Item className="userName">{ user.name ?? "" }</Nav.Item>
+            <Nav.Item className="userName">
+                { user ? user.name : organisation.orgName }
+            </Nav.Item>
             <Nav.Link className="nav-links" onClick={ () => {
                 setSelectedComponent("profile")
-            } }>Profile</Nav.Link>
+            } }>
+                Account Details
+            </Nav.Link>
             <Nav.Link className="nav-links" onClick={ () => {
                 setSelectedComponent("organisation")
-            } }>Your Organisation</Nav.Link>
+            } }>
+                Organisation Dashboard
+            </Nav.Link>
             <Nav.Link className="nav-links" onClick={ () => {
                 setSelectedComponent("paymentHistory")
-            } }>Payment History</Nav.Link>
+            } }>
+                Payment History
+            </Nav.Link>
             <Nav.Link className="nav-links" onClick={ () => {
                 setSelectedComponent("deleteAccount")
-            } }>Delete Account</Nav.Link>
+            } }>
+                Delete Account
+            </Nav.Link>
         </Nav>
         <div className="info">
             { selectedComponent === "profile" ? <EditProfile/> :

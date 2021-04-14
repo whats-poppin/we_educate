@@ -16,16 +16,18 @@ const PaymentHistory = () => {
         let mounted = true;
         if ( transactions === null )
             ( async () => {
-                const transactionResponse = await getUserTransactions(user.id);
-                if ( typeof transactionResponse === 'string' ) {
-                    setSnackbarDefinition({
-                        severity: 'error',
-                        message: transactionResponse,
-                        visible: true
-                    });
-                } else {
-                    if ( mounted )
-                        setTransactions(transactionResponse as Transaction[]);
+                if ( user ) {
+                    const transactionResponse = await getUserTransactions(user.id);
+                    if ( typeof transactionResponse === 'string' ) {
+                        setSnackbarDefinition({
+                            severity: 'error',
+                            message: transactionResponse,
+                            visible: true
+                        });
+                    } else {
+                        if ( mounted )
+                            setTransactions(transactionResponse as Transaction[]);
+                    }
                 }
             } )();
         return () => {
@@ -35,8 +37,8 @@ const PaymentHistory = () => {
 
     return <div>
         Payment History
-        { transactions ? transactions.length > 0 ? transactions.map((transaction: Transaction,idx) =>
-                <TransactionCard key={idx} transaction={ transaction }/>)
+        { transactions ? transactions.length > 0 ? transactions.map((transaction: Transaction, idx) =>
+                <TransactionCard key={ idx } transaction={ transaction }/>)
             : <h3>
                 You don't have any transactions.
             </h3> : <Loader/> }
