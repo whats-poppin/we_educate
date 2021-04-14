@@ -12,7 +12,9 @@ const Jumbotron = () => {
     const [count, setCount] = useState(1);
     useEffect(() => {
         setCount(1);
+        return;
     }, [count]);
+
     const notSmall = useMediaQuery('(min-width:500px)');
     const history = useHistory();
 
