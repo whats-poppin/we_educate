@@ -24,7 +24,7 @@ export const MyCourses = () => {
                 setUserCourses(courses);
             } )();
         }
-    }, [ user ]);
+    }, [ user, allCourses ]);
 
 
     return !user ? <div style={ { display: 'grid', placeItems: 'center', padding: '5rem' } }>

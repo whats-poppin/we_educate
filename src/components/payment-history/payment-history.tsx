@@ -37,11 +37,13 @@ const PaymentHistory = () => {
 
     return <div>
         Payment History
-        { transactions ? transactions.length > 0 ? transactions.map((transaction: Transaction, idx) =>
+        { user ? transactions ? transactions.length > 0 ? transactions.map((transaction: Transaction, idx) =>
                 <TransactionCard key={ idx } transaction={ transaction }/>)
             : <h3>
                 You don't have any transactions.
-            </h3> : <Loader/> }
+            </h3> : <Loader/> : <h3>
+            You don't have any transactions.
+        </h3> }
     </div>;
 };
 
