@@ -14,7 +14,7 @@ export type ProductMeta = {
         | 'Level – I / Lower-level Managers' | 'Level – II / Middle-level Managers'
         | 'Level – III / Senior-level Managers' | 'Level – IV / Top-level Managers';
     fee: string;
-    studyMaterial: string[];
+    studyMaterial: { link: string, name: string, }[];
     faculty: string;
 };
 
@@ -36,5 +36,4 @@ export class Product {
         this.imgUrl = imgUrl;
         this.meta = meta;
     }
-
 }

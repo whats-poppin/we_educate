@@ -1,6 +1,6 @@
 import { firestore } from "../firebase";
 import firebase from 'firebase/app'
-import { Product } from "../models/product";
+import { Product, SessionEvent } from "../models/product";
 
 export const fetchAllCourses = async (): Promise<Product[]> => {
     try {
@@ -11,9 +11,19 @@ export const fetchAllCourses = async (): Promise<Product[]> => {
     }
 };
 
-export const updateCourse = async () => {};
-
-export const addCourse = async () => {};
+export const updateCourse = async (courseId: string, updatableFields: { event?: SessionEvent,fee: string }) => {
+    try {
+        await firestore.collection("users").doc(courseId).update({
+            meta: {
+                events: firebase.firestore.FieldValue.arrayUnion(updatableFields.event),
+                fee: updatableFields.fee,
+            }
+        });
+        return true;
+    } catch ( e ) {
+        return false;
+    }
+};
 
 export const onCoursePurchaseSuccess = async (courseId: string, userId: string): Promise<string> => {
     try {
