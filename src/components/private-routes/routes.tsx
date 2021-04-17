@@ -1,5 +1,5 @@
-import { Redirect, Route, Switch } from "react-router-dom";
-import React, { useContext } from "react";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 import { MyCourses } from "../../pages/my-courses";
 import { Profile } from "../../pages/profile";
 import { AuthLayout } from "../auth-layout/auth-layout";
@@ -13,6 +13,14 @@ import { OrganisationDetailsContext } from "../../contexts/organisation-details"
 export const Routes = () => {
     const { user } = useContext(UserDetailsContext);
     const { organisation } = useContext(OrganisationDetailsContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if ( user || organisation ) {
+            history.push('/my-courses');
+        }
+    }, [ user, organisation ]);
+
     return <Switch>
         <Route path="/" component={ Home } exact/>
         <Route path={ "/course" } component={ Course } exact/>
@@ -21,7 +29,7 @@ export const Routes = () => {
         <Route path="/auth" render={ () =>
             !user && !organisation ? <AuthLayout/> : <Redirect to='/'/> } exact/>
         <Route path={ "/my-courses" } render={ () =>
-            !user && !organisation? <Redirect to='/auth'/> : <MyCourses/> } exact/>
+            !user && !organisation ? <Redirect to='/auth'/> : <MyCourses/> } exact/>
         <Route path={ "/profile" } render={ () =>
             !user && !organisation ? <Redirect to='/auth'/> : <Profile/> } exact/>
         <Route component={ Home }/>

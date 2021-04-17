@@ -1,5 +1,5 @@
 import { useLoginSignupStyles } from "../../utils/component-styles/login-signup";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useContext, useState } from "react";
 import { BsFillPersonFill, FaFacebookF, FaGoogle, VscOrganization } from "react-icons/all";
 import { Button, Checkbox, CircularProgress, Slide, TextField, Typography } from "@material-ui/core";
@@ -37,7 +37,6 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const { setUser } = useContext(UserDetailsContext);
     const { setOrganisation } = useContext(OrganisationDetailsContext);
-    const history = useHistory();
     const [ loading, setLoading ] = useState(false);
     const { notMedium, setShowLogin } = props;
     const location = useLocation();
@@ -63,7 +62,6 @@ export const SignUp = (props: { setShowLogin: any; notMedium: boolean }) => {
                 visible: true
             });
             showOrganisation ? setOrganisation(result as Organisation) : setUser(result as Individual);
-            history.push('/');
         } else
             setSnackbarDefinition({
                 severity: 'error',
