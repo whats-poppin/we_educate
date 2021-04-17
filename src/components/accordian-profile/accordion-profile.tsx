@@ -8,10 +8,12 @@ import DeleteAccount from "../delete-account/delete-account";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { ProfileAvatar } from "../profile-avatar/profile-avatar";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
+import { UpdateCourses } from "../update-courses/update-courses";
 
 const AccordionProfile = () => {
     const orgName = useContext(OrganisationDetailsContext)?.organisation?.orgName;
     const userName = useContext(UserDetailsContext)?.user?.name;
+    const userEmail = useContext(UserDetailsContext)?.user?.email;
 
     return <>
         <Nav defaultActiveKey="/home" className="flex-column1">
@@ -38,13 +40,15 @@ const AccordionProfile = () => {
                     <Card.Header>
                         <Accordion.Toggle eventKey="1">
                             <Nav.Link className="nav-links">
-                                Organisation Dashboard
+                                { orgName || userEmail !== "admin101@we-educateall.com" ?
+                                    "Organisation Dashboard" : "Update Courses" }
                             </Nav.Link>
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
                         <Card.Body>
-                            <OrganisationDetails/>
+                            { userEmail !== "admin101@we-educateall.com" && !orgName ? <OrganisationDetails/> :
+                                <UpdateCourses/> }
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
