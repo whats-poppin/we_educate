@@ -11,13 +11,10 @@ export const fetchAllCourses = async (): Promise<Product[]> => {
     }
 };
 
-export const updateCourse = async (courseId: string, updatableFields: { event?: SessionEvent,fee: string }) => {
+export const updateCourse = async (courseId: string, updatableFields: { event: SessionEvent }) => {
     try {
-        await firestore.collection("users").doc(courseId).update({
-            meta: {
-                events: firebase.firestore.FieldValue.arrayUnion(updatableFields.event),
-                fee: updatableFields.fee,
-            }
+        await firestore.collection("courses").doc(courseId).update({
+            events: firebase.firestore.FieldValue.arrayUnion(updatableFields.event)
         });
         return true;
     } catch ( e ) {
