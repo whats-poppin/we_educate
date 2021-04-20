@@ -19,7 +19,7 @@ export const Routes = () => {
         if ( user || organisation ) {
             history.push('/my-courses');
         }
-    }, [ user, organisation ]);
+    }, [ user, organisation, history ]);
 
     return <Switch>
         <Route path="/" component={ Home } exact/>
