@@ -30,8 +30,8 @@ const Jumbotron = () => {
                         <Typist avgTypingDelay={100} onTypingDone={() => setCount(0)}>
                             <span> We Educate</span>
                             <Typist.Backspace count={10} delay={800} />
-                            <span> Committed to Excellence</span>
-                            <Typist.Backspace count={23} delay={800} />
+                            <span>A PDC Educational Services initiative</span>
+                            <Typist.Backspace count={37} delay={800} />
                         </Typist>
                     ) : (
                         ""

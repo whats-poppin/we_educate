@@ -8,6 +8,7 @@ import { fetchAllCourses } from "../controllers/courses-controller";
 import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
 import WeCarousel from "../components/carousel/we-carousel"
+import Numbers from "../components/numbers/numbers";
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
@@ -55,6 +56,7 @@ const Home = () => {
     return <>
         <div className="home-body">
             <Jumbotron/>
+            <Numbers/>
             <WeCarousel ref = { carouselRef }/>
             <Explore ref={ exploreRef }/>
         </div>
