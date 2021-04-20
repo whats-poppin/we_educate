@@ -25,13 +25,16 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         fontWeight: 'bolder',
                         padding: '0.8rem 0 1rem 0',
                         fontSize: '1.14rem'
-                    } }>{ course.name }</Card.Title>
-                    <Card.Text style={ { fontSize: '1rem', fontFamily: 'Lato, sans-serif' } }>
-                        Meant for <span style={ { fontWeight: 'bold' } }>{ course.meta.participantLevel }</span>
-                        <br/>
-                        Duration <span style={ { fontWeight: 'bold' } }>{ course.meta.duration }</span>
-                        <br/>
-                        Taught By <span style={ { fontWeight: 'bold' } }>{ course.meta.faculty }</span>
+                    } }>
+                        { course.name }
+                    </Card.Title>
+                    <Card.Text style={ { fontSize: '1.2rem', fontFamily: 'Lato, sans-serif', textAlign: 'left' } }>
+                        { course.meta?.competenciesDevelopment.slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2).map((e, idx) =>
+                            <div key={ idx }>
+                                { idx + 1 }. { e }
+                                <br/>
+                            </div>) }
+                        <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
                     <Card.Text style={ {
                         fontWeight: 'bold', fontSize: '1.6rem', position: "absolute",
@@ -42,7 +45,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
             </Card>
         </div>
         <div>
-            <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem'}}
+            <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem' } }
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
@@ -52,14 +55,17 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         fontWeight: 'bolder',
                         padding: '0.8rem 0 0.8rem 0',
                         fontSize: '1.14rem'
-                    } }>{ course.name }</Card.Title>
-                    <Card.Text style={ { fontSize: '1.2rem', fontFamily: 'Lato, sans-serif', textAlign: 'left' } }>
-                        { course.meta?.competenciesDevelopment.slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2).map((e, idx) =>
-                            <div key={ idx }>
-                                { idx + 1 }. { e }
-                                <br/>
-                            </div>) }
-                        <span style={ { fontWeight: 'bold' } }>And more ....</span>
+                    } }>
+                        { course.name }
+                    </Card.Title>
+                    <Card.Text style={ { fontSize: '1rem', fontFamily: 'Lato, sans-serif' } }>
+                        Meant for <span style={ { fontWeight: 'bold' } }>
+                        { course.meta.participantLevel }
+                    </span>
+                        <br/>
+                        Duration <span style={ { fontWeight: 'bold' } }>
+                        { course.meta.duration }
+                    </span>
                         <div className="card-button">
                             <Button variant="dark"
                                     onClick={ () => {
