@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Accordion, Card, Nav } from "react-bootstrap";
 import EditProfile from "../edit-profile/edit-profile";
-import OrganisationDetails from "../account-details/organisation-details";
+import OrganisationDetails from "../organisation-details/organisation-details";
 import './accordian-profile.css'
 import PaymentHistory from "../payment-history/payment-history";
 import DeleteAccount from "../delete-account/delete-account";

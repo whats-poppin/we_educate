@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './normal-profile.css'
 import { Nav } from "react-bootstrap";
 import EditProfile from "../edit-profile/edit-profile";
-import OrganisationDetails from "../account-details/organisation-details";
+import OrganisationDetails from "../organisation-details/organisation-details";
 import PaymentHistory from "../payment-history/payment-history";
 import DeleteAccount from "../delete-account/delete-account";
 import { UserDetailsContext } from "../../contexts/user-details";
