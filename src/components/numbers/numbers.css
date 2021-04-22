@@ -2,12 +2,12 @@
     width: 100% !important;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
-    gap: 7rem;
+    gap: 4rem;
     /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
     text-align: center;
     align-items: center;
-    align-content: space-around;
     justify-content: center;
+    margin-top: -1.5rem;
 }
 
 .iHeader{

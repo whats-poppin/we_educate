@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 .home-body{
+    z-index: -5;
     /*background: -webkit-linear-gradient(to bottom, #fff, #bfbebd);  !* Chrome 10-25, Safari 5.1-6 *!*/
     /*background: linear-gradient(to bottom, #fff,  #bfbebd); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
     background: rgba(255, 255, 255, 1.0);

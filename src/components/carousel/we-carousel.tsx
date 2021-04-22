@@ -37,25 +37,25 @@ const WeCarousel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     };
     return (
         <div ref={ ref }>
-            <Carousel activeIndex={ index }
-                      onSelect={ handleSelect }
-                      interval={ 5000 }
-                      pause={ false }
-                      controls={ false }
-                      touch={ true }
-                      style={{height: '100vh', display: 'flex' ,alignItems: 'center'}}
-            >
-                { carouselContent.map((item, idx) => <Carousel.Item key={idx}>
-                    <div className="car-wrap">
-                        <img
-                            className="d-block w-100"
-                            src={ item.img }
-                            alt={ `${ idx } slide` }
-                        />
-                        <p>{ item.text }</p>
-                    </div>
-                </Carousel.Item>) }
-            </Carousel>
+            {/*<Carousel activeIndex={ index }*/}
+            {/*          onSelect={ handleSelect }*/}
+            {/*          interval={ 5000 }*/}
+            {/*          pause={ false }*/}
+            {/*          controls={ false }*/}
+            {/*          touch={ true }*/}
+            {/*          style={{height: '100vh', display: 'flex' ,alignItems: 'center'}}*/}
+            {/*>*/}
+            {/*    { carouselContent.map((item, idx) => <Carousel.Item key={idx}>*/}
+            {/*        <div className="car-wrap">*/}
+            {/*            <img*/}
+            {/*                className="d-block w-100"*/}
+            {/*                src={ item.img }*/}
+            {/*                alt={ `${ idx } slide` }*/}
+            {/*            />*/}
+            {/*            <p>{ item.text }</p>*/}
+            {/*        </div>*/}
+            {/*    </Carousel.Item>) }*/}
+            {/*</Carousel>*/}
         </div>
     );
 });

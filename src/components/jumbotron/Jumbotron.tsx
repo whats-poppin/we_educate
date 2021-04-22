@@ -21,7 +21,32 @@ const Jumbotron = () => {
     return (
         <>
             <div className="container-grid">
-                <img src={logo} alt="logo" id="logo" />
+                <div
+                    style={{
+                        display: "flex",
+                        width: "100%",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                    }}
+                >
+                    <img src={logo} alt="logo" id="logo" />
+                    <p
+                        style={{
+                            fontSize: "1.5rem",
+                            width: "30%",
+                            marginLeft: "9rem",
+                            alignSelf: "center",
+                            justifyContent: "center",
+                            textAlign: "justify",
+                            fontFamily: "arya",
+                            background: "rgba(191,190,189,0.15)",
+                            padding: "1rem"
+                        }}
+                    >
+                        A culmination of more than 100 years of combined experience of
+                        three generations of academicians in the fields of Liberal Arts and Management.
+                    </p>
+                </div>
                 <p style={{marginTop: '2rem',
                     fontFamily: 'Montserrat, sans-serif',
                     fontSize: '2rem',

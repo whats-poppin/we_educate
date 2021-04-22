@@ -8,45 +8,65 @@ const Numbers = () => {
                 display:"flex",
                 height: "100vh",
                 width: "100vw",
-                alignItems: "space-between",
                 flexDirection: "column",
-                justifyContent: "space-evenly"
+                justifyContent: "center",
             }}
         >
             <h3 className="iHeader" >
-                The basis of our products are
+                "WE" offer services in
             </h3>
             <div className="container" >
 
                 <div className="iCard">
                     <div className="num-style">1</div>
-                    <h3 className="iTitle">Inquiry</h3>
+                    <h3 className="iTitle">Teaching</h3>
                 </div>
 
                 <div className="iCard">
                     <div className="num-style">2</div>
-                    <h3 className="iTitle">Information</h3>
+                    <h3 className="iTitle">Training</h3>
                 </div>
 
                 <div className="iCard">
                     <div className="num-style">3</div>
-                    <h3 className="iTitle">Inspire</h3>
+                    <h3 className="iTitle">Industry Research</h3>
                 </div>
 
                 <div className="iCard">
                     <div className="num-style">4</div>
-                    <h3 className="iTitle">Innovate</h3>
+                    <h3 className="iTitle">Content Development</h3>
                 </div>
 
                 <div className="iCard">
                     <div className="num-style">5</div>
-                    <h3 className="iTitle">Implementation</h3>
+                    <h3 className="iTitle">Case Writing</h3>
                 </div>
 
                 <div className="iCard">
                     <div className="num-style">6</div>
-                    <h3 className="iTitle">Impact</h3>
+                    <h3 className="iTitle">Pedagogy Innovations</h3>
                 </div>
+
+                <div className="iCard">
+                    <div className="num-style">7</div>
+                    <h3 className="iTitle">Faculty Development</h3>
+                </div>
+
+                <div className="iCard">
+                    <div className="num-style">8</div>
+                    <h3 className="iTitle">Institution Building</h3>
+                </div>
+
+                <div className="iCard"
+                    style={{
+                        marginTop: "-50px"
+                    }}
+                >
+                    <div className="num-style">9</div>
+                    <h3 className="iTitle">Consulting</h3>
+                </div>
+
+
             </div>
         </div>
     );
