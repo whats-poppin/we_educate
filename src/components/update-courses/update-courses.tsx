@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { cipher } from "../../utils/encrypt-decrypt";
+import { cipher, decipher } from "../../utils/encrypt-decrypt";
 import {
     Button,
     CircularProgress,
@@ -19,6 +19,7 @@ import { Loader } from "../loader/loader";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useLoginSignupStyles } from "../../utils/component-styles/login-signup";
 import firebase from "firebase";
+import { Product } from "../../models/product";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -47,10 +48,12 @@ export const UpdateCourses = () => {
     const [ courseId, setCourseId ] = React.useState('');
     const { allCourses, setAllCourses } = useContext(AllCoursesContext);
     const [ loading, setLoading ] = React.useState(false);
+    const [ course, setCourse ] = React.useState<Product>(null);
     const [ joinLink, setJoinLink ] = React.useState("");
     const [ startTime, setStartTime ] = React.useState(new Date(Date.now()));
     const [ duration, setDuration ] = React.useState(1);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
+    const myDecipher = decipher(process.env.REACT_APP_M_NHI_BTAUNGA);
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setCourseId(event.target.value as string);
@@ -60,12 +63,13 @@ export const UpdateCourses = () => {
         event.preventDefault();
         setLoading(true);
         const linkCipher = cipher(process.env.REACT_APP_M_NHI_BTAUNGA)(joinLink);
+        const eventData = {
+            duration,
+            startTime: firebase.firestore.Timestamp.fromDate(startTime),
+            joinLink: linkCipher as unknown as string
+        };
         const isUpdated = await updateCourse(courseId, {
-            event: {
-                duration,
-                startTime: firebase.firestore.Timestamp.fromDate(startTime),
-                joinLink: linkCipher as unknown as string
-            }
+            event: eventData
         });
         if ( isUpdated ) {
             setSnackbarDefinition({
@@ -73,6 +77,18 @@ export const UpdateCourses = () => {
                 message: 'Successfully updated course!!',
                 visible: true
             });
+            setAllCourses((prevState) => {
+                const newCourse = course;
+                newCourse.events.push(eventData);
+                const newState = prevState.filter((c) => c.id !== courseId);
+                newState.push(newCourse);
+                return newState;
+            });
+            setCourseId("");
+            setCourse(null);
+            setJoinLink("");
+            setStartTime(new Date(Date.now()));
+            setDuration(1);
         } else {
             setSnackbarDefinition({
                 severity: 'error',
@@ -100,7 +116,25 @@ export const UpdateCourses = () => {
         }
     }, [ allCourses, setSnackbarDefinition, setAllCourses ]);
 
+    useEffect(() => {
+        if ( !!courseId ) {
+            setCourse(allCourses.find((c) => c.id === courseId));
+        }
+    }, [ courseId, allCourses ]);
+
     return allCourses.length < 1 ? <Loader/> : <div className={ classes.parentDiv }>
+        { course ? course?.events.length === 0 ? <h3>
+            This Course doesn't have any slots
+        </h3> : <>
+            <h3>All Slots Yet</h3>
+            { course?.events.map((event) => <div>
+                { `From ${ event.startTime.toDate().toLocaleString() } for ${ event.duration }Hr --> ` }
+                { `Join Link - ${ myDecipher(event.joinLink) }` }
+            </div>) }
+        </> : <h3>
+            Select a Course
+        </h3>
+        }
         <FormControl className={ classes.formControl }>
             <InputLabel id="demo-simple-select-helper-label">Choose Course Name</InputLabel>
             <Select
