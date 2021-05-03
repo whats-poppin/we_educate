@@ -27,7 +27,7 @@ export const MyCourses = () => {
     }, [ user, allCourses ]);
 
 
-    return !user ? <div style={ { display: 'grid', placeItems: 'center', padding: '5rem' } }>
+    return !user ? <div style={ { display: 'grid', placeItems: 'center', padding: '5rem', } }>
         To be added in a courses,
         <Button variant={ 'contained' } color={ 'primary' } onClick={ () => {
             setSnackbarDefinition({
@@ -38,7 +38,7 @@ export const MyCourses = () => {
         } }>
             Contact us
         </Button>
-    </div> : <div style={ { display: 'grid', placeItems: 'center', padding: '5rem' } }>
+    </div> : <div style={ { display: 'grid', placeItems: 'center', padding: '5rem',  background: 'red'} }>
         { user?.product.length > 0
             ? userCourses.map((course, idx) =>
                 <CourseCard key={ idx } course={ course }/>)

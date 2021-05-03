@@ -19,49 +19,30 @@ const Jumbotron = () => {
     const history = useHistory();
 
     return (
-        <>
+        <div className="rootJumbo">
             <div className="container-grid">
-                <div
-                    style={{
-                        display: "flex",
-                        width: "100%",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                    }}
-                >
-                    <img src={logo} alt="logo" id="logo" />
-                    <p
-                        style={{
-                            fontSize: "1.5rem",
-                            width: "30%",
-                            marginLeft: "9rem",
-                            alignSelf: "center",
-                            justifyContent: "center",
-                            textAlign: "justify",
-                            fontFamily: "arya",
-                            background: "rgba(191,190,189,0.15)",
-                            padding: "1rem"
-                        }}
-                    >
-                        A culmination of more than 100 years of combined experience of
-                        three generations of academicians in the fields of Liberal Arts and Management.
-                    </p>
+                <div className="mainHeading">
+                    We Educate
                 </div>
-                <p style={{marginTop: '2rem',
-                    fontFamily: 'Montserrat, sans-serif',
-                    fontSize: '2rem',
-                }}>
-                    {count ? (
-                        <Typist avgTypingDelay={100} onTypingDone={() => setCount(0)}>
-                            <span> We Educate</span>
-                            <Typist.Backspace count={10} delay={800} />
-                            <span>A PDC Educational Services initiative</span>
-                            <Typist.Backspace count={37} delay={800} />
-                        </Typist>
-                    ) : (
-                        ""
-                    )}
-                </p>
+                    <div className="subHeading">
+                        <div>Enlightenment - The Purpose of Education</div>
+                        <div>Transformation  - The Purpose of Management Education</div>
+                    </div>
+                {/*<p style={{marginTop: '2rem',*/}
+                {/*    fontFamily: 'Montserrat, sans-serif',*/}
+                {/*    fontSize: '2rem',*/}
+                {/*}}>*/}
+                {/*    {count ? (*/}
+                {/*        <Typist avgTypingDelay={100} onTypingDone={() => setCount(0)}>*/}
+                {/*            <span> We Educate</span>*/}
+                {/*            <Typist.Backspace count={10} delay={800} />*/}
+                {/*            <span>A PDC Educational Services initiative</span>*/}
+                {/*            <Typist.Backspace count={37} delay={800} />*/}
+                {/*        </Typist>*/}
+                {/*    ) : (*/}
+                {/*        ""*/}
+                {/*    )}*/}
+                {/*</p>*/}
 
             </div>
             <div className="container-flex"
@@ -78,7 +59,7 @@ const Jumbotron = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
