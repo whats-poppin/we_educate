@@ -6,7 +6,7 @@ import { AuthLayout } from "../auth-layout/auth-layout";
 import { UserDetailsContext } from "../../contexts/user-details";
 import Home from "../../pages/home";
 import { Course } from "../../pages/course";
-import { About } from "../../pages/about";
+import { About } from "../../pages/about/about";
 import { TnC } from "../../pages/tnc";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 

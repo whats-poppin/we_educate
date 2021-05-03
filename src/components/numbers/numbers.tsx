@@ -65,8 +65,6 @@ const Numbers = () => {
                     <div className="num-style">9</div>
                     <h3 className="iTitle">Consulting</h3>
                 </div>
-
-
             </div>
         </div>
     );
