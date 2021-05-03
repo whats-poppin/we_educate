@@ -57,8 +57,8 @@ const Home = () => {
     return <>
         <div className="home-body">
             <Jumbotron/>
-            <Numbers/>
-            <Venn/>
+            {/*<Numbers/>*/}
+            {/*<Venn/>*/}
             <WeCarousel ref = { carouselRef }/>
             <Explore ref={ exploreRef }/>
         </div>

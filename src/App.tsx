@@ -37,7 +37,7 @@ const App = () => {
                         <OrganisationDetailsProvider>
                             <AllCoursesProvider>
                                 <Router>
-                                    <NavB/>
+                                    {/*<NavB/>*/}
                                     <Routes/>
                                 </Router>
                             </AllCoursesProvider>
