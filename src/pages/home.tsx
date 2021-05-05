@@ -8,8 +8,8 @@ import { fetchAllCourses } from "../controllers/courses-controller";
 import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
 import WeCarousel from "../components/carousel/we-carousel"
-import Numbers from "../components/numbers/numbers";
-import Venn from "../components/venn-diagram/venn";
+// import Numbers from "../components/numbers/numbers";
+// import Venn from "../components/venn-diagram/venn";
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
