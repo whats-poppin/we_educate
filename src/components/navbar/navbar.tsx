@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import brand_logo from "../../assets/brand_logo.png";
 import Navbar from 'react-bootstrap/Navbar';
 import { Form, Nav, } from "react-bootstrap";
@@ -15,6 +15,7 @@ const RenderBrand = () => {
     const history = useHistory();
     return <>
         <Navbar.Brand onClick={ () => {
+            window.scrollTo(0, 0)
             history.push('/')
         } }>
             <img src={ brand_logo } alt="logo" className="brand-logo"/>
@@ -23,68 +24,64 @@ const RenderBrand = () => {
     </>;
 };
 
-const RenderLinks: React.FC = () => {
+const RenderLinks: React.FC<{ isTransparentNavbar: boolean }> = ({ isTransparentNavbar }) => {
     const history = useHistory();
     const { user } = useContext(UserDetailsContext);
     const { organisation } = useContext(OrganisationDetailsContext);
     return <>
-        <Nav.Link
-            onClick={ async () => history.push({
-                pathname: `/`,
-                state: { showExplore: true }
-            }) }
-        >
+        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} }
+                  onClick={ async () => history.push({
+                      pathname: `/`,
+                      state: { showExplore: true }
+                  }) }>
             EXPLORE
         </Nav.Link>
-        <Nav.Link onClick={ async () => {history.push('/my-courses'); console.log(history.location.pathname)} }>
+        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ async () => {
+            history.push('/my-courses');
+            console.log(history.location.pathname)
+        } }>
             MY COURSES
         </Nav.Link>
-        { !user && !organisation ? <Nav.Link key={ 'auth' } onClick={ async () => {
+        { !user && !organisation ?
+            <Nav.Link key={ 'auth' } style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ async () => {
                 history.push(`auth`);
             } }>
-                LOGIN </Nav.Link> :
-            <ProfileDropdown/> }
+                LOGIN
+            </Nav.Link> : <ProfileDropdown/> }
     </>
 };
 
 export const NavB: React.FC = () => {
     const history = useHistory();
-    const [navbar, setNavbar] = useState(true);
+    const [ isTransparentNavbar, setIsTransparentNavbar ] = useState(true);
+
     const changeColor = () => {
-        if (window.pageYOffset === 0 && history.location.pathname === "/") {
-            // console.log("scroll")
-            setNavbar(true);
-        } else {
-            setNavbar(false);
-        }
+        if ( window.pageYOffset === 0 && history.location.pathname === "/" )
+            setIsTransparentNavbar(true);
+        else
+            setIsTransparentNavbar(false);
     }
-    useEffect(() => {
-        console.log("HI")
-       setNavbar(false)
-    }, [history.location.pathname])
+
     window.addEventListener('scroll', changeColor)
+
+    useEffect(() => {
+        history.location.pathname !== '/' && setIsTransparentNavbar(false);
+        history.location.pathname === '/' && window.pageYOffset === 0 && setIsTransparentNavbar(true);
+    }, [ history.location.pathname ])
+
     const notMedium = useMediaQuery('(min-width:991px)');
-    return !notMedium ? <>
-        <Navbar bg="light" expand="lg" className= {!navbar ? 'navbar' : 'navbar-active'} fixed="top">
-            <RenderBrand/>
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                </Nav>
-                <RenderLinks/>
+    return <Navbar bg="light" expand="lg" className={ !isTransparentNavbar ? 'navbar' : 'navbar-active' } fixed="top">
+        <RenderBrand/>
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto"/>
+            { !notMedium ? <>
+                <RenderLinks isTransparentNavbar={ isTransparentNavbar }/>
                 <Form inline>
                     <SearchField/>
-                </Form>
-            </Navbar.Collapse>
-        </Navbar>
-    </> : <>
-        <Navbar bg="light" expand="lg" className= {!navbar ? 'navbar' : 'navbar-active'} fixed="top">
-            <RenderBrand/>
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                </Nav>
-                <SearchBar/>
-                <RenderLinks/>
-            </Navbar.Collapse>
-        </Navbar>
-    </>
+                </Form> </> : <>
+                <SearchBar isTransparentNavbar={ isTransparentNavbar }/>
+                <RenderLinks isTransparentNavbar={ isTransparentNavbar }/>
+            </> }
+        </Navbar.Collapse>
+    </Navbar>
 };

@@ -38,10 +38,10 @@ export const SearchField = () => {
     />
 };
 
-export const SearchBar: React.FC = () => {
+export const SearchBar: React.FC<{ isTransparentNavbar: boolean }> = ({ isTransparentNavbar }) => {
     const [ showSearchBar, setShowSearchBar ] = useState(false);
     return <>
-        <BsSearch className="search_button" onClick={ () => {
+        <BsSearch className="search_button" style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ () => {
             setShowSearchBar(!showSearchBar)
         } }/>
         { showSearchBar ? <div className="fade-in" style={ { width: 300 } }>
