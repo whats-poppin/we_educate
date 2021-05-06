@@ -11,12 +11,13 @@ import { SearchBar, SearchField } from "../search-bar/search-bar";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
-const RenderBrand = () => {
+const RenderBrand = ({ setIsTransparentNavbar }: { setIsTransparentNavbar: (show: boolean) => void }) => {
     const history = useHistory();
     return <>
         <Navbar.Brand onClick={ () => {
-            window.scrollTo(0, 0)
-            history.push('/')
+            window.scrollTo(0, 0);
+            setIsTransparentNavbar && setIsTransparentNavbar(true);
+            history.push('/');
         } }>
             <img src={ brand_logo } alt="logo" className="brand-logo"/>
         </Navbar.Brand>
@@ -24,27 +25,32 @@ const RenderBrand = () => {
     </>;
 };
 
-const RenderLinks: React.FC<{ isTransparentNavbar: boolean }> = ({ isTransparentNavbar }) => {
+const RenderLinks: React.FC<{ isTransparentNavbar?: boolean, setIsTransparentNavbar?: (transparent: boolean) => void }> = ({ isTransparentNavbar, setIsTransparentNavbar }) => {
     const history = useHistory();
     const { user } = useContext(UserDetailsContext);
     const { organisation } = useContext(OrganisationDetailsContext);
     return <>
         <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} }
-                  onClick={ async () => history.push({
-                      pathname: `/`,
-                      state: { showExplore: true }
-                  }) }>
+                  onClick={ async () => {
+                      history.push({
+                          pathname: `/`,
+                          state: { showExplore: true }
+                      });
+                      setIsTransparentNavbar && setIsTransparentNavbar(false);
+                  } }>
             EXPLORE
         </Nav.Link>
-        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ async () => {
-            history.push('/my-courses');
-            console.log(history.location.pathname)
-        } }>
+        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} }
+                  onClick={ async () => {
+                      history.push('/my-courses');
+                      setIsTransparentNavbar && setIsTransparentNavbar(false);
+                  } }>
             MY COURSES
         </Nav.Link>
         { !user && !organisation ?
             <Nav.Link key={ 'auth' } style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ async () => {
                 history.push(`auth`);
+                setIsTransparentNavbar && setIsTransparentNavbar(false);
             } }>
                 LOGIN
             </Nav.Link> : <ProfileDropdown/> }
@@ -54,6 +60,8 @@ const RenderLinks: React.FC<{ isTransparentNavbar: boolean }> = ({ isTransparent
 export const NavB: React.FC = () => {
     const history = useHistory();
     const [ isTransparentNavbar, setIsTransparentNavbar ] = useState(true);
+
+    const notMedium = useMediaQuery('(min-width:991px)');
 
     const changeColor = () => {
         if ( window.pageYOffset === 0 && history.location.pathname === "/" )
@@ -65,22 +73,22 @@ export const NavB: React.FC = () => {
     window.addEventListener('scroll', changeColor)
 
     useEffect(() => {
-        history.location.pathname !== '/' && setIsTransparentNavbar(false);
         history.location.pathname === '/' && window.pageYOffset === 0 && setIsTransparentNavbar(true);
     }, [ history.location.pathname ])
 
-    const notMedium = useMediaQuery('(min-width:991px)');
+
     return <Navbar bg="light" expand="lg" className={ !isTransparentNavbar ? 'navbar' : 'navbar-active' } fixed="top">
-        <RenderBrand/>
+        <RenderBrand setIsTransparentNavbar={ setIsTransparentNavbar }/>
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto"/>
             { !notMedium ? <>
-                <RenderLinks isTransparentNavbar={ isTransparentNavbar }/>
+                <RenderLinks/>
                 <Form inline>
                     <SearchField/>
                 </Form> </> : <>
                 <SearchBar isTransparentNavbar={ isTransparentNavbar }/>
-                <RenderLinks isTransparentNavbar={ isTransparentNavbar }/>
+                <RenderLinks isTransparentNavbar={ isTransparentNavbar }
+                             setIsTransparentNavbar={ setIsTransparentNavbar }/>
             </> }
         </Navbar.Collapse>
     </Navbar>
