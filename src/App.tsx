@@ -6,7 +6,6 @@ import { theme } from "./utils/theme";
 import { AuthProvider } from "./contexts/auth";
 import { ErrorBoundary } from "./utils/error-boundary";
 import { SnackbarToggleProvider } from './contexts/snackbar-toggle';
-import { NavB } from "./components/navbar/navbar";
 import { UserDetailsProvider } from "./contexts/user-details";
 import { Routes } from "./components/private-routes/routes";
 import { AllCoursesProvider } from "./contexts/all-courses";
@@ -37,7 +36,6 @@ const App = () => {
                         <OrganisationDetailsProvider>
                             <AllCoursesProvider>
                                 <Router>
-                                    {/*<NavB/>*/}
                                     <Routes/>
                                 </Router>
                             </AllCoursesProvider>
