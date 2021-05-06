@@ -10,6 +10,8 @@ import { UserDetailsProvider } from "./contexts/user-details";
 import { Routes } from "./components/private-routes/routes";
 import { AllCoursesProvider } from "./contexts/all-courses";
 import { OrganisationDetailsProvider } from './contexts/organisation-details';
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
 
 export const loadScript = (src: string) => {
     return new Promise((resolve) => {
@@ -30,19 +32,21 @@ export const __DEV__ = document.domain === 'localhost';
 const App = () => {
     return <ErrorBoundary>
         <ThemeProvider theme={ theme }>
-            <SnackbarToggleProvider>
-                <AuthProvider>
-                    <UserDetailsProvider>
-                        <OrganisationDetailsProvider>
-                            <AllCoursesProvider>
-                                <Router>
-                                    <Routes/>
-                                </Router>
-                            </AllCoursesProvider>
-                        </OrganisationDetailsProvider>
-                    </UserDetailsProvider>
-                </AuthProvider>
-            </SnackbarToggleProvider>
+            <MuiPickersUtilsProvider utils={ DateFnsUtils }>
+                <SnackbarToggleProvider>
+                    <AuthProvider>
+                        <UserDetailsProvider>
+                            <OrganisationDetailsProvider>
+                                <AllCoursesProvider>
+                                    <Router>
+                                        <Routes/>
+                                    </Router>
+                                </AllCoursesProvider>
+                            </OrganisationDetailsProvider>
+                        </UserDetailsProvider>
+                    </AuthProvider>
+                </SnackbarToggleProvider>
+            </MuiPickersUtilsProvider>
         </ThemeProvider>
     </ErrorBoundary>
 };
