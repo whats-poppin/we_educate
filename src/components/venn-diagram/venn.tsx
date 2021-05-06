@@ -3,7 +3,9 @@ import venn_diagram from "../../assets/venn_diagran.svg";
 
 const Venn = () => {
     return (
-        <>
+        <div style={{
+        height: "100vh"}
+        }>
             <h3
                 style={{
                     textAlign: "center",
@@ -42,13 +44,13 @@ const Venn = () => {
                 <img
                     style={{
                         margin: "auto",
-
+                        height: "39rem"
                     }}
                     src={venn_diagram}
                      alt="venn diagram"
                 />
             </div>
-        </>
+        </div>
     );
 }
 

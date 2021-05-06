@@ -1,9 +1,10 @@
 .iHeader h1{
     text-align: center;
     font-family: Montserrat, sans-serif;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.5rem;
     padding-top: 1.5rem;
-    font-weight: bolder;
+    /*font-weight: bolder;*/
+    text-transform: uppercase;
 }
 
 .num-container{
@@ -41,6 +42,7 @@
     color: #343a40;
     text-align: center;
     text-transform: uppercase;
+    font-weight: 500;
 }
 @media all and (max-width: 1410px) {
     .iTitle{
@@ -102,6 +104,9 @@
     }
 }
 @media all and (max-width: 445px) {
+    .numRootContainer {
+        height: fit-content;
+    }
     .num-container{
         grid-template-columns: repeat(1, 1fr);
     }

@@ -41,9 +41,9 @@ const Numbers = () => {
         },
     ]
     return (
-        <div style={{background: "#e9ecef"}}>
+        <div style={{background: "#e9ecef", height:"100%", padding: "1.5rem"}} className="numRootContainer">
             <div className="iHeader">
-                <h1>"WE" offer services in</h1>
+                <h1>Services offered</h1>
             </div>
             <div className="num-container">
                 {
