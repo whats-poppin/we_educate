@@ -1,5 +1,5 @@
-import { Redirect, Route, Switch } from "react-router-dom";
-import React, { useContext } from "react";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 import { MyCourses } from "../../pages/my-courses";
 import { Profile } from "../../pages/profile";
 import { AuthLayout } from "../auth-layout/auth-layout";
@@ -14,6 +14,14 @@ import {NavB} from "../navbar/navbar";
 export const Routes = () => {
     const { user } = useContext(UserDetailsContext);
     const { organisation } = useContext(OrganisationDetailsContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if ( user || organisation ) {
+            history.push('/my-courses');
+        }
+    }, [ user, organisation, history ]);
+
     return <>
         <NavB/>
         <Switch>

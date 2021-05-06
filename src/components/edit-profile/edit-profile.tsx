@@ -10,6 +10,7 @@ import {
     TextField,
     Typography
 } from "@material-ui/core";
+import { useHistory } from 'react-router-dom';
 import { UserDetailsContext } from "../../contexts/user-details";
 import { auth } from "../../firebase";
 import { updateName } from "../../controllers/individual-controller";
@@ -27,6 +28,7 @@ const EditProfile = () => {
     const { organisation, setOrganisation } = useContext(OrganisationDetailsContext);
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const notSmall = useMediaQuery('(min-width:352px)');
+    const history = useHistory();
 
     const [ loading, setLoading ] = useState(false);
     const [ name, setName ] = useState(user ? user.name : organisation.orgName);
@@ -112,6 +114,12 @@ const EditProfile = () => {
                             : 'programs.' }`
                     }
                 </Typography>
+                <Button onClick={ () => {
+                    history.push('my-courses');
+                } }
+                        color={ 'primary' }>
+                    Go To My Courses
+                </Button>
             </CardContent>
         </Card>
         <TextField

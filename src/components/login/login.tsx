@@ -3,14 +3,12 @@ import React, { useContext, useState } from "react";
 import { SnackbarToggleContext } from "../../contexts/snackbar-toggle";
 import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { forgotPassword, login } from "../../controllers/auth-controller";
-import { useHistory } from "react-router-dom";
 import { Individual } from "../../models/individual";
 import { SocialAuth } from "../signup/signup";
 import { Organisation } from "../../models/organisation";
 
 export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
     const classes = useLoginSignupStyles();
-    const history = useHistory();
     const { setSnackbarDefinition } = useContext(SnackbarToggleContext);
     const [ loading, setLoading ] = useState(false);
     const [ email, setEmail ] = useState("");
@@ -31,7 +29,6 @@ export const Login = (props: { setShowLogin: any; notMedium: boolean; }) => {
                 message: 'Signup successful!',
                 visible: true
             });
-            history.push('/');
         } else
             setSnackbarDefinition({
                 severity: 'error',
