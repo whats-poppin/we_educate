@@ -48,7 +48,7 @@ const Numbers = () => {
             <div className="num-container">
                 {
                     numbersContent.map( content =>
-                        <div className="iCard">
+                        <div className="iCard" key = {content.number}>
                             <div className="iNum">{content.number}</div>
                             <div className="iTitle">{content.text}</div>
                         </div>
