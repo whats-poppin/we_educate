@@ -62,6 +62,7 @@
 }
 
 .search_button {
+    cursor: pointer;
     color: #4A5461;
     margin-right: 13px;
 }
