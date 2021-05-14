@@ -1,7 +1,6 @@
 import React from 'react';
 import venn_diagram from "../../assets/venn_diagran.svg";
 import "./venn.css"
-import mind_map from "../../assets/mind-map.svg"
 
 const Venn = () => {
     return (

@@ -11,12 +11,13 @@ import { SearchBar, SearchField } from "../search-bar/search-bar";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
-const RenderBrand = ({ setIsTransparentNavbar }: { setIsTransparentNavbar: (show: boolean) => void }) => {
+const RenderBrand = ({ setIsTransparentNavbar, setExpanded }: { setIsTransparentNavbar: (show: boolean) => void, setExpanded: (show: boolean) => void }) => {
     const history = useHistory();
     return <>
         <Navbar.Brand onClick={ () => {
             window.scrollTo(0, 0);
-            setIsTransparentNavbar && setIsTransparentNavbar(true);
+            setIsTransparentNavbar(true);
+            setExpanded(false);
             history.push('/');
         } }>
             <img src={ brand_logo } alt="logo" className="brand-logo"/>
@@ -30,7 +31,7 @@ const RenderLinks: React.FC<{ isTransparentNavbar?: boolean, setIsTransparentNav
     const { user } = useContext(UserDetailsContext);
     const { organisation } = useContext(OrganisationDetailsContext);
     return <>
-        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} }
+        <Nav.Link eventKey='1' style={ isTransparentNavbar ? { color: 'white' } : {} }
                   onClick={ async () => {
                       history.push({
                           pathname: `/`,
@@ -40,7 +41,7 @@ const RenderLinks: React.FC<{ isTransparentNavbar?: boolean, setIsTransparentNav
                   } }>
             EXPLORE
         </Nav.Link>
-        <Nav.Link style={ isTransparentNavbar ? { color: 'white' } : {} }
+        <Nav.Link eventKey='2' style={ isTransparentNavbar ? { color: 'white' } : {} }
                   onClick={ async () => {
                       history.push('/my-courses');
                       setIsTransparentNavbar && setIsTransparentNavbar(false);
@@ -48,10 +49,11 @@ const RenderLinks: React.FC<{ isTransparentNavbar?: boolean, setIsTransparentNav
             MY COURSES
         </Nav.Link>
         { !user && !organisation ?
-            <Nav.Link key={ 'auth' } style={ isTransparentNavbar ? { color: 'white' } : {} } onClick={ async () => {
-                history.push(`auth`);
-                setIsTransparentNavbar && setIsTransparentNavbar(false);
-            } }>
+            <Nav.Link eventKey='3' key={ 'auth' } style={ isTransparentNavbar ? { color: 'white' } : {} }
+                      onClick={ async () => {
+                          history.push(`auth`);
+                          setIsTransparentNavbar && setIsTransparentNavbar(false);
+                      } }>
                 LOGIN
             </Nav.Link> : <ProfileDropdown/> }
     </>
@@ -60,11 +62,12 @@ const RenderLinks: React.FC<{ isTransparentNavbar?: boolean, setIsTransparentNav
 export const NavB: React.FC = () => {
     const history = useHistory();
     const [ isTransparentNavbar, setIsTransparentNavbar ] = useState(true);
+    const [ expanded, setExpanded ] = useState(false);
 
     const notMedium = useMediaQuery('(min-width:991px)');
 
     const changeColor = () => {
-        if ( window.pageYOffset === 0 && history.location.pathname === "/" )
+        if ( !expanded && window.pageYOffset === 0 && history.location.pathname === "/" )
             setIsTransparentNavbar(true);
         else
             setIsTransparentNavbar(false);
@@ -77,8 +80,11 @@ export const NavB: React.FC = () => {
     }, [ history.location.pathname ])
 
 
-    return <Navbar bg="light" expand="lg" className={ !isTransparentNavbar ? 'navbar' : 'navbar-active' } fixed="top">
-        <RenderBrand setIsTransparentNavbar={ setIsTransparentNavbar }/>
+    return <Navbar bg="light" expand="lg" collapseOnSelect={ true } expanded={ expanded } onToggle={ (expanded) => {
+        !notMedium && expanded ? setIsTransparentNavbar(false) : setIsTransparentNavbar(true)
+        !notMedium && expanded ? setExpanded(true) : setExpanded(false)
+    } } className={ !isTransparentNavbar ? 'navbar' : 'navbar-active' } fixed="top">
+        <RenderBrand setExpanded={ setExpanded } setIsTransparentNavbar={ setIsTransparentNavbar }/>
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto"/>
             { !notMedium ? <>
