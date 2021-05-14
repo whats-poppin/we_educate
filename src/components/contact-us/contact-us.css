@@ -1,0 +1,153 @@
+.contact-us{
+    text-align: center;
+    padding: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+}
+
+.contactContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /*align-content: space-between;*/
+    background: #731e1c;
+    height: 25rem;
+    width: 27rem;
+    margin-right: -9rem;
+    z-index: 5;
+}
+
+.details-container h3{
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.details-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: -1rem;
+}
+
+.details-child{
+    display: flex;
+    flex-direction: row;
+}
+
+.details-icons{
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    color: white;
+}
+
+.details-description{
+    color: white;
+    text-align: justify;
+    margin-left: 0.5rem;
+    width: 74%;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    /*justify-content: flex-end;*/
+    background: rgba(140, 140, 140, 0.28);
+    padding: 7rem 5rem 7rem 12rem;
+    /*height: 30rem;*/
+    /*width: 60rem;*/
+}
+
+.form-container h3{
+    margin-bottom: 2rem;
+}
+
+.form-container form{
+    display: grid;
+    grid-template-areas:
+    "formIn1 formIn2"
+    "formIn3 formIn4"
+    "textIn textIn"
+    ;
+    gap: 2rem;
+}
+
+.formIn1{
+    grid-area: formIn1;
+}
+
+.formIn2{
+    grid-area: formIn2;
+}
+
+.formIn3{
+    grid-area: formIn3;
+}
+
+.formIn4{
+    grid-area: formIn4;
+}
+
+.textIn{
+    background: rgba(140,140,140,0.2);
+    grid-area: textIn;
+}
+
+@media all and (max-width: 1080px) {
+    .contactContainer{
+        flex-direction: column;
+    }
+    .details-container{
+        height: 22rem;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .details-container h3{
+        margin-top: -2rem;
+    }
+
+    .form-container{
+        z-index: 7;
+        margin-top: -4rem;
+        padding: 7rem;
+        background: white;
+        border: #8C8C8C 1px solid;
+    }
+
+    .textIn{
+        background: white;
+    }
+}
+
+@media all and (max-width: 540px){
+    .details-container{
+        height: 24rem;
+    }
+    .details-container h3{
+        margin-top: -3rem;
+    }
+    .form-container{
+        padding: 6.3rem;
+    }
+    .form-container form{
+        /*grid-template-columns: 1fr;*/
+        grid-template-areas:
+        "formIn1"
+        "formIn2"
+        "formIn3"
+        "formIn4"
+        "textIn";
+    }
+}
+@media all and (max-width: 425px) {
+    .form-container{
+        border: none;
+    }
+}
