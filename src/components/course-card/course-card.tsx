@@ -36,11 +36,11 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                             </div>) }
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
-                    <Card.Text style={ {
-                        fontWeight: 'bold', fontSize: '1.6rem', position: "absolute",
-                        right: '20px',
-                    } }> { '>' }
-                    </Card.Text>
+                    {/*<Card.Text style={ {*/}
+                    {/*    fontWeight: 'bold', fontSize: '1.6rem', position: "absolute",*/}
+                    {/*    right: '20px',*/}
+                    {/*} }> { '>' }*/}
+                    {/*</Card.Text>*/}
                 </Card.Body>
             </Card>
         </div>
