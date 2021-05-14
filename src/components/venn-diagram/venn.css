@@ -1,0 +1,34 @@
+.rootVennContainer {
+    height: 100%;
+    padding: 1.5rem 0;
+}
+
+.vennHeading {
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    text-align: center;
+    letter-spacing: 0.5rem;
+}
+
+.vennContainer {
+    z-index: 2;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.vennContainer p {
+    font-size: 2rem;
+    width: 30%;
+    margin-left: 9rem;
+    align-self: center;
+    justify-content: center;
+    text-align: justify;
+}
+
+.vennContainer img {
+    height: 39rem;
+    margin: auto;
+}

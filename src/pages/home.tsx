@@ -8,6 +8,8 @@ import { fetchAllCourses } from "../controllers/courses-controller";
 import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
 import Numbers from "../components/numbers/numbers";
+import Venn from "../components/venn-diagram/venn";
+import Mindmap from "../components/mindmap/Mindmap";
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
@@ -56,6 +58,8 @@ const Home = () => {
         <div className="home-body">
             <Jumbotron/>
             <Numbers/>
+            <Venn/>
+            <Mindmap/>
             <Explore ref={ exploreRef }/>
         </div>
         <Footer/>
