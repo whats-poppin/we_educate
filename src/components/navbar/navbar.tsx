@@ -11,7 +11,7 @@ import { SearchBar, SearchField } from "../search-bar/search-bar";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
 
-const RenderBrand = ({ setIsTransparentNavbar, setExpanded }: { setIsTransparentNavbar: (show: boolean) => void, setExpanded: (show: boolean) => void }) => {
+const RenderBrand = ({ setIsTransparentNavbar, setExpanded, isTransparentNavbar }: { isTransparentNavbar: boolean, setIsTransparentNavbar: (show: boolean) => void, setExpanded: (show: boolean) => void }) => {
     const history = useHistory();
     return <>
         <Navbar.Brand onClick={ () => {
@@ -20,7 +20,8 @@ const RenderBrand = ({ setIsTransparentNavbar, setExpanded }: { setIsTransparent
             setExpanded(false);
             history.push('/');
         } }>
-            <img src={ brand_logo } alt="logo" className="brand-logo"/>
+            <img src={ brand_logo } alt="logo" className="brand-logo"
+                 style={ isTransparentNavbar ? { height: '6rem', width: '11rem' } : {} }/>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
     </>;
@@ -84,7 +85,8 @@ export const NavB: React.FC = () => {
         !notMedium && expanded ? setIsTransparentNavbar(false) : setIsTransparentNavbar(true)
         !notMedium && expanded ? setExpanded(true) : setExpanded(false)
     } } className={ !isTransparentNavbar ? 'navbar' : 'navbar-active' } fixed="top">
-        <RenderBrand setExpanded={ setExpanded } setIsTransparentNavbar={ setIsTransparentNavbar }/>
+        <RenderBrand isTransparentNavbar={ isTransparentNavbar } setExpanded={ setExpanded }
+                     setIsTransparentNavbar={ setIsTransparentNavbar }/>
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto"/>
             { !notMedium ? <>
