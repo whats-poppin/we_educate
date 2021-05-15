@@ -5,6 +5,11 @@
     font-family: Montserrat, sans-serif;
 }
 
+.course:hover{
+    background: #731e1c;
+    color: #fff;
+}
+
 .course img {
     /*border-radius: 10px;*/
 }
@@ -13,4 +18,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+.card-button button{
+    color: #cedeeb;
+    background: #8c3839;
+}
+
+.card-button button:hover{
+    color: #8c3839;
+    background: #cedeeb;
 }

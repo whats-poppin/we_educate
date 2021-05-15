@@ -3,14 +3,17 @@ import { Product } from "../../models/product";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { useHistory } from 'react-router-dom';
 import ReactCardFlip from "react-card-flip";
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import {Button} from "@material-ui/core";
 import "./course-card.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {MdArrowForward, MdChevronRight} from "react-icons/all";
 
 export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course }) => {
     const { user } = useContext(UserDetailsContext);
     const history = useHistory();
     const [ isFlipped, setIsFlipped ] = useState(false);
+    const [ isArrow, setArrow ] = useState(false);
     const notSmall = useMediaQuery('(min-width:391px)');
     const ownedCourse: boolean = ( () => user?.product.includes(course.id) )();
     return <ReactCardFlip isFlipped={ isFlipped }>
@@ -18,6 +21,8 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
             <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem'} }
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
+                  onMouseEnter = { () => setArrow(true)}
+                  onMouseLeave = { () => setArrow(false)}
             >
                 <Card.Img variant="top" src={ course.imgUrl }/>
                 <Card.Body>
@@ -36,11 +41,25 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                             </div>) }
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
-                    {/*<Card.Text style={ {*/}
-                    {/*    fontWeight: 'bold', fontSize: '1.6rem', position: "absolute",*/}
-                    {/*    right: '20px',*/}
-                    {/*} }> { '>' }*/}
-                    {/*</Card.Text>*/}
+                    <Card.Text
+                        style={ {
+                            fontWeight: 'bolder',
+                            fontSize: '2rem',
+                            marginTop: "-3rem",
+                            marginLeft: "18rem"
+                        }}
+                    >
+                        {
+                            isArrow ?
+                                <MdArrowForward
+                                style={{
+                                    backgroundColor: "#8c3839",
+                                    cursor: "pointer"
+                                }}
+                                /> :  <MdChevronRight/>
+
+                        }
+                    </Card.Text>
                 </Card.Body>
             </Card>
         </div>
@@ -67,10 +86,30 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         { course.meta.duration }
                     </span>
                         <div className="card-button">
-                            <Button variant="dark"
-                                    onClick={ () => {
-                                        history.push(`/course?id=${ course.id }`)
-                                    } }>
+                            {/*{*/}
+                            {/*    isArrow ?*/}
+                            {/*        <Button*/}
+                            {/*            style={{*/}
+                            {/*                background: "white",*/}
+                            {/*                color: "#8c8c8c"*/}
+                            {/*            }}*/}
+                            {/*            onClick={ () => {*/}
+                            {/*                history.push(`/course?id=${ course.id }`)*/}
+                            {/*            } }>*/}
+                            {/*            { ownedCourse ? 'Go to course' : 'KNOW MORE' }*/}
+                            {/*        </Button>*/}
+                            {/*        :*/}
+                            {/*        <Button*/}
+                            {/*            onClick={ () => {*/}
+                            {/*                history.push(`/course?id=${ course.id }`)*/}
+                            {/*            } }>*/}
+                            {/*            { ownedCourse ? 'Go to course' : 'KNOW MORE' }*/}
+                            {/*        </Button>*/}
+                            {/*}*/}
+                            <Button
+                                onClick={ () => {
+                                    history.push(`/course?id=${ course.id }`)
+                                } }>
                                 { ownedCourse ? 'Go to course' : 'KNOW MORE' }
                             </Button>
                         </div>
