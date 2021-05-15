@@ -48,6 +48,15 @@ const CoursePage = () => {
                     <li> Downloadable Resources</li>
                     <li>Certificate of Completion</li>
                 </ul>
+                <h2>Skills Developed</h2>
+                <ul>
+                    <li>Active listening</li>
+                    <li>Persuasive communication</li>
+                    <li>Oral communication</li>
+                    <li>Understanding and using body language correctly</li>
+                    <li>Effective business writing</li>
+                    <li>Communication skills for smart negotiating and conflict management</li>
+                </ul>
                <div style = {{
                    display: "flex",
                    flexDirection: "column",
