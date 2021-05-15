@@ -128,3 +128,54 @@
     background: #731E1C !important;
     border: #731E1C solid ;
 }
+
+@media all and (max-width: 1185px) {
+    .coursePayment {
+        width: 26%;
+    }
+}
+
+@media all and (max-width: 921px) {
+    .coursePayment {
+        width: 30%;
+    }
+}
+
+@media all and (max-width: 864px) {
+    .coursePageRoot {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .courseInfo {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .courseInfoTxt h1{
+        font-size: 2rem;
+    }
+
+    .courseInfoTxt h2 {
+        font-size: 1.5rem;
+    }
+
+    .coursePayment {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media all and (max-width: 375px) {
+    .courseInfoImg img {
+        width: 90%;
+    }
+
+    .courseInfoTxt h1 {
+        font-size: 1.5rem;
+    }
+}
