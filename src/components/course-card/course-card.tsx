@@ -18,7 +18,10 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
     const ownedCourse: boolean = ( () => user?.product.includes(course.id) )();
     return <ReactCardFlip isFlipped={ isFlipped }>
         <div>
-            <Card style={ notSmall ? { height: '28rem', width: '22rem' } : { height: '28rem', width: '14.3rem'} }
+            <Card style={ notSmall ?
+                { height: '28rem', width: '22rem', cursor:"pointer" } :
+                { height: '28rem', width: '14.3rem'}
+            }
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
                   onMouseEnter = { () => setArrow(true)}
@@ -42,22 +45,20 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
                     <Card.Text
-                        style={ {
+                        style={ notSmall? {
                             fontWeight: 'bolder',
                             fontSize: '2rem',
                             marginTop: "-3rem",
                             marginLeft: "18rem"
+                            } : {
+                            fontWeight: 'bolder',
+                            fontSize: '2rem',
+                            marginTop: "-3rem",
+                            marginLeft: "10rem"
                         }}
                     >
                         {
-                            isArrow ?
-                                <MdArrowForward
-                                style={{
-                                    backgroundColor: "#8c3839",
-                                    cursor: "pointer"
-                                }}
-                                /> :  <MdChevronRight/>
-
+                            isArrow ? <MdArrowForward/> :  <MdChevronRight/>
                         }
                     </Card.Text>
                 </Card.Body>
@@ -72,7 +73,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                 <Card.Body>
                     <Card.Title style={ {
                         fontWeight: 'bolder',
-                        padding: '0.8rem 0 0.8rem 0',
+                        padding: '0.8rem 0',
                         fontSize: '1.14rem'
                     } }>
                         { course.name }
@@ -86,26 +87,6 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         { course.meta.duration }
                     </span>
                         <div className="card-button">
-                            {/*{*/}
-                            {/*    isArrow ?*/}
-                            {/*        <Button*/}
-                            {/*            style={{*/}
-                            {/*                background: "white",*/}
-                            {/*                color: "#8c8c8c"*/}
-                            {/*            }}*/}
-                            {/*            onClick={ () => {*/}
-                            {/*                history.push(`/course?id=${ course.id }`)*/}
-                            {/*            } }>*/}
-                            {/*            { ownedCourse ? 'Go to course' : 'KNOW MORE' }*/}
-                            {/*        </Button>*/}
-                            {/*        :*/}
-                            {/*        <Button*/}
-                            {/*            onClick={ () => {*/}
-                            {/*                history.push(`/course?id=${ course.id }`)*/}
-                            {/*            } }>*/}
-                            {/*            { ownedCourse ? 'Go to course' : 'KNOW MORE' }*/}
-                            {/*        </Button>*/}
-                            {/*}*/}
                             <Button
                                 onClick={ () => {
                                     history.push(`/course?id=${ course.id }`)

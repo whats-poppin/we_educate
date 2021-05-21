@@ -31,8 +31,7 @@ const Venn = () => (
                 </div>
 
                 <div className="venn-diagram">
-                    {/*<h3>The six I pedagogy</h3>*/}
-                    <VennDiagram height="100%" width="100%"/>
+                    <VennDiagram height="90%" width="100%"/>
                 </div>
             </div>
         </div>

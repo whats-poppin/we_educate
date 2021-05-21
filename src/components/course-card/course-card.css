@@ -10,21 +10,17 @@
     color: #fff;
 }
 
-.course img {
-    /*border-radius: 10px;*/
-}
-
 .card-button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 .card-button button{
-    color: #cedeeb;
+    color: white;
     background: #8c3839;
 }
 
 .card-button button:hover{
-    color: #8c3839;
-    background: #cedeeb;
+    color:  #731e1c;
+    background: white;
 }
