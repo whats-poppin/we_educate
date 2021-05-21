@@ -9,7 +9,7 @@ import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
 import Numbers from "../components/numbers/numbers";
 import Venn from "../components/venn-diagram/venn";
-import Mindmap from "../components/mindmap/Mindmap";
+// import Mindmap from "../components/mindmap/Mindmap";
 import ContactUs from "../components/contact-us/contact-us";
 
 const Home = () => {
@@ -60,7 +60,6 @@ const Home = () => {
             <Jumbotron/>
             <Numbers/>
             <Venn/>
-            <Mindmap/>
             <Explore ref={ exploreRef }/>
             <ContactUs/>
         </div>

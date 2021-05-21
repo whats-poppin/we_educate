@@ -1,19 +1,41 @@
 import React from 'react';
-import venn_diagram from "../../assets/venn_diagran.svg";
-import "./venn.css"
+import {ReactComponent as VennDiagram} from "../../assets/venn_diagran.svg";
+import "./venn.css";
 
-const Venn = () => {
-    return (
+const Venn = () => (
         <div className = "rootVennContainer">
-            <h1 className= "vennHeading">The six I pedagogy</h1>
-            <div className="vennContainer">
+            <div className="header">
+                <h3>Basis of our products</h3>
+                <p>Discover  -  Develop  -  Define</p>
                 <p>
-                    The six I pedagogy
+                    WE’s courses are built around the idea of joy of learning. <br/>
+                    They help develop Curiosity, Critical Thinking, and Communication.
                 </p>
-                <img src={venn_diagram} alt="venn diagram"/>
+            </div>
+
+            <div className="venn-container">
+
+                <div className="venn-content">
+                    <h3>
+                        <span>Our courses revolve around the </span>
+                        concepts
+                        <span> we believe are important for learning</span>
+                    </h3>
+                    <div className="p-container">
+                        <p className="p1"> <span>The </span>do's <span>and</span> dont's</p>
+                        <p className="p2"> <span>The</span>  spirit <span>of learning</span></p>
+                        <p className="p3">Design <span>&</span>  thinking</p>
+                        <p className="p4"> <span>The</span> magic <span>of learning</span></p>
+                        <p className="p5"> <span>The</span> skill of <span> doing</span></p>
+                    </div>
+                </div>
+
+                <div className="venn-diagram">
+                    {/*<h3>The six I pedagogy</h3>*/}
+                    <VennDiagram height="100%" width="100%"/>
+                </div>
             </div>
         </div>
-    );
-}
+)
 
 export default Venn;
