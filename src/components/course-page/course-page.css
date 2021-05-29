@@ -124,10 +124,21 @@
     border: #731E1C solid ;
 }
 
+.btn:hover{
+    background: rgb(115, 30, 28);
+    color: white;
+}
+
 .btn-outline-success:hover {
     background: #731E1C !important;
     border: #731E1C solid ;
 }
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
 
 @media all and (max-width: 1185px) {
     .coursePayment {

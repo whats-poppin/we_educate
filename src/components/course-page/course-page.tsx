@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import './course-page.css'
 import {Button} from "react-bootstrap";
+import {Accordion, AccordionDetails, Typography} from "@material-ui/core";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import {BiDownArrow} from "react-icons/all";
+import {SessionEvent} from "../../models/product";
 
-const CoursePage = () => {
+// @ts-ignore
+const CoursePage = ({selectedCourse, myDecipher, ownedCourse, organisation, handlePaymentIntent, setSnackbarDefinition})  => {
     const [readMore,setReadMore]=useState(false);
     const linkName=readMore?'Read Less':'...read more'
     return (
@@ -10,11 +15,10 @@ const CoursePage = () => {
             <div className="courseInfo">
 
                 <div className="courseInfoImg">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdl
-                fHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt=""/>
+                    <img src={selectedCourse.imgUrl} alt={ selectedCourse.name }/>
                 </div>
                 <div className="courseInfoTxt">
-                    <h1>Effective Managerial Communication</h1>
+                    <h1>{ selectedCourse.name }</h1>
                     <p className="courseDesc">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi eos eveniet ipsa maiores mollitia obcaecati,
                         odit reprehenderit sed vel. Accusamus accusantium adipisci amet consequuntur corporis culpa delectus
@@ -32,30 +36,30 @@ const CoursePage = () => {
                     <ul style={{
                         alignSelf: "start"
                     }}>
-                        <li>Conversation Skills</li>
-                        <li>Listening Skills</li>
-                        <li>Organizational Communication Strategy</li>
-                        <li>Mechanics of Written Managerial Communication</li>
-                        <li>Digital Communication</li>
+                        {
+                            selectedCourse.meta?.contents.map((e:string, idx:number) =>
+                            <div key={ idx }>
+                                <li>{e}</li>
+                            </div>)
+                        }
                     </ul>
                 </div>
             </div>
             <div className="coursePayment">
                 <h2>Course Features</h2>
                 <ul>
-                    <li>20 hrs of live lectures</li>
-                    <li> Meant for Level – II / Middle-level Managers</li>
-                    <li> Downloadable Resources</li>
-                    <li>Certificate of Completion</li>
+                    <li>Meant For: { selectedCourse.meta.participantLevel }</li>
+                    <li>Duration: { selectedCourse.meta.duration }</li>
+                    <li>Taught By: { selectedCourse.meta.faculty }</li>
                 </ul>
                 <h2>Skills Developed</h2>
                 <ul>
-                    <li>Active listening</li>
-                    <li>Persuasive communication</li>
-                    <li>Oral communication</li>
-                    <li>Understanding and using body language correctly</li>
-                    <li>Effective business writing</li>
-                    <li>Communication skills for smart negotiating and conflict management</li>
+                    {
+                        selectedCourse.meta?.competenciesDevelopment.map((e:string, idx:number) =>
+                        <div key={ idx }>
+                            <li>{e}</li>
+                        </div>)
+                    }
                 </ul>
                <div style = {{
                    display: "flex",
@@ -67,19 +71,48 @@ const CoursePage = () => {
                    borderRadius: "10px",
                    // background: "#731e1c"
                }}>
-                    <span className="coursePrice">
-                    <h1>₹10,000*</h1>
-                </span>
-                   <Button variant = "outline-success">
-                       BUY NOW
-                   </Button>
+                   {
+                       ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
+                           <AccordionSummary
+                               expandIcon={ <BiDownArrow/> }
+                               aria-controls="panel1a-content"
+                               id="panel1a-header"
+                           >
+                           </AccordionSummary>
+                           <AccordionDetails>
+                               { selectedCourse.events.map((e:SessionEvent, idx:number) =>
+                                   <Typography key={ idx }>
+                                       { myDecipher(e.joinLink) }
+                                   </Typography>) }
+                           </AccordionDetails>
+                       </Accordion> : <>
+                           <span className="coursePrice">
+                                <h1>{ selectedCourse.meta.fee.split('per')[0].trim() }*</h1>
+                           </span>
+                           <Button variant = "outline-success" onClick={ organisation ? () => {
+                           setSnackbarDefinition({
+                               visible: true,
+                               severity: 'success',
+                               message: 'Mobile number:- 99531029310, email:- abhinav@we-educate.com'
+                           });
+                       } : handlePaymentIntent }>
+                           { organisation ? 'Contact us to enroll' : `BUY NOW` }
+                       </Button>
+                           <span style={{
+                               justifySelf: "flex-end",
+                               alignSelf: "flex-end",
+                               fontSize: "0.75rem",
+                               // marginTop: "0"
+                           }}>*per participant</span>
+                           </>
+                   }
+                   {/*<span className="coursePrice">*/}
+                   {/*     <h1>₹10,000*</h1>*/}
+                   {/* </span>*/}
+                   {/*<Button variant = "outline-success">*/}
+                   {/*    BUY NOW*/}
+                   {/*</Button>*/}
                </div>
-                <span style={{
-                    justifySelf: "flex-end",
-                    alignSelf: "flex-end",
-                    fontSize: "0.75rem",
-                    marginTop: "-1rem"
-                }}>*per participant</span>
             </div>
         </div>
     );

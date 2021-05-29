@@ -38,7 +38,7 @@ export const MyCourses = () => {
         } }>
             Contact us
         </Button>
-    </div> : <div style={ { display: 'grid', placeItems: 'center', padding: '5rem',  background: 'red'} }>
+    </div> : <div style={ { display: 'grid', placeItems: 'center', padding: '5rem'} }>
         { user?.product.length > 0
             ? userCourses.map((course, idx) =>
                 <CourseCard key={ idx } course={ course }/>)

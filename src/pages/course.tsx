@@ -6,9 +6,6 @@ import { SnackbarToggleContext } from "../contexts/snackbar-toggle";
 import { Product } from "../models/product";
 import { Loader } from "../components/loader/loader";
 import { UserDetailsContext } from "../contexts/user-details";
-import { Accordion, AccordionDetails, Button, Card, Typography } from "@material-ui/core";
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import { BiDownArrow } from "react-icons/all";
 import { decipher } from "../utils/encrypt-decrypt";
 import { __DEV__, loadScript } from "../App";
 import { saveTransaction } from "../controllers/transaction-controller";
@@ -16,6 +13,7 @@ import { Individual } from "../models/individual";
 import "./course.css";
 import Footer from "../components/footer/footer";
 import { OrganisationDetailsContext } from "../contexts/organisation-details";
+import CoursePage from "../components/course-page/course-page";
 
 export const DisplayRazorpay = async ({ name, email, courseName, courseId, qty, userId, setSnackbarDefinition, setUser, user }: {
     name: string, email: string, courseName: string,
@@ -155,77 +153,14 @@ export const Course = () => {
 
     return selectedCourse ?
         <>
-            <h2 style={ { textAlign: 'center', marginTop: "6rem" } }>
-                { selectedCourse.name }
-            </h2>
-            <div className="main-div">
-                <div className="header">
-                    <img
-                        className="course-image"
-                        src={ selectedCourse.imgUrl }
-                        alt={ selectedCourse.name }
-                    />
-                </div>
-                <div className="description">
-                    <Card>
-                        Meant for <span>{ selectedCourse.meta.participantLevel }</span>
-                        <br/>
-                        Duration <span>{ selectedCourse.meta.duration }</span>
-                        <br/>
-                        Taught By <span>{ selectedCourse.meta.faculty }</span>
-                        <br/>
-                        { ownedCourse ? <Accordion TransitionProps={ { unmountOnExit: true } }>
-                            <AccordionSummary
-                                expandIcon={ <BiDownArrow/> }
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography>
-                                    Events
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                { selectedCourse.events.map((e, idx) =>
-                                    <Typography key={ idx }>
-                                        { myDecipher(e.joinLink) }
-                                    </Typography>) }
-                            </AccordionDetails>
-                        </Accordion> : <Button variant='contained' color='primary' onClick={ organisation ? () => {
-                            setSnackbarDefinition({
-                                visible: true,
-                                severity: 'success',
-                                message: 'Mobile number:- 99531029310, email:- abhinav@we-educate.com'
-                            });
-                        } : handlePaymentIntent }>
-                            { organisation ? 'Contact us to enroll' : `Buy for ${ selectedCourse.meta.fee }` }
-                        </Button> }
-                    </Card>
-                </div>
-                <div className="competencies">
-                    <Card>
-                        <h3>
-                            Competencies Development
-                        </h3>
-                        { selectedCourse.meta?.competenciesDevelopment.map((e, idx) =>
-                            <div key={ idx }>
-                                { idx + 1 }. { e }
-                                <br/>
-                            </div>) }
-                    </Card>
-                </div>
-                <div className="contents">
-                    <Card>
-                        <h3>
-                            Contents
-                        </h3>
-                        { selectedCourse.meta?.contents.map((e, idx) =>
-                            <div key={ idx }>
-                                { idx + 1 }. { e }
-                                <br/>
-                            </div>) }
-                    </Card>
-                </div>
-            </div>
+            <CoursePage
+                selectedCourse={selectedCourse}
+                myDecipher={myDecipher}
+                ownedCourse={ownedCourse}
+                organisation={organisation}
+                handlePaymentIntent={handlePaymentIntent}
+                setSnackbarDefinition={setSnackbarDefinition}
+            />
             <Footer/>
         </>
         :
