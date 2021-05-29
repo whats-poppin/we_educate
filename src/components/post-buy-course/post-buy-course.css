@@ -1,0 +1,50 @@
+.courseTitle {
+    margin-top: 6rem;
+    margin-left: 2rem;
+    color: #495057;
+}
+
+.postContainer {
+    display: flex;
+    font-family: Lato, sans-serif;
+}
+
+.announcements {
+    padding-right: 1px;
+}
+
+@media all and (max-width: 854px) {
+
+    .postContainer{
+        margin: 1rem;
+        flex-direction: column-reverse;
+    }
+
+    .rootAnnouncements {
+        margin: 0;
+        width: 100%;
+    }
+
+    .rootTimeLineContainer {
+        width: 100%;
+        overflow-y: scroll;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .courseTitle{
+        font-size: 2rem;
+    }
+
+    .announcements h2 {
+        font-size: 1.5rem;
+    }
+
+    .announcements ul {
+        font-size: 1.25rem;
+    }
+
+    .buttonLink {
+        font-size: 1rem;
+    }
+}
