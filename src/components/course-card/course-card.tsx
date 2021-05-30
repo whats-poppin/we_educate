@@ -15,7 +15,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
     const [ isFlipped, setIsFlipped ] = useState(false);
     const [ isArrow, setArrow ] = useState(false);
     const notSmall = useMediaQuery('(min-width:391px)');
-    const ownedCourse: boolean = ( () => user?.product.includes(course.id) )();
+    const ownedCourse: boolean = ( () => user?.product.includes(course?.id) )();
     return <ReactCardFlip isFlipped={ isFlipped }>
         <div>
             <Card style={ notSmall ?
@@ -27,25 +27,25 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                   onMouseEnter = { () => setArrow(true)}
                   onMouseLeave = { () => setArrow(false)}
             >
-                <Card.Img variant="top" src={ course.imgUrl }/>
+                <Card.Img variant="top" src={ course?.imgUrl }/>
                 <Card.Body>
                     <Card.Title style={ {
                         fontWeight: 'bolder',
                         padding: '0.8rem 0 1rem 0',
                         fontSize: '1.14rem'
                     } }>
-                        { course.name }
+                        { course?.name }
                     </Card.Title>
                     <Card.Text style={ { fontSize: '1.2rem', fontFamily: 'Lato, sans-serif', textAlign: 'left' } }>
                         <ul>
                             {
-                                course.meta?.competenciesDevelopment
-                                    .slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2)
+                                course?.meta?.competenciesDevelopment
+                                    .slice(0, course?.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2)
                                     .map((e, idx) =>
                                 <div key={ idx }>
                                         {/*Awareness of the various aspects of Corporate Image Building. //61chars*/}
                                         {
-                                            course.name === 'MANAGING CORPORATE REPUTATION' ?
+                                            course?.name === 'MANAGING CORPORATE REPUTATION' ?
                                                 <li>{e.slice(0, 45)}...</li> :
                                                 <li>{e}</li>
                                         }
@@ -67,22 +67,22 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
             >
-                <Card.Img variant="top" src={ course.imgUrl }/>
+                <Card.Img variant="top" src={ course?.imgUrl }/>
                 <Card.Body>
                     <Card.Title style={ {
                         fontWeight: 'bolder',
                         padding: '0.8rem 0',
                         fontSize: '1.14rem'
                     } }>
-                        { course.name }
+                        { course?.name }
                     </Card.Title>
                     <Card.Text style={ { fontSize: '1rem', fontFamily: 'Lato, sans-serif' } }>
                         Meant for <span style={ { fontWeight: 'bold' } }>
-                        { course.meta.participantLevel }
+                        { course?.meta.participantLevel }
                     </span>
                         <br/>
                         Duration <span style={ { fontWeight: 'bold' } }>
-                        { course.meta.duration }
+                        { course?.meta.duration }
                     </span>
                         <div className="card-button">
                             {
@@ -96,7 +96,7 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                                     </Button> :
                                     <Button
                                         onClick={ () => {
-                                            history.push(`/course?id=${ course.id }`)
+                                            history.push(`/course?id=${ course?.id }`)
                                         }}
                                     >
                                         Know More
