@@ -9,7 +9,13 @@
     background: #731e1c;
     color: #fff;
 }
-
+.arrows{
+    position: absolute;
+    left: 19.6rem;
+    bottom: 0.3rem;
+    font-weight: bolder;
+    font-size: 2rem;
+}
 .card-button {
     display: flex;
     align-items: center;
@@ -18,9 +24,21 @@
 .card-button button{
     color: white;
     background: #8c3839;
-}
 
+    position: absolute;
+    left: 14rem;
+    bottom: 0.5rem;
+}
 .card-button button:hover{
     color:  #731e1c;
     background: white;
+}
+
+@media all and (max-width: 391px){
+    .card-button button{
+        left: 6.4rem;
+    }
+    .arrows{
+        left: 12.5rem;
+    }
 }

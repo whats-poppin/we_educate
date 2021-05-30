@@ -37,26 +37,24 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         { course.name }
                     </Card.Title>
                     <Card.Text style={ { fontSize: '1.2rem', fontFamily: 'Lato, sans-serif', textAlign: 'left' } }>
-                        { course.meta?.competenciesDevelopment.slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2).map((e, idx) =>
-                            <div key={ idx }>
-                                { idx + 1 }. { e }
-                                <br/>
-                            </div>) }
+                        <ul>
+                            {
+                                course.meta?.competenciesDevelopment
+                                    .slice(0, course.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2)
+                                    .map((e, idx) =>
+                                <div key={ idx }>
+                                        {/*Awareness of the various aspects of Corporate Image Building. //61chars*/}
+                                        {
+                                            course.name === 'MANAGING CORPORATE REPUTATION' ?
+                                                <li>{e.slice(0, 45)}...</li> :
+                                                <li>{e}</li>
+                                        }
+                                </div>)
+                            }
+                        </ul>
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
-                    <Card.Text
-                        style={ notSmall? {
-                            fontWeight: 'bolder',
-                            fontSize: '2rem',
-                            marginTop: "-3rem",
-                            marginLeft: "18rem"
-                            } : {
-                            fontWeight: 'bolder',
-                            fontSize: '2rem',
-                            marginTop: "-3rem",
-                            marginLeft: "10rem"
-                        }}
-                    >
+                    <Card.Text className="arrows">
                         {
                             isArrow ? <MdArrowForward/> :  <MdChevronRight/>
                         }
@@ -87,12 +85,23 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         { course.meta.duration }
                     </span>
                         <div className="card-button">
-                            <Button
-                                onClick={ () => {
-                                    history.push(`/course?id=${ course.id }`)
-                                } }>
-                                { ownedCourse ? 'Go to course' : 'KNOW MORE' }
-                            </Button>
+                            {
+                                ownedCourse ?
+                                    <Button
+                                        onClick={() => {
+                                            history.push('')
+                                        }}
+                                    >
+                                        Go to course
+                                    </Button> :
+                                    <Button
+                                        onClick={ () => {
+                                            history.push(`/course?id=${ course.id }`)
+                                        }}
+                                    >
+                                        Know More
+                                    </Button>
+                            }
                         </div>
                     </Card.Text>
                 </Card.Body>

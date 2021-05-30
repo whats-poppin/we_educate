@@ -106,12 +106,6 @@ const CoursePage = ({selectedCourse, myDecipher, ownedCourse, organisation, hand
                            }}>*per participant</span>
                            </>
                    }
-                   {/*<span className="coursePrice">*/}
-                   {/*     <h1>₹10,000*</h1>*/}
-                   {/* </span>*/}
-                   {/*<Button variant = "outline-success">*/}
-                   {/*    BUY NOW*/}
-                   {/*</Button>*/}
                </div>
             </div>
         </div>
