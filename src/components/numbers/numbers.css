@@ -37,51 +37,25 @@
     justify-content: center;
     align-items: center;
     z-index: 20;
-    margin-left: -32rem;
+    position: absolute;
     font-size: 2rem;
     color: #343a40;
     text-align: center;
     text-transform: uppercase;
     font-weight: 500;
 }
-@media all and (max-width: 1410px) {
-    .iTitle{
-        margin-left: -28rem;
-    }
-}
 @media all and (max-width: 1210px){
     .iTitle{
-        margin-left: -25rem;
-        font-size: 1.5rem;
-    }
-}
-@media all and (max-width: 1090px) {
-    .iTitle{
-        margin-left: -21rem;
-    }
-}
-@media all and (max-width: 950px) {
-    .iTitle{
-        margin-left: -18rem;
-    }
-}
-@media all and (max-width: 820px){
-    .iTitle{
-        font-size: 1.6rem;
-        margin-left: -16rem;
-    }
-}
-@media all and (max-width: 720px) {
-    .iTitle{
-        margin-left: -14rem;
-    }
-}
-@media all and (max-width: 610px) {
-    .iTitle{
         font-size: 1.4rem;
-        margin-left: -12rem;
     }
 }
+
+@media all and (max-width: 750px){
+    .iTitle{
+        font-size: 1rem;
+    }
+}
+
 @media all and (max-width: 555px) {
     .iHeader h1{
         font-size: 1.8rem;
@@ -94,13 +68,7 @@
         font-weight: bold;
     }
     .iTitle{
-        font-size: 1.1rem;
-        margin-left: -16rem;
-    }
-}
-@media all and (max-width: 490px) {
-    .iTitle{
-        margin-left: -14rem;
+        font-size: 1.2rem;
     }
 }
 @media all and (max-width: 445px) {
@@ -111,26 +79,6 @@
         grid-template-columns: repeat(1, 1fr);
     }
     .iTitle{
-        margin-left: -27rem;
-    }
-}
-@media all and (max-width: 417px) {
-    .iTitle{
-        margin-left: -24rem;
-    }
-}
-@media all and (max-width: 360px) {
-    .iTitle{
-        margin-left: -21rem;
-    }
-}
-@media all and (max-width: 325px){
-    .iTitle{
-        margin-left: -19.5rem;
-    }
-}
-@media all and (max-width: 300px){
-    .iTitle{
-        margin-left: -15rem;
+        font-size: 1.4rem;
     }
 }
