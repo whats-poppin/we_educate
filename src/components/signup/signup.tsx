@@ -9,11 +9,13 @@ import { Individual } from "../../models/individual";
 import { Organisation } from "../../models/organisation";
 import { UserDetailsContext } from "../../contexts/user-details";
 import { OrganisationDetailsContext } from "../../contexts/organisation-details";
+import { IconContext } from "react-icons";
 
 export const SocialAuth = ({ checkResult, showOrganisation }: { showOrganisation: boolean, checkResult: (result: Individual | string) => void }) => {
     const classes = useLoginSignupStyles();
     return <Slide direction='right' in={ !showOrganisation }>
         <div className={ classes.socialContainer }>
+            <IconContext.Provider value={ { className: classes.socialHoverFb } }>
             <div
                 onClick={ async () => {
                     const result = await socialAuth('facebook');
@@ -21,6 +23,8 @@ export const SocialAuth = ({ checkResult, showOrganisation }: { showOrganisation
                 } } className={ classes.social }>
                 <FaFacebookF/>
             </div>
+            </IconContext.Provider>
+            <IconContext.Provider value={ { className: classes.socialHoverG } }>
             <div
                 onClick={ async () => {
                     const result = await socialAuth('google');
@@ -28,6 +32,8 @@ export const SocialAuth = ({ checkResult, showOrganisation }: { showOrganisation
                 } } className={ classes.social }>
                 <FaGoogle/>
             </div>
+            </IconContext.Provider>
+            
         </div>
     </Slide>;
 }

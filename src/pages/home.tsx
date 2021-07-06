@@ -15,6 +15,7 @@ import ContactUs from "../components/contact-us/contact-us";
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
     const carouselRef = React.createRef<HTMLDivElement>();
+    const numbersRef = React.createRef<HTMLDivElement>();
 
     const location = useLocation();
     const { allCourses, setAllCourses }: {
@@ -58,7 +59,7 @@ const Home = () => {
     return <>
         <div className="home-body">
             <Jumbotron/>
-            <Numbers/>
+            <Numbers />
             <Venn/>
             <Explore ref={ exploreRef }/>
             <ContactUs/>

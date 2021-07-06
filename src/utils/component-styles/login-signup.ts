@@ -49,6 +49,18 @@ export const useLoginSignupStyles = makeStyles(() =>
         socialContainer: {
             display: 'inline-flex'
         },
+        socialHoverFb: {
+            color: '#333333',
+            '&:hover': {
+                color: '#4267b2'
+            }
+        },
+        socialHoverG: {
+            color: '#333333',
+            '&:hover': {
+                color: '#db4437'
+            }
+        },
         social: {
             border: '1px solid #DDDDDD',
             borderRadius: '50%',
@@ -56,9 +68,6 @@ export const useLoginSignupStyles = makeStyles(() =>
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 5px',
-            '&:hover': {
-                backgroundColor: '#965F5F'
-            },
             height: '40px',
             width: '40px',
             color: '#333333'
