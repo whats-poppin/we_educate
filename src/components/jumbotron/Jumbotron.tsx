@@ -35,7 +35,7 @@ const Jumbotron = () => {
                     <div className="arrows"
                          onClick={ async () => history.push({
                              pathname: `/`,
-                             state: { showCarousel: true }
+                             state: { showNumbers: true }
                          }) }
                     >
                         <MdKeyboardArrowDown className="arrow"/>

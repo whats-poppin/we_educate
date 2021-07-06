@@ -1,7 +1,7 @@
 import React from 'react';
 import "./numbers.css";
 
-const Numbers = () => {
+const Numbers = React.forwardRef<HTMLDivElement, {}> ( (props,ref) => {
     const numbersContent = [
         {
             number: 1,
@@ -41,7 +41,7 @@ const Numbers = () => {
         },
     ]
     return (
-        <div style={{background: "#e9ecef", height:"100%", padding: "1.5rem 0", width: "100%"}} className="numRootContainer">
+        <div ref={ref} style={{background: "#e9ecef", height:"100%", padding: "1.5rem 0", width: "100%"}} className="numRootContainer">
             <div className="iHeader">
                 <h1>Services offered</h1>
             </div>
@@ -57,6 +57,6 @@ const Numbers = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Numbers;

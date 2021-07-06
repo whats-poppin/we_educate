@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Jumbotron from "../components/jumbotron/Jumbotron";
 import Footer from "../components/footer/footer";
 import { Explore } from "./explore";
@@ -14,7 +14,6 @@ import ContactUs from "../components/contact-us/contact-us";
 
 const Home = () => {
     const exploreRef = React.createRef<HTMLDivElement>();
-    const carouselRef = React.createRef<HTMLDivElement>();
     const numbersRef = React.createRef<HTMLDivElement>();
 
     const location = useLocation();
@@ -48,18 +47,19 @@ const Home = () => {
         return;
     }, [ location, exploreRef ])
 
-
     useEffect(() => {
-        if ( ( location.state as { showCarousel: boolean } )?.showCarousel && carouselRef ) {
-            carouselRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if ( ( location.state as { showNumbers: boolean } )?.showNumbers && numbersRef ) {
+            numbersRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         return;
-    }, [ location, carouselRef ])
+
+    },[ location, numbersRef])
+
 
     return <>
         <div className="home-body">
-            <Jumbotron/>
-            <Numbers />
+            <Jumbotron />
+            <Numbers ref={ numbersRef }/>
             <Venn/>
             <Explore ref={ exploreRef }/>
             <ContactUs/>
