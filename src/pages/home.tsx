@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import Jumbotron from "../components/jumbotron/Jumbotron";
 import Footer from "../components/footer/footer";
 import { Explore } from "./explore";
@@ -9,7 +9,6 @@ import { Product } from "../models/product";
 import { AllCoursesContext } from "../contexts/all-courses";
 import Numbers from "../components/numbers/numbers";
 import Venn from "../components/venn-diagram/venn";
-// import Mindmap from "../components/mindmap/Mindmap";
 import ContactUs from "../components/contact-us/contact-us";
 
 const Home = () => {
@@ -53,12 +52,12 @@ const Home = () => {
         }
         return;
 
-    },[ location, numbersRef])
+    }, [ location, numbersRef ])
 
 
     return <>
         <div className="home-body">
-            <Jumbotron />
+            <Jumbotron/>
             <Numbers ref={ numbersRef }/>
             <Venn/>
             <Explore ref={ exploreRef }/>

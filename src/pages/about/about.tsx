@@ -51,7 +51,7 @@ export const About = () => {
                         Articles, Chapters, and Reviews.
                     </p>
                 </div>
-                <img src={pic2} alt="abhinav dad"/>
+                <img src={pic2} alt="Dr. Mukesh Chaturvedi"/>
             </div>
             <div className="pdc-container">
                 <img

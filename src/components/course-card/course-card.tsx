@@ -4,10 +4,10 @@ import { UserDetailsContext } from "../../contexts/user-details";
 import { useHistory } from 'react-router-dom';
 import ReactCardFlip from "react-card-flip";
 import { Card } from 'react-bootstrap';
-import {Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import "./course-card.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {MdArrowForward, MdChevronRight} from "react-icons/all";
+import { MdArrowForward, MdChevronRight } from "react-icons/all";
 
 export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course }) => {
     const { user } = useContext(UserDetailsContext);
@@ -19,13 +19,13 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
     return <ReactCardFlip isFlipped={ isFlipped }>
         <div>
             <Card style={ notSmall ?
-                { height: '28rem', width: '22rem', cursor:"pointer" } :
-                { height: '28rem', width: '14.3rem'}
+                { height: '28rem', width: '22rem', cursor: "pointer" } :
+                { height: '28rem', width: '14.3rem' }
             }
                   className="course"
                   onClick={ () => setIsFlipped(!isFlipped) }
-                  onMouseEnter = { () => setArrow(true)}
-                  onMouseLeave = { () => setArrow(false)}
+                  onMouseEnter={ () => setArrow(true) }
+                  onMouseLeave={ () => setArrow(false) }
             >
                 <Card.Img variant="top" src={ course?.imgUrl }/>
                 <Card.Body>
@@ -42,21 +42,21 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                                 course?.meta?.competenciesDevelopment
                                     .slice(0, course?.name === 'MANAGING CORPORATE REPUTATION' ? 1 : 2)
                                     .map((e, idx) =>
-                                <div key={ idx }>
-                                        {/*Awareness of the various aspects of Corporate Image Building. //61chars*/}
-                                        {
-                                            course?.name === 'MANAGING CORPORATE REPUTATION' ?
-                                                <li>{e.slice(0, 45)}...</li> :
-                                                <li>{e}</li>
-                                        }
-                                </div>)
+                                        <div key={ idx }>
+                                            {/*Awareness of the various aspects of Corporate Image Building. //61chars*/ }
+                                            {
+                                                course?.name === 'MANAGING CORPORATE REPUTATION' ?
+                                                    <li>{ e.slice(0, 45) }...</li> :
+                                                    <li>{ e }</li>
+                                            }
+                                        </div>)
                             }
                         </ul>
                         <span style={ { fontWeight: 'bold' } }>And more ....</span>
                     </Card.Text>
                     <Card.Text className="arrows">
                         {
-                            isArrow ? <MdArrowForward/> :  <MdChevronRight/>
+                            isArrow ? <MdArrowForward/> : <MdChevronRight/>
                         }
                     </Card.Text>
                 </Card.Body>
@@ -85,23 +85,14 @@ export const CourseCard: React.FC<{ course: Product }> = React.memo(({ course })
                         { course?.meta.duration }
                     </span>
                         <div className="card-button">
-                            {
-                                ownedCourse ?
-                                    <Button
-                                        onClick={() => {
-                                            history.push('')
-                                        }}
-                                    >
-                                        Go to course
-                                    </Button> :
-                                    <Button
-                                        onClick={ () => {
-                                            history.push(`/course?id=${ course?.id }`)
-                                        }}
-                                    >
-                                        Know More
-                                    </Button>
-                            }
+
+                            <Button
+                                onClick={ () => {
+                                    history.push(`/course?id=${ course?.id }`)
+                                } }
+                            >
+                                { ownedCourse ? "Go to course" : "Know More" }
+                            </Button>
                         </div>
                     </Card.Text>
                 </Card.Body>
